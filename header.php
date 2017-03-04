@@ -1,15 +1,16 @@
 <header>
+<link href="http://fonts.googleapis.com/css?family=Lobster&subset=all" rel="stylesheet" type="text/css">
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
+      <a class="navbar-brand font" href="#" style="font-size:30;">Jaguars' Forum</a>
     </div>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right font ">
       <li class="active"><a href="#">Home</a></li>
 		<?php 
 		if(!isset($_SESSION['user'])){
 			echo '<li><a href="login.php">Login</a></li>' ; 
-			echo '<li><a href="user_form.php">Sign Up</a></li>';
+			echo '<li><a href="registeration.php">Sign Up</a></li>';
 		}else{
 			if($_SESSION['user']['role'] == 'admin')
 				echo '<li><a href="adminpanel.php">Admin Panel</a></li>';

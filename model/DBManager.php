@@ -3,7 +3,7 @@
 define('HOST','localhost');
 define('DB_NAME','jaguars');
 define('DB_USERNAME','root');
-define('DB_PASSWORD','root');
+define('DB_PASSWORD','R00t_123');
 
 class DBManager{
 	

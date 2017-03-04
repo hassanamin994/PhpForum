@@ -1,0 +1,112 @@
+<?php
+
+session_start();
+require_once 'model/User.php';
+ require_once 'model/DBManager.php';
+  include('header.php') ;
+
+?>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Lobster&subset=all' rel='stylesheet' type='text/css'>
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+      <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="back">
+    <!--<a class= "btn btn-danger"> BTN </a>-->
+     <div class="col-md-3"></div>
+    <div class="col-md-6 cont" >
+    <div class="page-header" ><h1 style="font-size:28; text-align: center;"><B>Log in</B> </h1>
+    </div>
+    <form class="form-horizontal" action="" method="POST" >
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="fn">username</label>
+            <div class="col-md-4">
+                <input id="username" name="username" type="text" placeholder="username" class="form-control input-md">
+</div></div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="password">password</label>
+                    <div class="col-md-4">
+                        <input id="password" name="password" type="password" placeholder="password" class="form-control input-md">
+                    </div>
+                </div>
+                <div class="form-group">
+                    
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                   </div>
+ <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                    <div class="checkbox">
+  <label><input type="checkbox" value="" name="keep" >keep loged in </label>
+</div>
+                    
+                        <button id="submit" name="submit" class="btn btn-info " style=" width:100%; margin-top: 20%; margin-bottom: 20%;font-size:24 ">login</button>
+                    
+                    </div>
+                 
+                    <div class="col-md-3"></div>
+</body>
+<?php
+
+
+$username=$_POST['username'];
+$pw=$_POST['password'];
+
+$keep=$_POST['keep'];
+if(isset($_POST['submit'])){
+	if(isset($_POST['keep'])){
+		$_COOKIE['user']=$_POST['username'];
+	}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$myusername = $_POST['username'];
+$mypassword = $_POST['password'];
+
+
+
+    // $usermodel=new UserModel;
+
+// if($usermodel->userlogin($myusername,$mypassword)== 1) {
+	
+// 	$_SESSION['user'] = $myusername;
+// 	$_SESSION["index"]=$row['id'];
+	
+// 	if($_POST['username']=="admin"){
+// 	header("Location: admin.php");}
+//     else{header("Location: admin.php");}
+// }
+// else {
+// 	echo "Your Login Name or Password is invalid";
+// }
+
+
+
+
+}
+
+
+?>
+    </form>
+<script src="assets/js/jquery-3.1.1.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+</html>
+
