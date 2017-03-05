@@ -31,9 +31,9 @@ class User{
 		$this->gender = $gender;
 		$this->username = $username;
 		$this->password = $password ;
-		$this->$banned=$banned;
-		$this->$picture=$picture;
-		$this->$signature=$signature;
+		$this->banned = $banned;
+		$this->picture = $picture;
+		$this->signature = $signature;
 		$this->role = $role;
 		
 		

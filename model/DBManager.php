@@ -44,7 +44,7 @@ class DBManager{
 			}
 			catch(Exception $e){
 				// in case of INSERT/DELETE/UPDATE which cannot be fetched
-			echo $e ."query is".$query;
+		
 
 			}
 			return $output;
