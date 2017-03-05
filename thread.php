@@ -1,14 +1,16 @@
 <?php include('header.php') ;
+session_start();
+
 ?>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
-<body>
+<body class="back">
 <form>
-<div class="container">
-  <h2>Topic name </h2>
+<div class="container cont" >
+  <h2 >Topic name </h2>
   <div class="media">
     <div class="media-left media-top" style="width:25%">
       <img src="assets/img/u.png" class="media-object"style="width:150px">

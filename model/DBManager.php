@@ -3,7 +3,8 @@
 define('HOST','localhost');
 define('DB_NAME','jaguars');
 define('DB_USERNAME','root');
-define('DB_PASSWORD','R00t_123');
+
+define('DB_PASSWORD','root');
 
 class DBManager{
 	
@@ -43,7 +44,7 @@ class DBManager{
 			}
 			catch(Exception $e){
 				// in case of INSERT/DELETE/UPDATE which cannot be fetched
-			echo $e ."qery is".$query;
+			echo $e ."query is".$query;
 
 			}
 			return $output;
@@ -72,6 +73,15 @@ class DBManager{
 	function deleteUser($id){
 		return $this->makeQuery("DELETE from user WHERE `id` = '".$id."'");	
 	}
+	function getRole($username){
+		return $this->makeQuery("Select * from user where `username` ='".$username."' and `role`='admin'" ) ;
+	}
+
+
+function checkUser($username,$password){
+		return $this->makeQuery("Select * from user where `username` ='".$username."' and `password`='".md5($password)."'") ;
+	}
+
 }
 
 $db = new DBManager() ;

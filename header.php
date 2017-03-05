@@ -7,12 +7,15 @@
     </div>
     <ul class="nav navbar-nav navbar-right font ">
       <li class="active"><a href="#">Home</a></li>
-		<?php 
+		<?php
+		session_start(); 
+
 		if(!isset($_SESSION['user'])){
 			echo '<li><a href="login.php">Login</a></li>' ; 
 			echo '<li><a href="registeration.php">Sign Up</a></li>';
 		}else{
-			if($_SESSION['user']['role'] == 'admin')
+
+			if($_SESSION['role'] == "admin")
 				echo '<li><a href="adminpanel.php">Admin Panel</a></li>';
 			echo '<li><a href="profile.php">Profile</a></li>';
 			echo '<li><a href="post.php">New Post</a></li>';

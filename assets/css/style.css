@@ -3,11 +3,16 @@
     box-shadow: 15px 15px 5px #1C2833;
     font-family: 'Lobster';
     font-size: 22;
+    padding-bottom: 5%;
+}
+
+.cont h2 {
+    text-align: center;
 }
 
 .back {
     background-image: url('../img/d.png');
-    background-size: 100% 100%;
+    background-size: 100%;
 }
 
 .font {
