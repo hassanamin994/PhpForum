@@ -1,7 +1,10 @@
 <?php
+session_start();
+require_once '../init.php';
 
 
-
+$categories = $db->getAll("category");
+$forums = $db->getAll("forum");
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +21,7 @@
 <body class="back">
 
 <?php include('../header.php') ; ?>
-<?php include('sidebar.php') ; ?> 
+<?php include('sidebar.php') ; ?>
 
 <div class="col-xs-8 cont" >
 	<table class="table">
@@ -30,42 +33,27 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>2</td>
-				<td>Forum</td>
-				<td>
-					<a href="#" class="btn btn-info">Edit</a> 
-					<a class="btn btn-warning">Lock</a>
-					<a href="#" class="btn btn-danger">Delete</a> 
-				</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>Forum</td>
-				<td>
-					<a href="#" class="btn btn-info">Edit</a> 
-					<a class="btn btn-warning">Lock</a>
-					<a href="#" class="btn btn-danger">Delete</a> 
-				</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>Forum</td>
-				<td>
-					<a href="#" class="btn btn-info">Edit</a> 
-					<a class="btn btn-warning">Lock</a>
-					<a href="#" class="btn btn-danger">Delete</a> 
-				</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>Forum</td>
-				<td>
-					<a href="#" class="btn btn-info">Edit</a> 
-					<a class="btn btn-warning">Lock</a>
-					<a href="#" class="btn btn-danger">Delete</a> 
-				</td>
-			</tr>
+			<?php
+				foreach ($forums as $forum ) {
+					echo "<tr>";
+					echo "<td>".$forum['id']."</td>";
+					echo "<td>".$forum['name']."</td>";
+					echo "<td>";
+					echo "<a href='edit_category?edit_id=".$forum['id']."' class='btn btn-info'>Edit</a>" ;
+					echo "<form method='post' action='forums.php'>
+							<input type='hidden' name='lock_id' value=".$forum['id']." >
+							<input type='submit' value='Lock' name='lock' class='btn btn-warning' >
+							</form>";
+					echo "<form method='post' action='forums.php'>
+							<input type='hidden' name='delete_id' value=".$forum['id']." >
+							<input type='submit' name='delete' value='Delete' class='btn btn-danger' >
+							</form>";
+
+					echo "</td>";
+					echo "</tr>";
+				}
+
+			?>
 		</tbody>
 	</table>
 	<details>
@@ -74,15 +62,17 @@
 			<div class="input-group">
 			  <label for="sel1">Select Category:</label>
 			  <select class="form-control" id="category" name="category">
-			    <option value="2">Category id=2</option>
-			    <option value="3">Category id=3</option>
-			    <option value="4">Category id=4</option>
+					<?php
+					foreach ($categories as $category) {
+						echo "<option value='".$category['id']."'>".$category['name']."</option>";
+					}
+					?>
 			  </select>
 			</div>
 			<div class="input-group">
 			  <label for="new-Forum">Forum Name: </label>
 			  <input type="text" name="forum" class="form-control" id="new-Forum" aria-describedby="basic-addon3" required>
-			</div>				
+			</div>
 			<br>
 			<div class="input-group">
 				<input type="submit" name="submit" class="btn btn-primary" value="Add Forum">

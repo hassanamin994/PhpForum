@@ -1,4 +1,4 @@
-<div class="col-xs-2">
+<div class="col-xs-3">
 	<div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">

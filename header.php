@@ -8,10 +8,10 @@
     <ul class="nav navbar-nav navbar-right font ">
       <li class="active"><a href="#">Home</a></li>
 		<?php
-		session_start(); 
+		// session_start();
 
 		if(!isset($_SESSION['user'])){
-			echo '<li><a href="login.php">Login</a></li>' ; 
+			echo '<li><a href="login.php">Login</a></li>' ;
 			echo '<li><a href="registeration.php">Sign Up</a></li>';
 		}else{
 
@@ -28,10 +28,9 @@
 </nav>
 </header>
 
-<?php 
+<?php
 if(isset($_SESSION['message'])){
 	echo $_SESSION['message'];
-	unset($_SESSION['message']);
 }
 
 ?>
