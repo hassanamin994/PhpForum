@@ -7,26 +7,26 @@
  * @author seif
  */
 
-define('HOST','localhost');
-define('DB_NAME','jaguars');
-define('DB_USERNAME','root');
-define('DB_PASSWORD','root');
+// define('HOST','localhost');
+// define('DB_NAME','jaguars');
+// define('DB_USERNAME','root');
+// define('DB_PASSWORD','root');
 
 class DBHandeller {
-    
+
     private $dsn ;
     public  $db ;
     public $table;
     public $resultSet;
-            
+
     function __construct(){
-        
-            $this->dsn = 'mysql:host='.HOST.';dbname='.DB_NAME; 
+
+            $this->dsn = 'mysql:host='.HOST.';dbname='.DB_NAME;
             $this->db = new PDO($this->dsn,DB_USERNAME,DB_PASSWORD);
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     }
-    
+
     function getAllRows(){
         $query1 = "SELECT * FROM  $this->table ";
         $prep1 = $this->db->prepare($query1);
@@ -37,7 +37,7 @@ class DBHandeller {
         }
         return $rows;
     }
-    
+
     function getOneRow($field,$id){
         $query1 = "SELECT * FROM  $this->table where $field=:id";
         $prep1 = $this->db->prepare($query1);
@@ -45,12 +45,12 @@ class DBHandeller {
         $post = $prep1->fetch(PDO::FETCH_ASSOC);
         return $post;
     }
-    
+
     function getInsertedId()
     {
         return $this->db->lastInsertId();
     }
-    
+
     function update($key, $data)
     {
         $tkey = key($key);
@@ -67,7 +67,7 @@ class DBHandeller {
 
         $this->query("UPDATE $this->table SET " . implode(",", $update) . " WHERE $tkey = :$tkey ", $param);
     }
-    
+
     function insert($data)
     {
 
@@ -104,16 +104,16 @@ class DBHandeller {
     {
         $this->query("DELETE FROM $this->table WHERE $field = :id",array('id' => $id));
     }
-    
+
     function validateData($class){
-        
+
         $errors = array() ;
         foreach($class as $key => $value) {
-           
+
             if(empty($value)){
               array_push($errors,"Invalid ".$key);
             }
-             
+
         }
         return $errors;
     }

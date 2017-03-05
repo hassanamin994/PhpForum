@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__.'/DBManager.php';
 
 class User{
 	private $id;
