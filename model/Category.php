@@ -32,7 +32,7 @@ class Category {
 	
 	function editcategory() {
 		
-		$this->db->makeQuery("UPDATE `category` SET ,`name`='" . $this->name . "' WHERE  id=,'" . $this->id . "')");
+		$this->db->makeQuery("UPDATE `category` SET `name`='" . $this->name . "' WHERE  id='" . $this->id . "')");
 	}
 
 	
