@@ -19,9 +19,6 @@
             <li>
                 <a href="users.php">Users</a>
             </li>
-            <li>
-                <a href="#">New Thread</a>
-            </li>
             <li >
                 <a href="#">LOCK WEBSITE!</a>
             </li>

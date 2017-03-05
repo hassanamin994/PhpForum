@@ -13,6 +13,7 @@ require_once 'model/Comment.php' ;
 require_once 'model/User.php' ;
 
 // Handlers
+require_once 'model/UserHandeller.php' ;
 require_once 'model/CategoryHandeller.php' ;
 require_once 'model/ForumHandeller.php' ;
 require_once 'model/CommentHandeller.php' ;

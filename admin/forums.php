@@ -31,7 +31,6 @@ if(isset($_POST['submit'])){
 if(isset($_POST['lock'])){
 	$forum = $forumHandler->getOneRow('id',$_POST['lock_id']);
 	$forum = new Forum($forum['id'], $forum['name'], $forum['category_id'], $forum['locked']);
-	var_dump($forum);
 	$forum->toggleLock();
 }
 
@@ -41,6 +40,7 @@ if(isset($_POST['lock'])){
 
 $categories = $db->getAll("category");
 $forums = $db->getAll("forum");
+
 ?>
 
 <!DOCTYPE html>
