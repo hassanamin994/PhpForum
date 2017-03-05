@@ -43,10 +43,11 @@ $inputs=array("fname"=>"seif","lname"=>"eleslam","username"=>"seif121","password
 //$result4=$comment->getAllRows();
 //var_dump($result4);
 
-$thread = new ThreadHandeller();
-$comment=new CommentHandeller();
+$forum=new ForumHandeller();
+$result=$forum->getTree(1);
 
-$result=$thread->getTree(1);
+
+
 var_dump($result);
 
 ?>
@@ -59,12 +60,12 @@ var_dump($result);
         <table>
             <?php for($i=0;$i<count($result);$i++){ ?>
                 <tr>
-                    <td><?php echo $result[0]['name'] ;?></td>
-                    <td><?php echo $result[1]['name'] ;?></td>
+                    <td><?php //echo $result[0]['name'] ;?></td>
+                    <td><?php //echo $result[1]['name'] ;?></td>
                 </tr>
                 <tr>
-                    <td><?php echo $result2[0]['name'] ;?></td>
-                    <td><?php echo $result2[1]['name'] ;?></td>
+                    <td><?php //echo $result2[0]['name'] ;?></td>
+                    <td><?php //echo $result2[1]['name'] ;?></td>
                    
                 </tr>
                 
