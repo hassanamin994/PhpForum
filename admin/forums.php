@@ -15,12 +15,12 @@
 
 	</style>
 </head>
-<body>
+<body class="back">
 
 <?php include('../header.php') ; ?>
 <?php include('sidebar.php') ; ?> 
 
-<div class="col-xs-8">
+<div class="col-xs-8 cont" >
 	<table class="table">
 		<thead>
 			<tr>
