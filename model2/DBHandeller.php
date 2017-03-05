@@ -51,6 +51,9 @@ class DBHandeller {
     
     function update($key, $data)
     {
+        //how to use it ?
+        //$key is assoc array contains update condition --> $key=["thread_id"=>10];
+        //$data is is assoc array contains updated fileds -->$data=["contect"=>"xyz","title"=>"xyz"];
         $tkey = key($key);
         $kval = $key[$tkey];
 
@@ -68,7 +71,8 @@ class DBHandeller {
     
     function insert($data)
     {
-
+        //how to use it ?
+        //$data is assoc array contains new data to insert into that table --> $data=["thread_id"=>10,"content"=>"xyz",....];
         $k = array();
         $v = array();
         $param = array();
@@ -116,14 +120,16 @@ class DBHandeller {
         return $errors;
     }
     
-    function getTree($childTable,$subChildTable){
-        $query1 = "select forum.id as childId,forum.name as childName, count(thread.id) as numOfsubchilds from "
-                . "category,forum,thread where  forum.category_id=category.id and thread.forum_id=forum.id group by forum.id";
-        $prep1 = $this->db->prepare($query1);
-        $prep1->execute();
-        $result = $prep1->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
-        
-    }
+    // ----------this function moved to each table Handeller file , check it
+    // ------------Do not use this function 
+//    function getTree($childTable,$subChildTable){
+//        $query1 = "select forum.id as childId,forum.name as childName, count(thread.id) as numOfsubchilds from "
+//                . "category,forum,thread where  forum.category_id=category.id and thread.forum_id=forum.id group by forum.id";
+//        $prep1 = $this->db->prepare($query1);
+//        $prep1->execute();
+//        $result = $prep1->fetchAll(PDO::FETCH_ASSOC);
+//        return $result;
+//        
+//    }
     
 }

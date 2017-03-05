@@ -20,4 +20,11 @@ class ThreadHandeller extends DBHandeller {
         parent::__construct();
     }
     
+    function getTree(){
+        $query1 = "SELECT * FROM  $this->table ";
+        $prep1 = $this->db->prepare($query1);
+        $prep1->execute();
+        $post = $prep1->fetchAll(PDO::FETCH_ASSOC);
+        return $post;
+    }
 }
