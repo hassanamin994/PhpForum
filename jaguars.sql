@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 01, 2017 at 06:46 PM
+-- Generation Time: Mar 05, 2017 at 04:23 PM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.2
 
@@ -28,8 +28,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL
+  `name` varchar(20) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `created_at`, `last_update`) VALUES
+(23, 'asdaas', '2017-03-05 12:27:38', NULL),
+(24, 'asdada', '2017-03-05 12:28:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -45,6 +55,13 @@ CREATE TABLE `comment` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`id`, `user_id`, `thread_id`, `body`, `created_at`, `last_update`) VALUES
+(2, 1, 1, 'Comment body', '2017-03-04 21:19:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -62,26 +79,14 @@ CREATE TABLE `forum` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sticky_thread`
---
-
-CREATE TABLE `sticky_thread` (
-  `id` int(11) NOT NULL,
-  `forum_id` int(11) NOT NULL,
-  `thread_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `thread`
 --
 
 CREATE TABLE `thread` (
   `id` int(11) NOT NULL,
-  `name` text NOT NULL,
   `title` text NOT NULL,
   `description` text NOT NULL,
+  `locked` int(11) NOT NULL DEFAULT '0',
   `forum_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -109,6 +114,13 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`, `fname`, `lname`, `gender`, `country`, `banned`, `image`, `signature`, `role`) VALUES
+(1, 'hassan', 'hassan', 'hassan', 'hassan', '', '', 0, '', '', 'user');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -134,14 +146,6 @@ ALTER TABLE `forum`
   ADD KEY `category_id` (`category_id`);
 
 --
--- Indexes for table `sticky_thread`
---
-ALTER TABLE `sticky_thread`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `forum_id` (`forum_id`),
-  ADD KEY `thread_id` (`thread_id`);
-
---
 -- Indexes for table `thread`
 --
 ALTER TABLE `thread`
@@ -163,27 +167,27 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `forum`
 --
 ALTER TABLE `forum`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `sticky_thread`
+-- AUTO_INCREMENT for table `thread`
 --
-ALTER TABLE `sticky_thread`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `thread`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
@@ -192,21 +196,13 @@ ALTER TABLE `user`
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`thread_id`) REFERENCES `thread` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `forum`
 --
 ALTER TABLE `forum`
-  ADD CONSTRAINT `forum_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
-
---
--- Constraints for table `sticky_thread`
---
-ALTER TABLE `sticky_thread`
-  ADD CONSTRAINT `sticky_thread_ibfk_1` FOREIGN KEY (`forum_id`) REFERENCES `forum` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `sticky_thread_ibfk_2` FOREIGN KEY (`thread_id`) REFERENCES `thread` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `forum_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `thread`
