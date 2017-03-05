@@ -2,6 +2,42 @@
 session_start();
 require_once '../init.php';
 
+// handling delete requests
+$forumHandler = new ForumHandeller();
+if(isset($_POST['delete_id'])){
+	$forum =  $forumHandler->getOneRow('id',$_POST['delete_id']);
+	if($forum){
+		$forumHandler->removeByID('id',$_POST['delete_id']);
+		unset($_POST['delete_id']);
+		$_SESSION['message'] = "Forum ".$forum['name'] ." Has been deleted Successfully" ;
+	}
+}
+
+// handling new forum requests
+if(isset($_POST['submit'])){
+	$forum = new Forum(null,$_POST['forum'],$_POST['category']) ;
+	$errors = $forum->verify() ;
+	if(empty($errors)){
+			$forum->addforum() ;
+			$_POST = array();
+			unset($_POST['submit']);
+			$_SESSION['message'] = "Forum created Successfully" ;
+	}else{
+		$_SESSION['errors'] = $errors ;
+	}
+}
+
+// handle lock/unlock
+if(isset($_POST['lock'])){
+	$forum = $forumHandler->getOneRow('id',$_POST['lock_id']);
+	$forum = new Forum($forum['id'], $forum['name'], $forum['category_id'], $forum['locked']);
+	var_dump($forum);
+	$forum->toggleLock();
+}
+
+
+
+
 
 $categories = $db->getAll("category");
 $forums = $db->getAll("forum");
@@ -35,6 +71,7 @@ $forums = $db->getAll("forum");
 		<tbody>
 			<?php
 				foreach ($forums as $forum ) {
+					$status = $forum['locked'] == 0 ? 'lock' : 'unlock' ;
 					echo "<tr>";
 					echo "<td>".$forum['id']."</td>";
 					echo "<td>".$forum['name']."</td>";
@@ -42,7 +79,7 @@ $forums = $db->getAll("forum");
 					echo "<a href='edit_category?edit_id=".$forum['id']."' class='btn btn-info'>Edit</a>" ;
 					echo "<form method='post' action='forums.php'>
 							<input type='hidden' name='lock_id' value=".$forum['id']." >
-							<input type='submit' value='Lock' name='lock' class='btn btn-warning' >
+							<input type='submit' value='".$status."' name='lock' class='btn btn-warning' >
 							</form>";
 					echo "<form method='post' action='forums.php'>
 							<input type='hidden' name='delete_id' value=".$forum['id']." >
@@ -56,9 +93,24 @@ $forums = $db->getAll("forum");
 			?>
 		</tbody>
 	</table>
-	<details>
+	<details  <?php if(!empty($_SESSION['errors'])) { echo "open"; unset($_SESSION['errors']); } ?> >
 		<summary class="btn btn-primary">Add New Forum</summary><br>
-		<form>
+		<?php
+				if(isset($errors)){
+					echo "<div class='alert alert-warning'>";
+					foreach ($errors as $error){
+						echo $error ;
+					}
+					unset($_SESSION['errors']);
+
+					echo "</div>";
+				}
+				if(isset($_SESSION['message'])){
+					echo $_SESSION['message'];
+					unset($_SESSION['message']);
+				}
+			?>
+		<form method='post' >
 			<div class="input-group">
 			  <label for="sel1">Select Category:</label>
 			  <select class="form-control" id="category" name="category">

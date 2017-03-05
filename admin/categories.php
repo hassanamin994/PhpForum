@@ -4,7 +4,7 @@ require_once '../init.php';
 
 
 // handling delete requests
-$categoryHandler = new CategoryRepo();
+$categoryHandler = new CategoryHandeller();
 if(isset($_POST['delete_id'])){
 	$category =  $categoryHandler->getOneRow('id',$_POST['delete_id']);
 	if($category){
@@ -82,19 +82,22 @@ $categories = $db->getAll("category");
 				<summary class="btn btn-primary" >Add New Category</summary>
 				<form method="post" action='categories.php'>
 					<div class="input-group">
+
+					  <label for="new-category">Category Name: </label><br>
 						<?php
-							if(isset($_SESSION['errors'])){
-								foreach ($_SESSION['errors'] as $error) {
-									echo $error ;
+								if(isset($errors)){
+									echo "<div class='alert alert-warning'>";
+									foreach ($errors as $error){
+										echo $error ;
+									}
+									unset($_SESSION['errors']);
+									echo "</div>";
 								}
-								unset($_SESSION['errors']);
-							}
-							if(isset($_SESSION['message'])){
-								echo $_SESSION['message'];
-								unset($_SESSION['message']);
-							}
-						?>
-					  <label for="new-category">Category Name: </label>
+								if(isset($_SESSION['message'])){
+									echo $_SESSION['message'];
+									unset($_SESSION['message']);
+								}
+							?>
 					  <input type="text" class="form-control" id="new-category" aria-describedby="basic-addon3" name="category" required
 						<?php if(isset($_POST['category'])) { echo "value='".$_POST['category']."'" ;}?>
 						>
