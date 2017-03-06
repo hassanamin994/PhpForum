@@ -18,35 +18,14 @@ $numOfForums=$category->getCount();
         <link href="../assets/css/style.css" rel="stylesheet">
     </head>
     <body class="back">
-        <div class="cont">
-            <?php
-                for($i=0;$i<$numOfForums;$i++){
-                    $result=$category->getTree($i);
-                    for($x=0;$x<count($result);$x++){?>
-                    <div class="row " style="text-align: center">
-                        
-                        <table class="col-md-6" border="1" style="text-align: center">
-                            <tr>
-                                <th align="center"   colspan="3">
-                                    <?php echo $result[$x]['name'];?>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <a href="forumView.php?id=<?php echo $result[$x]['forum_id'];?>" ><?php echo $result[$x]['forum_name'];?></a>
-                                </td>
-                                <td>
-                                    <p><?php echo $result[$x]['threadsNum'];?></p>
-                                </td>
-                            </tr>
-                        </table>
-                        
-                    </div>
-        
-                    <?php  }}?>
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+        <div class="  cont">
+            
             </div>
         
-        
+        </div>
+          <div class="col-md-3"></div>
         <script src="../assets/js/jquery-3.1.1.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
     </body>

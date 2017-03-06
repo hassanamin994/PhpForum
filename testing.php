@@ -43,25 +43,22 @@ $inputs=array("fname"=>"seif","lname"=>"eleslam","username"=>"seif121","password
 //$result4=$comment->getOneRow("thread_id",1);
 //var_dump($result4);
 
-//$forum=new ForumHandeller();
-//$result=$forum->getCount();
+$forum=new ForumHandeller();
+$result=$forum->getTree(1);
 //$category=new CategoryHandeller();
 //$result=$category->getTree(1);
-
-
-
-//var_dump($result3);
+var_dump($result);
 //echo "--------------";
 //var_dump($result4);
 
-$category=new CategoryHandeller();
-$numOfForums=$category->getCount();
-echo $numOfForums;
-for($i=1;$i<=$numOfForums;$i++){
-    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>";
-    $result=$category->getTree($i);
-    var_dump($result);
-}
+//$category=new CategoryHandeller();
+//$numOfForums=$category->getCount();
+//echo $numOfForums;
+//for($i=1;$i<=$numOfForums;$i++){
+//    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>";
+//    $result=$category->getTree($i);
+//    var_dump($result);
+//}
 
 ?>
 
