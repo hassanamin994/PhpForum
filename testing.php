@@ -44,7 +44,7 @@ $inputs=array("fname"=>"seif","lname"=>"eleslam","username"=>"seif121","password
 //var_dump($result4);
 
 $forum=new ForumHandeller();
-$result=$forum->getTree(1);
+$result=$forum->getCount();
 
 
 

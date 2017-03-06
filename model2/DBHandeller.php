@@ -132,4 +132,12 @@ class DBHandeller {
 //        
 //    }
     
+    function getCount(){
+        $query1 = "SELECT count($this->table.id) as NumOfChildren FROM  $this->table ";
+        $prep1 = $this->db->prepare($query1);
+        $prep1->execute();
+        $num = $prep1->fetchAll(PDO::FETCH_ASSOC);
+        return $num;
+    }
+    
 }
