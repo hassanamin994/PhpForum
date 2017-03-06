@@ -33,15 +33,15 @@ $inputs=array("fname"=>"seif","lname"=>"eleslam","username"=>"seif121","password
 //$result2=$forum->getAllRows();
 //var_dump($result2);
 //
-echo "testing post >>>";
-$post=new ThreadHandeller();
-$result3=$post->getOneRow("id",1);
-var_dump($result3);
-//
-echo "testing comment >>>";
-$comment=new CommentHandeller();
-$result4=$comment->getOneRow("thread_id",1);
-var_dump($result4);
+//echo "testing post >>>";
+//$post=new ThreadHandeller();
+//$result3=$post->getOneRow("id",1);
+//var_dump($result3);
+////
+//echo "testing comment >>>";
+//$comment=new CommentHandeller();
+//$result4=$comment->getOneRow("thread_id",1);
+//var_dump($result4);
 
 //$forum=new ForumHandeller();
 //$result=$forum->getCount();
@@ -50,9 +50,18 @@ var_dump($result4);
 
 
 
-var_dump($result3);
-echo "--------------";
-var_dump($result4);
+//var_dump($result3);
+//echo "--------------";
+//var_dump($result4);
+
+$category=new CategoryHandeller();
+$numOfForums=$category->getCount();
+echo $numOfForums;
+for($i=1;$i<=$numOfForums;$i++){
+    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>";
+    $result=$category->getTree($i);
+    var_dump($result);
+}
 
 ?>
 
