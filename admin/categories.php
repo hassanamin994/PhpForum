@@ -69,7 +69,7 @@ $categories = $db->getAll("category");
 									<input type='hidden' name='delete_id' value=".$category['id']." >
 									<input type='submit' value='Delete' class='btn btn-danger' >
 								  </form>";
-							echo "<a href='edit_category?edit_id=".$category['id']."' class='btn btn-info'>Edit</a></td>" ;
+							echo "<a href='edit_category.php?edit_id=".$category['id']."' class='btn btn-info'>Edit</a></td>" ;
 							echo "</tr>";
 						}
 

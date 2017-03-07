@@ -35,14 +35,16 @@ class Category {
 
 		$this->db->makeQuery("UPDATE `category` SET `name`='" . $this->name . "' WHERE  id='" . $this->id . "'");
 	}
-	function verify(){
+	function verify($type='add'){
 			$errors = array() ;
 			if(empty($this->name))
 				$errors[] = "Enter the category name" ;
 			else{
-				$category = $this->db->makeQuery("SELECT name from category WHERE name='".$this->name."'") ;
-				if(!empty($category))
-					$errors[] = "Category name Already exists" ;
+				if($type == 'add'){
+					$category = $this->db->makeQuery("SELECT name from category WHERE name='".$this->name."'") ;
+					if(!empty($category))
+						$errors[] = "Category name Already exists" ;
+				}
 			}
 			return $errors;
 	}
