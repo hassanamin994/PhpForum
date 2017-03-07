@@ -125,6 +125,11 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `fname`, `lname`, `gender`, `country`, `banned`, `image`, `signature`, `role`, `created_at`, `last_update`) VALUES
 (2, 'asdasd', 'asdasd', 'asdasd', 'asdasd', 'male', 'Egypt', 0, 'asdaasd', 'asdasd', 'user', '2017-03-05 21:35:56', '2017-03-07 12:09:29');
 
+
+ALTER TABLE `user` ADD `status` SET('0','1') NOT NULL DEFAULT '0' AFTER `last_update`;
+
+
+
 --
 -- Indexes for dumped tables
 --
