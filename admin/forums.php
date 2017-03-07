@@ -76,7 +76,7 @@ $forums = $db->getAll("forum");
 					echo "<td>".$forum['id']."</td>";
 					echo "<td>".$forum['name']."</td>";
 					echo "<td>";
-					echo "<a href='edit_category?edit_id=".$forum['id']."' class='btn btn-info'>Edit</a>" ;
+					echo "<a href='edit_forum.php?edit_id=".$forum['id']."' class='btn btn-info'>Edit</a>" ;
 					echo "<form method='post' action='forums.php'>
 							<input type='hidden' name='lock_id' value=".$forum['id']." >
 							<input type='submit' value='".$status."' name='lock' class='btn btn-warning' >

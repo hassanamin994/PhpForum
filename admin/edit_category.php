@@ -6,8 +6,8 @@ $categoryHandler = new CategoryHandeller();
 if(isset($_GET['edit_id'])){
 		$category =  $categoryHandler->getOneRow('id',$_GET['edit_id']);
 }
-// handling delete requests
 
+//handling update request
 if(isset($_POST['category_id'])){
 	$category =  $categoryHandler->getOneRow('id',$_POST['category_id']);
 	$categoryObj = new Category($_POST['category_id'], $_POST['category_name']);
@@ -24,19 +24,7 @@ if(isset($_POST['category_id'])){
 	var_dump($categoryObj);
 }
 
-var_dump($_SESSION);
-// handling new category requests
-if(isset($_POST['submit'])){
-	$category = new Category(null,$_POST['category']) ;
-	$errors = $category->verify() ;
-	if(empty($errors)){
-			$category->addcategory() ;
-			unset($_POST);
-			$_SESSION['message'] = "Category created Successfully" ;
-	}else{
-		$_SESSION['errors'] = $errors ;
-	}
-}
+
 
 
 $categories = $db->getAll("category");

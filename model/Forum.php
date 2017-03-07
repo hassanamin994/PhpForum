@@ -43,7 +43,7 @@ class Forum {
 			`category_id`='".$this->category_id."'
 			 WHERE  `id` = '".$this->id."'");
 	}
-	function verify(){
+	function verify($type='add'){
 			$errors = array() ;
 			if(empty($this->name))
 				$errors[] = "Enter the Forum name" ;
@@ -51,9 +51,11 @@ class Forum {
 				if(empty($this->category_id))
 					$errors[] = "Select the category" ;
 				else{
-					$category = $this->db->makeQuery("SELECT name from forum WHERE name='".$this->name."'") ;
-					if(!empty($category))
-						$errors[] = "Forum name Already exists" ;
+					if($type=='add'){
+						$category = $this->db->makeQuery("SELECT name from forum WHERE name='".$this->name."'") ;
+						if(!empty($category))
+							$errors[] = "Forum name Already exists" ;
+					}
 				}
 			}
 			return $errors;
