@@ -1,5 +1,6 @@
 <?php
 require_once '../init.php';
+
 class CategoryHandeller extends DBHandeller {
 
     var $table = "category";

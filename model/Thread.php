@@ -29,7 +29,7 @@ class Thread {
 
 	function __get($field) {
 		return $this->$field;
-	}
+	} 
 
 	function addThread() {
          $this->db->makeQuery(

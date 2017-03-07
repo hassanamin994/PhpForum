@@ -4,7 +4,7 @@ define('HOST','localhost');
 define('DB_NAME','jaguars');
 define('DB_USERNAME','root');
 
-define('DB_PASSWORD','root');
+define('DB_PASSWORD','sa');
 
 class DBManager{
 
@@ -79,7 +79,7 @@ class DBManager{
 
 
 function checkUser($username,$password){
-		return $this->makeQuery("Select * from user where `username` ='".$username."' and `password`='".md5($password)."'") ;
+		return $this->makeQuery("Select * from user where `username` ='".$username."' and `password`='".$password."'") ;
 	}
 
 }
