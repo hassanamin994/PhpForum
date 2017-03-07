@@ -13,10 +13,11 @@
 		if(!isset($_SESSION['user'])){
 			echo '<li><a href="login.php">Login</a></li>' ;
 			echo '<li><a href="registeration.php">Sign Up</a></li>';
+                        echo '<li><a href="profile.php">Profile</a></li>';
 		}else{
 
 			if($_SESSION['role'] == "admin")
-				echo '<li><a href="adminpanel.php">Admin Panel</a></li>';
+			echo '<li><a href="adminpanel.php">Admin Panel</a></li>';
 			echo '<li><a href="profile.php">Profile</a></li>';
 			echo '<li><a href="post.php">New Post</a></li>';
 			echo '<li><a href="my_posts.php">My Posts</a></li>';

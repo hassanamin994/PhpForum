@@ -49,52 +49,46 @@ include('header.php') ;
                            </body>
             <?php
 
+if(count($_POST)>0){
+    $username=$_POST['username'];
+        $pw=$_POST['password'];
 
-$username=$_POST['username'];
-$pw=$_POST['password'];
+        $keep=$_POST['keep'];
+        if(isset($_POST['submit']))
+        {
+                if(isset($_POST['keep'])){
+                        $_COOKIE['user']=$_POST['username'];
+                }
 
-$keep=$_POST['keep'];
-if(isset($_POST['submit']))
-{
-	if(isset($_POST['keep'])){
-		$_COOKIE['user']=$_POST['username'];
-	}
-	
-	
-	$user=new User;
-	
-	if($user->signIn($username,$pw))  {
-		
-		if($user->isAdmin($username))
-		        {
-            $_SESSION['user']=$username;
-			$_SESSION['role']="admin";
-			
-			header("location: admin/forums.php ");
-		}
-		else {
-			$_SESSION['user']=$username;
-			$_SESSION['role']="user";
-			header("location: forum.php ");
-		}
-		
-	}
-	else{
-		echo '
-                 <div class="alert alert-info">
-  <strong>Sorry!</strong> Invalid Logins .
-</div>';
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	//
-}
+
+                $user=new User;
+
+                if($user->signIn($username,$pw))  {
+
+                        if($user->isAdmin($username))
+                                {
+                    $_SESSION['user']=$username;
+                                $_SESSION['role']="admin";
+
+                                header("location: admin/forums.php ");
+                        }
+                        else {
+                                $_SESSION['user']=$username;
+                                $_SESSION['role']="user";
+                                header("location: forum.php ");
+                        }
+
+                }
+                else{
+                        echo '
+                         <div class="alert alert-info">
+          <strong>Sorry!</strong> Invalid Logins .
+        </div>';
+                }
+             }
+        
+           }
+
 
 
 ?>

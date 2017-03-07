@@ -5,24 +5,26 @@ include('header.php') ;
 
 $flag=1;
 $dbm= new DBManager;
+if(count($_POST)>0){
+    $username=$_POST['username'];
+    $fname=$_POST['fn'];
+    $lname=$_POST['ln'];
+    $target_dir = "assets/uploads/";
 
-$username=$_POST['username'];
-$fname=$_POST['fn'];
-$lname=$_POST['ln'];
-$target_dir = "assets/uploads/";
+    // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
+    $target_file = $target_dir .$_POST['username'];
+    $uploadOk = 1;
+    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-// $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
-$target_file = $target_dir .$_POST['username'];
-$uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    $pw=md5($_POST['password']);
 
-$pw=md5($_POST['password']);
+    $gendre=$_POST['gender'];
+    $con=$_POST['countrey'];
+    $sub=$_POST['submit'];
 
-$gendre=$_POST['gender'];
-$con=$_POST['countrey'];
-$sub=$_POST['submit'];
+    $email=$_POST['email'];
+}
 
-$email=$_POST['email'];
 
 
 if(isset($sub)){
