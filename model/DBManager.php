@@ -59,7 +59,7 @@ class DBManager{
 		return $this->makeQuery("Select * from user where `username` ='".$username."'") ;
 	}
 	function getUserById($id){
-		return ($this->makeQuery("Select * from user where `id` ='".$id."'"))[0] ;
+		//return ($this->makeQuery("Select * from user where `id` ='".$id."'"))[0] ;
 	}
 	function getUserPosts($id){
 		return $this->makeQuery("Select * from post where `user_id` =".$id." ORDER BY created_at DESC");
