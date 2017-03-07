@@ -96,7 +96,7 @@ include('header.php') ;
 
 <div style="float: right;"><a href="" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
      
-    <a href="" class="btn btn-danger glyphicon glyphicon-trash">Delete</a></div>
+    <a href="" class="btn btn-danger glyphicon glyphicon-trash" >Delete</a></div>
           </div>
         </div>
       <!--</div>-->
