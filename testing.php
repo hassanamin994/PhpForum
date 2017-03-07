@@ -34,20 +34,20 @@ $inputs=array("fname"=>"seif","lname"=>"eleslam","username"=>"seif121","password
 //var_dump($result2);
 //
 //echo "testing post >>>";
-//$post=new ThreadHandeller();
-//$result3=$post->getOneRow("id",1);
-//var_dump($result3);
+$post=new ThreadHandeller();
+$result3=$post->getLastRowBy("forum_id",1);
+var_dump($result3);
 ////
 //echo "testing comment >>>";
 //$comment=new CommentHandeller();
 //$result4=$comment->getOneRow("thread_id",1);
 //var_dump($result4);
 
-$forum=new ForumHandeller();
-$result=$forum->getLastRow("id");
+//$forum=new ForumHandeller();
+//$result=$forum->getLastRowBy("id");
 //$category=new CategoryHandeller();
 //$result=$category->getTree(1);
-var_dump($result);
+//var_dump($result);
 //echo "--------------";
 //var_dump($result4);
 
