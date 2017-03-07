@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_update` timestamp NULL DEFAULT now() ON UPDATE now()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -52,8 +52,8 @@ CREATE TABLE `comment` (
   `user_id` int(11) NOT NULL,
   `thread_id` int(11) NOT NULL,
   `body` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_update` timestamp NULL DEFAULT now() ON UPDATE now()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -67,8 +67,8 @@ CREATE TABLE `forum` (
   `name` varchar(20) NOT NULL,
   `locked` int(11) NOT NULL DEFAULT '0',
   `category_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_update` timestamp NULL DEFAULT now() ON UPDATE now()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -92,8 +92,8 @@ CREATE TABLE `thread` (
   `forum_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `sticky` int(11) NOT NULL DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_update` timestamp NULL DEFAULT now() ON UPDATE now()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -114,8 +114,8 @@ CREATE TABLE `user` (
   `image` text NOT NULL,
   `signature` text NOT NULL,
   `role` varchar(10) NOT NULL DEFAULT 'user',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_update` timestamp NULL DEFAULT now() ON UPDATE now()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
