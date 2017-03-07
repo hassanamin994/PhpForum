@@ -10,4 +10,5 @@ session_start();
 function __autoload($class_name) {
     
         include ("model2/".$class_name.".php");
+        include ("model/".$class_name.".php");
 }

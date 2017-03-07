@@ -1,5 +1,9 @@
 <?php include('header.php') ;
-session_start();
+include 'main.php';
+//include 'model/Thread.php';
+$_SESSION['userid']=1;
+
+//sticky
 
 ?>
 <html>
@@ -8,72 +12,73 @@ session_start();
 <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body class="back">
-<form>
-<div class="container cont" >
-  <h2 >Topic name </h2>
+<form method="post">
+<div class="container cont">
+ <div style="float: right"> 
+     <a href="addpost.php" class="btn btn-default glyphicon glyphicon-pencil">AddPost</a>
+     </div>
+
+  
+
+
+     <?php
+
+     $forum=new ForumHandeller();
+     $threads=$forum->getTree(1);
+     $forumname=$threads[0]['forum_name'];
+     $_SESSION['forumid']=$threads[0]['forum_id'];
+     //echo $threads[0]['thread_title']; 
+    // $postid=$threads[0]['thread_id']; 
+     //echo $postid;
+    //$threads[0]->removeByID("id",$postid);
+    // $forum->removeByID("id",0);
+
+     echo '<h2>'.$forumname.'</h2>';
+     $thobjects=array();
+    
+
+     for($i=0;$i<count($threads);$i++){
+
+      $content=$threads[$i]['thread_content'];
+      $currentthread= new Thread($threads[0]['thread_id'],$threads[0]['thread_title'],$threads[$i]['thread_content'],$threads[$i]['forum_id'],$threads[$i]['ownerId']);
+      array_push($thobjects, $currentthread);
+
+      
+   echo '
   <div class="media">
     <div class="media-left media-top" style="width:25%">
       <img src="assets/img/u.png" class="media-object"style="width:150px">
       <br/>
-      <p class ="glyphicon glyphicon-user">name:  user </p> <br/>
-      <p class="glyphicon glyphicon-align-justify">Role: Administrator </p><br/>
-      <p class="glyphicon glyphicon-calendar">joined: 22-2-2017 </p><br/>
-
+      <p class ="glyphicon glyphicon-user">Posted by: '.$threads[$i]['owner'].'</p>
+      <p class="small"> On '.$threads[$i]['date'].'</p>
+      
     </div>
     <div class="media-body">
       <!--<h4 class="media-heading">Media Top</h4>-->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    
-   
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p>'.$threads[$i]['thread_title'].'</p>
+     <br>
+    <p>'.substr($content,0,20).'...</p>
+    <br>
+    <p class="glyphicon glyphicon-comment">'.$threads[$i]['numOfComments'].'</p>
     </div>
-    <div style="float: right">  <a href="" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
-       <a href="" class="btn btn-default glyphicon glyphicon-pencil">Reply</a>
-    <a href="" class="btn btn-danger glyphicon glyphicon-trash">Delete</a></div>
-    </div>
- 
-  <hr>
-  <div class="media">
-    <div class="media-left media-middle" style="width:25%">
-      <img src="assets/img/n.png" class="media-object" style="width:150px">
-      <br/>
-       <p  class ="glyphicon glyphicon-user">name: user2 </p> <br/> 
-      <p class="glyphicon glyphicon-align-justify">Role: moderator </p> <br/>
-      <p class="glyphicon glyphicon-calendar">joined: 2-2-2017 </p> <br/>
-    </div>
-    <div class="media-body">
-      <!--<h4 class="media-heading">Media Middle</h4>-->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </div>
-    <div style="float: right">
-    <a href="" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
-       <a href="" class="btn btn-default glyphicon glyphicon-pencil">Reply</a>
-    <a href="" class="btn btn-danger glyphicon glyphicon-trash">Delete</a></div>
-  
-  </div>
-  <hr>
-  <div class="media">
-    <div class="media-left media-bottom" style="width:25%">
-      <img src="assets/img/u.png" class="media-object" style="width:150px">
-      <br/>
-      <p class ="glyphicon glyphicon-user">name:  user </p> <br/>
-      <p class="glyphicon glyphicon-align-justify">Role: Administrator </p><br/>
-      <p class="glyphicon glyphicon-calendar">joined: 22-2-2017 </p> <br/>
-    </div>
-    <div class="media-body">
-      <!--<h4 class="media-heading">Media Bottom</h4>-->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </div>
-    <div style="float: right">  <a href="" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
-       <a href="" class="btn btn-default glyphicon glyphicon-pencil">Reply</a>
-    <a href="" class="btn btn-danger glyphicon glyphicon-trash">Delete</a></div>
-  
-  </div>
+    <div style="float: right"> 
+       <a href="viewmore.php?thid='.$threads[$i]['thread_id'].'" class="btn btn-default glyphicon glyphicon-option-horizontal">Viewmore</a>
+       ';
+       if($_SESSION['userid']==$threads[$i]['ownerId'] || $threads[$i]['owner_role']=="admin"){
+       echo '
+    <button name="delbtn" class="btn btn-danger glyphicon glyphicon-trash">Delete</button></div>
+    </div>';
+  }
+      if(isset($_POST['delbtn']))
+      {
+        $thobjects[$i]->deleteThread();
+        header("Refresh:0");
+      }
+}
+  ?>
+
+
+
 </div>
 </form>
 </body>
