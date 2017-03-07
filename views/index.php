@@ -9,6 +9,7 @@ include '../main.php';
 include('../header.php') ;
 $category=new CategoryHandeller();
 $numOfForums=$category->getCount();
+
 $flag=0;
 
 ?>
@@ -49,7 +50,10 @@ $flag=0;
                           <thead>
                              
                             </tr>
-                            <?php $flag=0; for($x=0;$x<count($result);$x++){ ?>
+                            <?php $flag=0; for($x=0;$x<count($result);$x++){ 
+                                
+                                $thread=new ThreadHandeller();
+                                $lastThread=$thread->getLastRowBy("forum_id",$result[$x]['forum_id']);?>
                           
                               <?php 
                                 if($flag==0){ $flag=1;?>
@@ -79,7 +83,8 @@ $flag=0;
                                     <a href="forumView.php?id=<?php echo $result[$x]['forum_id'];?>" ><?php echo $result[$x]['forum_name'];?></a>
                                 </td>
                                 <td>
-                                    <p><?php echo $result[$x]['threadsNum'];?></p>
+                                    <a href="postView.php?id=<?php  echo $lastThread['id'];?>" ><?php echo $lastThread["title"];?></a>
+<!--                                    <p><?php //echo $lastThread["title"];?></p>-->
                                 </td>
                                 <td>
                                     <p><?php echo $result[$x]['threadsNum'];?></p>
