@@ -52,6 +52,14 @@ class DBHandeller {
         $post = $prep1->fetch();
         return $post;
     }
+    function getLastRow($field){
+        $query1 = "SELECT * FROM  $this->table ORDER BY $field DESC LIMIT 1";
+        $prep1 = $this->db->prepare($query1);
+        $prep1->execute();
+        $prep1->setFetchMode(PDO::FETCH_ASSOC);
+        $post = $prep1->fetch();
+        return $post;
+    }
     
     function getInsertedId()
     {

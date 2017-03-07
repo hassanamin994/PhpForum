@@ -44,7 +44,7 @@ $inputs=array("fname"=>"seif","lname"=>"eleslam","username"=>"seif121","password
 //var_dump($result4);
 
 $forum=new ForumHandeller();
-$result=$forum->getTree(1);
+$result=$forum->getLastRow("id");
 //$category=new CategoryHandeller();
 //$result=$category->getTree(1);
 var_dump($result);
@@ -68,7 +68,7 @@ var_dump($result);
     </head>
     <body>
         <table>
-            <?php for($i=0;$i<count($result);$i++){ ?>
+            <?php //for($i=0;$i<count($result);$i++){ ?>
                 <tr>
                     <td><?php //echo $result[0]['name'] ;?></td>
                     <td><?php //echo $result[1]['name'] ;?></td>
@@ -79,7 +79,7 @@ var_dump($result);
                    
                 </tr>
                 
-            <?php } ?>
+            <?php //} ?>
         </table>
     </body>
 </html>
