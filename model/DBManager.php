@@ -79,7 +79,7 @@ class DBManager{
 
 
 function checkUser($username,$password){
-		return $this->makeQuery("Select * from user where `username` ='".$username."' and `password`='".md5($password)."'") ;
+		return $this->makeQuery("Select * from user where `username` ='".$username."' and `password`='".$password."'") ;
 	}
 
 }
