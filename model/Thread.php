@@ -15,8 +15,8 @@ class Thread {
 
 		$this->db = new DBManager();
 		$this->id = $id;
-		$this->title = $title ;
-		$this->description = $description ;
+		$this->title = trim($title) ;
+		$this->description = trim($description) ;
 		$this->forum_id = $forum_id ;
 		$this->user_id = $user_id ;
 		$this->locked = $locked ;
@@ -57,6 +57,23 @@ class Thread {
 			`user_id`='".$this->user_id."',
 			`sticky`='".$this->sticky."'
 			 WHERE  `id` = '".$this->id."'");
+	}
+	function toggleLock(){
+		$this->locked = $this->locked == 0 ? 1 : 0 ;
+		$this->editThread();
+	}
+	function toggleStick(){
+		$this->sticky = $this->sticky == 0 ? 1 : 0 ;
+		$this->editThread();
+	}
+	function verify(){
+			$errors = array() ;
+			if(empty($this->title))
+				$errors[] = "Enter the Thread Title" ;
+			if(empty($this->description)){
+				$errors[] = "Enter the Thread Description";
+			}
+			return $errors;
 	}
 }
 
