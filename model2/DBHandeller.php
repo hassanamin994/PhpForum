@@ -35,6 +35,15 @@ class DBHandeller {
         return $post;
     }
     
+    function selectBy($field,$id){
+        $query1 = "SELECT * FROM  $this->table where $field=:id";
+        $prep1 = $this->db->prepare($query1);
+        $prep1->execute([':id'=>$id]);
+        $prep1->setFetchMode(PDO::FETCH_ASSOC);
+        $post = $prep1->fetch();
+        return $post;
+    }
+    
     function getOneRow($field,$id){
         $query1 = "SELECT * FROM  $this->table where $field=:id";
         $prep1 = $this->db->prepare($query1);
@@ -131,5 +140,14 @@ class DBHandeller {
 //        return $result;
 //        
 //    }
+    
+    function getCount(){
+        $query1 = "SELECT count($this->table.id) as NumOfChildren FROM  $this->table ";
+        $prep1 = $this->db->prepare($query1);
+        $prep1->execute();
+        $result = $prep1->fetchColumn();
+        //$num=count($result);
+        return $result;
+    }
     
 }

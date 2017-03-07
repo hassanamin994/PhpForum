@@ -75,7 +75,7 @@ if(isset($_POST['submit']))
 		else {
 			$_SESSION['user']=$username;
 			$_SESSION['role']="user";
-			header("location: thread.php ");
+			header("location: forum.php ");
 		}
 		
 	}
