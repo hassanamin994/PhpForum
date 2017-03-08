@@ -1,4 +1,4 @@
-<div class="col-xs-2">
+<div class="col-xs-3">
 	<div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
@@ -18,9 +18,6 @@
             </li>
             <li>
                 <a href="users.php">Users</a>
-            </li>
-            <li>
-                <a href="#">New Thread</a>
             </li>
             <li >
                 <a href="#">LOCK WEBSITE!</a>
