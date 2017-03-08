@@ -4,15 +4,15 @@ define('HOST','localhost');
 define('DB_NAME','jaguars');
 define('DB_USERNAME','root');
 
-define('DB_PASSWORD','sa');
+define('DB_PASSWORD','root');
 
 class DBManager{
-	
+
 	private $dsn ;
 	public 	$db ;
 	private $statement ;
 	function __construct(){
-		$this->dsn = 'mysql:host='.HOST.';dbname='.DB_NAME; 
+		$this->dsn = 'mysql:host='.HOST.';dbname='.DB_NAME;
 		$this->db = new PDO($this->dsn,DB_USERNAME,DB_PASSWORD);
 		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -24,11 +24,11 @@ class DBManager{
 		if($result){
 			$output = array() ;
 			while($element = $statement->fetch(PDO::FETCH_ASSOC)){
-				$output[] = $element; 
+				$output[] = $element;
 			}
 			return $output;
 		}else{
-			return false ; 
+			return false ;
 		}
 	}
 
@@ -39,17 +39,17 @@ class DBManager{
 			$output = array() ;
 			try{
 				while($element = $statement->fetch(PDO::FETCH_ASSOC)){
-				$output[] = $element; 
+				$output[] = $element;
 				}
 			}
 			catch(Exception $e){
 				// in case of INSERT/DELETE/UPDATE which cannot be fetched
-		
+
 
 			}
 			return $output;
 		}else{
-			return false ; 
+			return false ;
 		}
 	}
 	function getLastInsertedId(){
@@ -68,10 +68,10 @@ class DBManager{
 		return $this->makeQuery("Select * from post where `id` = '".$id."'")[0];
 	}
 	function deletePost($id){
-		return $this->makeQuery("DELETE from post WHERE `id` = '".$id."'");	
+		return $this->makeQuery("DELETE from post WHERE `id` = '".$id."'");
 	}
 	function deleteUser($id){
-		return $this->makeQuery("DELETE from user WHERE `id` = '".$id."'");	
+		return $this->makeQuery("DELETE from user WHERE `id` = '".$id."'");
 	}
 	function getRole($username){
 		return $this->makeQuery("Select * from user where `username` ='".$username."' and `role`='admin'" ) ;
