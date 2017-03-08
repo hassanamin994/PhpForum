@@ -11,7 +11,7 @@ class Thread {
 	private $locked;
 	private $sticky ;
 
-	function __construct($id, $title, $description, $forum_id, $user_id, $locked = 0,$sticky=0) {
+	function __construct($id=0, $title=0, $description=0, $forum_id=0, $user_id=0, $locked = 0,$sticky=0) {
 
 		$this->db = new DBManager();
 		$this->id = $id;
@@ -47,18 +47,26 @@ class Thread {
 		$this->db->makeQuery("DELETE FROM `thread` where id ='" . $this->id . "'");
 	}
 
-	function editThread() {
+	// function editThread() {
 
-		$this->db->makeQuery("UPDATE thread SET
-			`title`='".$this->title."',
-			`description`='".$this->description."',
-			`forum_id`='".$this->forum_id."',
-			`locked` ='".$this->locked."',
-			`user_id`='".$this->user_id."',
-			`sticky`='".$this->sticky."'
-			 WHERE  `id` = '".$this->id."'");
+	// 	$this->db->makeQuery("UPDATE thread SET
+	//		`title`='".$this->title."',
+	// 		`description`='".$this->description."',
+	// 		`forum_id`='".$this->forum_id."',
+	// 		`locked` ='".$this->locked."',
+	// 		`user_id`='".$this->user_id."',
+	// 		`sticky`='".$this->sticky."'
+	// 		 WHERE  `id` = '".$this->id."'");
+	// }
+	function updateThread($id,$title,$description) {
+      
+		$this->db->makeQuery("UPDATE `thread` SET
+			`title`= '".$title."',
+			`description`='".$description."'
+			 WHERE  `id`=$id");
 	}
-	function toggleLock(){
+
+function toggleLock(){
 		$this->locked = $this->locked == 0 ? 1 : 0 ;
 		$this->editThread();
 	}
