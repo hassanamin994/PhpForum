@@ -51,6 +51,23 @@ $categories = $db->getAll('category') ;
 	<div class="col-xs-8 cont" style="padding:25px;">
 
 		<div class="row">
+			<?php
+         if(isset($errors) && !empty($_SESSION['errors'])){
+           echo "<div class='alert alert-warning'>";
+           foreach ($errors as $error){
+             echo $error."<br>" ;
+           }
+           unset($_SESSION['errors']);
+
+           echo "</div>";
+         }
+         if(isset($_SESSION['message'])){
+           echo "<div class='alert alert-success'>";
+           echo $_SESSION['message'];
+           echo "</div><br>";
+           unset($_SESSION['message']);
+         }
+       ?>
 			<form method='post' >
 				<div class="input-group">
 					<label for="forum">Select Category > Forum :</label>
@@ -83,20 +100,6 @@ $categories = $db->getAll('category') ;
 					<input type="submit" name="add_thread" class="btn btn-primary" value="Add Thread">
 				</div>
 			</form>
-			<?php
-					if(isset($errors)){
-						echo "<div class='alert alert-warning'>";
-						foreach ($errors as $error){
-							echo $error ;
-						}
-						unset($_SESSION['errors']);
-						echo "</div>";
-					}
-					if(isset($_SESSION['message'])){
-						echo $_SESSION['message'];
-						unset($_SESSION['message']);
-					}
-				?>
 		</div>
 	</div>
 
