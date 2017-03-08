@@ -108,6 +108,7 @@ $categories = $db->getAll('category') ;
 						<th>Last Updated</th>
 						<th>Action</th>
 						<th>Special Actions</th>
+						<th>Comments</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -152,6 +153,9 @@ $categories = $db->getAll('category') ;
 								<input type='submit' value='".$sticky."' name='stick' class='btn btn-info btn-xs' >
 								</form>";
 						echo "</td>";
+						echo "<td>";
+						echo "<a href='#' class='btn btn-success btn-xs'>View Comments</a>";
+						echo "</td>" ;
 						echo "</tr>";
 					}
 					if(isset($_SESSION['message'])){

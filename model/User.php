@@ -23,7 +23,7 @@ class User{
 		// 		$this->id = $id ;
 		$this->fname = $fname ;
 		$this->lname = $lname ;
-		$this->id = !empty($id) ? $id :  $_POST['user_id'] ;
+		$this->id = $id ;
 
 		$this->country = $country;
 		$this->gender = $gender;
