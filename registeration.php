@@ -252,7 +252,7 @@ echo '"
         <div class="form-group">
             <label class="col-md-4 control-label" for="email">email</label>
             <div class="col-md-4">
-                <input id="email" name="email" type="" placeholder="email" class="form-control input-md" >
+                <input id="email" name="email" type="" placeholder="email" class="form-control input-md" required>
             </div>
         </div>
         <div class="form-group">
