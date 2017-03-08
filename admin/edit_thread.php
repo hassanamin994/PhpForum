@@ -8,8 +8,6 @@ $threadID = $_GET['edit_id'] ;
 $threadHandler = new ThreadHandeller($threadID);
 $thread = $threadHandler->getOneRow('id',$threadID);
 
-}else{
-	header("Location: index.php");exit;
 }
 
 // handle add new thread

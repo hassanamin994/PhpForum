@@ -154,7 +154,7 @@ $categories = $db->getAll('category') ;
 								</form>";
 						echo "</td>";
 						echo "<td>";
-						echo "<a href='#' class='btn btn-success btn-xs'>View Comments</a>";
+						echo "<a href='comments.php?thread_id=".$thread['id']."' class='btn btn-success btn-xs'>View Comments</a>";
 						echo "</td>" ;
 						echo "</tr>";
 					}
@@ -168,23 +168,25 @@ $categories = $db->getAll('category') ;
 			</table>
 		</div>
 		<div class="row">
-			<details  <?php if(!empty($_SESSION['errors'])) { echo "open"; unset($_SESSION['errors']); } ?> >
+			<details  <?php if(!empty($_SESSION['errors'])) { echo "open";  } ?> >
 				<summary class="btn btn-primary">Add New Thread</summary><br>
 				<?php
-						if(isset($errors)){
-							echo "<div class='alert alert-warning'>";
-							foreach ($errors as $error){
-								echo $error."<br>" ;
-							}
-							unset($_SESSION['errors']);
+ 					 if(isset($errors)){
+ 						 echo "<div class='alert alert-warning'>";
+ 						 foreach ($errors as $error){
+ 							 echo $error."<br>" ;
+ 						 }
+ 						 unset($_SESSION['errors']);
 
-							echo "</div>";
-						}
-						if(isset($_SESSION['message'])){
-							echo $_SESSION['message'];
-							unset($_SESSION['message']);
-						}
-					?>
+ 						 echo "</div>";
+ 					 }
+ 					 if(isset($_SESSION['message'])){
+ 						 echo "<div class='alert alert-warning'>";
+ 						 echo $_SESSION['message'];
+ 						 echo "</div><br>";
+ 						 unset($_SESSION['message']);
+ 					 }
+ 				 ?>
 				<form method='post' >
 					<div class="input-group">
 					  <label for="forum">Select Category > Forum :</label>

@@ -8,8 +8,6 @@ $forumID = $_GET['edit_id'] ;
 $forumHandler = new ForumHandeller($forumID);
 $forum = $forumHandler->getOneRow('id',$forumID);
 
-}else{
-	header("Location: index.php");exit;
 }
 
 if(isset($_POST['forum_id'])){
