@@ -7,20 +7,19 @@ include('./header.php') ;
 $flag=1;
 $dbm= new DBManager;
 if(count($_POST)>0){
-    $username=$_POST['username'];
+  
     $fname=$_POST['fn'];
     $lname=$_POST['ln'];
     $target_dir = "assets/uploads/";
 
     // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
-    $target_file = $target_dir .$_POST['username'];
+    $target_file = $target_dir .$_POST['email'];
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
     $pw=md5($_POST['password']);
 
 
-$username=$_POST['username'];
 $fname=$_POST['fn'];
 $lname=$_POST['ln'];
 $target_dir = "assets/uploads/";
@@ -40,13 +39,13 @@ $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
     $email=$_POST['email'];
 }
 if(count($_SESSION)>0){
-    $username=$_SESSION['username'];
+
     $fname=$_SESSION['fn'];
     $lname=$_SESSION['ln'];
     $target_dir = "assets/uploads/";
 
     // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
-    $target_file = $target_dir .$_SESSION['username'];
+    $target_file = $target_dir .$_SESSION['email'];
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
@@ -234,7 +233,7 @@ if ($uploadOk == 0) {
           //  mail("$email","jaguars'forum Registeration",$msg);
 
 
-		//////////////	header("Location: login.php");
+			header("Location: login.php");
             }
 			}
 			else {
@@ -290,16 +289,7 @@ echo '"
  </div>
         </div>
 
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="username">username</label>
-            <div class="col-md-4">
-                <input id="username" name="username" type="text" placeholder="username" class="form-control input-md" required>
-              <script type="text/javascript">
-  document.getElementById("username").value = "';
-//echo $_POST["username"];
-echo '"
-</script>
-</div></div>
+       
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="password">password</label>
@@ -353,16 +343,16 @@ echo '"
         </div>
 
         <div class="col-md-4"></div>
-        <div class="col-md-4" style="margin-top:5%;margin-bottom:5%">" ';
+        <div class="col-md-4" style="margin-top:5%;margin-bottom:5%"> ';
   
  
-      echo ' "<input type="submit" id="submit" name="submit" class="btn btn-info " style=" width:100%; font-size:24" value="Register"> </input> "';
+      echo ' <input type="submit" id="submit" name="submit" class="btn btn-info " style=" width:100%; font-size:24" value="Register"> </input> ';
 
       
 
 
 
-echo ' "</div>
+echo ' </div>
     <div class="col-md-4"></div>
         <br/>
         </div>
