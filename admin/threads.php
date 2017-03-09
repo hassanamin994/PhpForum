@@ -97,6 +97,23 @@ $categories = $db->getAll('category') ;
 <div class="page-content">
 	<div class="col-xs-8">
 		<div class="row">
+			<?php
+         if(isset($errors) && !empty($_SESSION['errors'])){
+           echo "<div class='alert alert-warning'>";
+           foreach ($errors as $error){
+             echo $error."<br>" ;
+           }
+           unset($_SESSION['errors']);
+
+           echo "</div>";
+         }
+         if(isset($_SESSION['message'])){
+           echo "<div class='alert alert-success'>";
+           echo $_SESSION['message'];
+           echo "</div><br>";
+           unset($_SESSION['message']);
+         }
+       ?>
 			<table class="table">
 				<thead>
 					<tr>
@@ -108,6 +125,7 @@ $categories = $db->getAll('category') ;
 						<th>Last Updated</th>
 						<th>Action</th>
 						<th>Special Actions</th>
+						<th>Comments</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -152,35 +170,35 @@ $categories = $db->getAll('category') ;
 								<input type='submit' value='".$sticky."' name='stick' class='btn btn-info btn-xs' >
 								</form>";
 						echo "</td>";
+						echo "<td>";
+						echo "<a href='comments.php?thread_id=".$thread['id']."' class='btn btn-success btn-xs'>View Comments</a>";
+						echo "</td>" ;
 						echo "</tr>";
 					}
-					if(isset($_SESSION['message'])){
-						unset($_SESSION['message']);
-					}
-
-
 					 ?>
 				</tbody>
 			</table>
 		</div>
 		<div class="row">
-			<details  <?php if(!empty($_SESSION['errors'])) { echo "open"; unset($_SESSION['errors']); } ?> >
+			<details  <?php if(!empty($_SESSION['errors'])) { echo "open";  } ?> >
 				<summary class="btn btn-primary">Add New Thread</summary><br>
 				<?php
-						if(isset($errors)){
-							echo "<div class='alert alert-warning'>";
-							foreach ($errors as $error){
-								echo $error."<br>" ;
-							}
-							unset($_SESSION['errors']);
+ 					 if(isset($errors)){
+ 						 echo "<div class='alert alert-warning'>";
+ 						 foreach ($errors as $error){
+ 							 echo $error."<br>" ;
+ 						 }
+ 						 unset($_SESSION['errors']);
 
-							echo "</div>";
-						}
-						if(isset($_SESSION['message'])){
-							echo $_SESSION['message'];
-							unset($_SESSION['message']);
-						}
-					?>
+ 						 echo "</div>";
+ 					 }
+ 					 if(isset($_SESSION['message'])){
+ 						 echo "<div class='alert alert-warning'>";
+ 						 echo $_SESSION['message'];
+ 						 echo "</div><br>";
+ 						 unset($_SESSION['message']);
+ 					 }
+ 				 ?>
 				<form method='post' >
 					<div class="input-group">
 					  <label for="forum">Select Category > Forum :</label>

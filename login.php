@@ -1,9 +1,7 @@
             <?php
 
-session_start();
-require_once 'model/User.php';
-require_once 'model/DBManager.php';
-include('header.php') ;
+include './main.php';
+include('./header.php') ;
 
 ?>
             <html>
@@ -28,7 +26,7 @@ include('header.php') ;
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="password">password</label>
                                 <div class="col-md-4">
-                                    <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required> 
+                                    <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -40,61 +38,66 @@ include('header.php') ;
                                     <div class="col-md-4">
                                     </div>
                                     <div class="col-md-4">
-                                    <div class="checkbox">
-                                    <label><input type="checkbox" value="" name="keep" >keep loged in </label>
-                                    </div>
+
                                     <button id="submit" name="submit" class="btn btn-info " style=" width:100%; margin-top: 20%; margin-bottom: 20%;font-size:24 ">login</button>
                                 </div>
                                 <div class="col-md-3"></div>
                            </body>
             <?php
 
+if(count($_POST)>0){
+    $username=$_POST['username'];
+        $pw=$_POST['password'];
 
-$username=$_POST['username'];
-$pw=$_POST['password'];
 
-$keep=$_POST['keep'];
-if(isset($_POST['submit']))
-{
-	if(isset($_POST['keep'])){
-		$_COOKIE['user']=$_POST['username'];
-	}
-	
-	
-	$user=new User;
-	
-	if($user->signIn($username,$pw))  {
-		
-		if($user->isAdmin($username))
-		        {
-            $_SESSION['user']=$username;
-			$_SESSION['role']="admin";
-			
-			header("location: admin/forums.php ");
-		}
-		else {
-			$_SESSION['user']=$username;
-			$_SESSION['role']="user";
-			header("location: forum.php ");
-		}
-		
-	}
-	else{
-		echo '
-                 <div class="alert alert-info">
-  <strong>Sorry!</strong> Invalid Logins .
-</div>';
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	//
-}
+        $keep=$_POST['keep'];
+        if(isset($_POST['submit']))
+        {
+                if(isset($_POST['keep'])){
+                        $_COOKIE['user']=$_POST['username'];
+                }
+
+
+                $user=new User;
+
+                if($user->signIn($username,$pw))  {
+
+                        if($user->isAdmin($username))
+                            {
+                                $target=new UserHandeller();
+                                $info=$target->selectBy("username", $username);
+                                foreach ($info as $key => $value) {
+                                    $_SESSION[$key]=$value;
+                                }
+//                                $_SESSION['user']=$username;
+//                                $_SESSION['role']="admin";
+
+                                header("location: admin/forums.php ");
+                        }
+                        else {
+                            
+                                $target=new UserHandeller();
+                                $info=$target->selectBy("username", $username);
+                                foreach ($info as $key => $value) {
+                                    $_SESSION[$key]=$value;
+                                }
+//                                $_SESSION['user']=$username;
+//                                $_SESSION['role']="user";
+                                header("location: forum.php ");
+                        }
+
+                }
+                else{
+                        echo '
+                         <div class="alert alert-info">
+          <strong>Sorry!</strong> Invalid Logins .
+        </div>';
+                }
+             }
+        
+           }
+
+
 
 
 ?>

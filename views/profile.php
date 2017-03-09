@@ -1,17 +1,22 @@
 <?php 
-include './main.php';
-include('./header.php') ;
 
-
-// require_once "Mail.php";
+include '../main.php';
+include('../header.php') ;
+var_dump($_SESSION);
+//require_once 'model/User.php';
+//require_once 'model/DBManager.php';
+//include('header.php') ;
+$username=$fname=$lname=$password=$email=$con=$gendre=$img="";
+$edit=0;
 $flag=1;
 $dbm= new DBManager;
 if(count($_POST)>0){
+    $edit=1;
     $username=$_POST['username'];
     $fname=$_POST['fn'];
     $lname=$_POST['ln'];
     $target_dir = "assets/uploads/";
-
+    $password=$_POST['password'];
     // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
     $target_file = $target_dir .$_POST['username'];
     $uploadOk = 1;
@@ -19,49 +24,34 @@ if(count($_POST)>0){
 
     $pw=md5($_POST['password']);
 
-
-$username=$_POST['username'];
-$fname=$_POST['fn'];
-$lname=$_POST['ln'];
-$target_dir = "assets/uploads/";
-
-
     $gendre=$_POST['gender'];
     $con=$_POST['countrey'];
     $sub=$_POST['submit'];
-
-
-// $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
-$target_file = $target_dir .$_POST['email'];
-$uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
-
+     $img=$_SESSION['image'];
     $email=$_POST['email'];
 }
 if(count($_SESSION)>0){
     $username=$_SESSION['username'];
-    $fname=$_SESSION['fn'];
-    $lname=$_SESSION['ln'];
+    //echo "username is : $username";
+    $fname=$_SESSION['fname'];
+    $lname=$_SESSION['lname'];
+     //echo "lastname is : $lname";
     $target_dir = "assets/uploads/";
-
+    $password=$_SESSION['password'];
     // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
     $target_file = $target_dir .$_SESSION['username'];
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
+    $img=$_SESSION['image'];
     $pw=$_SESSION['password'];
 
-    $gendre=$_SESSION['gender'];
-    $con=$_SESSION['countrey'];
+    $gender=$_SESSION['gender'];
+    $con=$_SESSION['country'];
     
 
     $email=$_SESSION['email'];
 }
 
-
-
-$email = $_POST["email"];
 
 
 if(isset($sub)){
@@ -74,15 +64,14 @@ if(isset($sub)){
 		echo" <div class='alert alert-info'>please entre email"."<br/></div>";
 		$GLOBALS['flag']=0;
 	}
- 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
- 	echo" <div class='alert alert-info'>Invalid email format"."<br/></div>";
-}
 	if($lname==''){
 		echo"<div class='alert alert-info'>please entre last name"."<br/></div>";
 		$GLOBALS['flag']=0;
 	}
-
+	if($username==''){
+		echo"<div class='alert alert-info'>please entre username"."<br/></div>";
+		$GLOBALS['flag']=0;
+	}
 	if($pw==''){
 		echo" <div class='alert alert-info'>please entre password"."<br/></div>";
 		$GLOBALS['flag']=0;
@@ -95,17 +84,11 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		echo" <div class='alert alert-info'>please choose country"."<br/></div>";
 		$GLOBALS['flag']=0;
 	}
-
- if(  $uploadOk ==0){
-		echo" <div class='alert alert-info'>upload a picture"."<br/></div>";
-		$GLOBALS['flag']=0;
-	}
-
 	if(isset($_POST['submit'])){
 		if($flag==1){
 			
 			
-			if ($dbm->getUser($email)==""){
+			if ($dbm->getUser($username)==""){
 
 
 
@@ -121,15 +104,15 @@ echo " <div class='container'> ";
        
         $uploadOk = 1;
     } else {
-        echo "<div class='col-md-3'></div> <div class='col-md-6 alert alert-info'>please upload a picture.</div><div class='col-md-3'></div>";
+        echo "<div class='col-md-3'></div> <div class='col-md-6 alert alert-info'>File is not an image.</div><div class='col-md-3'></div>";
         $uploadOk = 0;
     }
 
 // Check if file already exists
-// if (file_exists($target_file)) {
-//     echo " <div class='alert alert-info'>Sorry, file already exists.</div>";
-//     $uploadOk = 0;
-// }
+if (file_exists($target_file)) {
+    echo " <div class='alert alert-info'>Sorry, file already exists.</div>";
+    $uploadOk = 0;
+}
 
 if ($_FILES["fileToUpload"]["size"] > 500000000) {
     echo " <div class='alert alert-info'>Sorry, your file is too large.</div>";
@@ -138,7 +121,7 @@ if ($_FILES["fileToUpload"]["size"] > 500000000) {
 // Allow certain file formats
 // if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 // && $imageFileType != "gif" ) {
-//     echo " <div class='col-md-3'></div> <div class='col-md-6 alert alert-info'>Only jpg,png formats are allowed.</div><div class='col-md-3'></div>";
+//     echo " <div class='alert alert-info'>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</div>";
 //     $uploadOk = 0;
 // }
 // Check if $uploadOk is set to 0 by an error
@@ -170,77 +153,17 @@ if ($uploadOk == 0) {
 				$role="user";
 			
 		
-                if($uploadOk == 1){
-
-
-
-
-
-
-
-
-				$user=new User($fname,$lname,$con,$gendre,$email,$pw,$banned,$pic2,$signature,$role);
+				$user=new User($fname,$lname,$con,$gendre,$username,$pw,$banned,$pic2,$signature,$role);
 				
 				$user->signUp();
-               // the message
-         //  $msg = "dear $fname \n You have succefully registered to the Jaguars' forum \n";
-
-// use wordwrap() if lines are longer than 70 characters
-//$msg = wordwrap($msg,70);
-
-
-
-
-
-
-
-
-// $from = '<jaguarsforum@gmail.com>';
-// $to = "<ameramohiey92@gmail.com>";
-// $subject = 'Registeration!';
-// $body = "Congrats,\n\n dear $fname you have registered successfully to jaguars form?";
-
-// $headers = array(
-//     'From' => $from,
-//     'To' => $to,
-//     'Subject' => $subject
-// );
-
-// $smtp = Mail::factory('smtp', array(
-//         'host' => 'smtp.gmail.com',
-//         'port' => '465',
-//         'auth' => true,
-//         'username' => 'jaguarsforum@gmail.com',
-//         'password' => 'jaguars123'
-//     ));
-
-// $mail = $smtp->send($to, $headers, $body);
-
-// if (PEAR::isError($mail)) {
-//     echo('<p>' . $mail->getMessage() . '</p>');
-// } else {
-//     echo('<p>Message successfully sent!</p>');
-// }
-
-
-
-
-
-
-
-
-
-// send email
-          //  mail("$email","jaguars'forum Registeration",$msg);
-
-
-		//////////////	header("Location: login.php");
+                if($uploadOk == 1){
+			header("Location: login.php");
             }
 			}
 			else {
 				echo '
                  <div class="alert alert-info">
-                <strong>Sorry!</strong> this Email is already registered !.<a href="login.php">sign in ?</a>
+                <strong>Sorry!</strong> username already taken ! please try another one .
 </div>';
 			}
 			
@@ -254,9 +177,9 @@ echo "</div>";
 echo '<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+   <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
    <link href="http://fonts.googleapis.com/css?family=Lobster&subset=all" rel="stylesheet" type="text/css">
-         <link href="assets/css/style.css" rel="stylesheet">
+         <link href="../assets/css/style.css" rel="stylesheet">
 </head>
 <body class="back" >
  <input id="fn" name="sig" id="sig" value="signature"   type="hidden" >
@@ -264,13 +187,13 @@ echo '<html>
    <input id="fn" name="pic" id= "pic" value="pic"  type="hidden">
      <div class="col-md-3"></div>
 <div class="col-md-6 cont" >
-    <div class="page-header " > <h1 style="font-size:28;  text-align: center;"><B>Registeration Form</B></h1>
+    <div class="page-header " > <h1 style="font-size:28;  text-align: center;"><B>Your Profile</B></h1>
     </div>
-    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
+    <form class="form-horizontal" action="home.php" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label class="col-md-4 control-label" for="fn">First name</label>
             <div class="col-md-4">
-                <input id="fn" name="fn" type="text" placeholder="first name" class="form-control input-md" required>
+                <input id="fn" name="fn" type="text" placeholder="first name" class="form-control input-md" '; if(isset($fname)){echo "value=".$fname ;}else{echo "value="." " ;};echo' required >
               <script type="text/javascript">
   document.getElementById("fn").value = "';
 //echo $_POST["fn"];
@@ -281,47 +204,44 @@ echo '"
         <div class="form-group"  >
             <label class="col-md-4 control-label" for="ln">Last name</label>
             <div class="col-md-4">
-                <input id="ln" name="ln" type="text" placeholder="last name" class="form-control input-md" required>
+                <input id="ln" name="ln" type="text" placeholder="z" class="form-control input-md" '; if(isset($lname)){echo "value="."$lname" ;}else{echo "value="." xxx" ;};echo' required >
                               <script type="text/javascript">
-  document.getElementById("ln").value = "';
+  document.getElementById("ln").value = ""';
 //echo $_POST["ln"];
 echo '"
 </script>
  </div>
         </div>
-
         <div class="form-group">
             <label class="col-md-4 control-label" for="username">username</label>
             <div class="col-md-4">
-                <input id="username" name="username" type="text" placeholder="username" class="form-control input-md" required>
-              <script type="text/javascript">
-  document.getElementById("username").value = "';
+                <label >'; if(isset($username)){echo $username ;}else{echo "uuuu " ;};echo'</label>
+              ';
 //echo $_POST["username"];
 echo '"
 </script>
 </div></div>
-
         <div class="form-group">
             <label class="col-md-4 control-label" for="password">password</label>
             <div class="col-md-4">
-                <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required>
+                <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" '; if(isset($password)){echo "value=".$password ;}else{echo "value="." " ;};echo' required>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="email">email</label>
             <div class="col-md-4">
-                <input id="email" name="email" type="" placeholder="email" class="form-control input-md" required>
+                <input id="email" name="email" type="email" placeholder="email" class="form-control input-md" '; if(isset($email)){echo "value=".$email ;}else{echo "value="." " ;};echo' >
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="gender">gender</label>
             <div class="col-md-4">
                 <label class="radio-inline" for="male">
-      <input type="radio" name="gender" id="male" value="male" checked="checked">
+      <input type="radio" name="gender" id="male" value="male"  '; if(isset($_POST['gender']) &&$_POST['gender']=="male" ||$_SESSION['gender']=='male'){echo "checked" ;};echo' >
      male
     </label>
                 <label class="radio-inline" for="female">
-      <input type="radio" name="gender" id="female" value="female">
+      <input type="radio" name="gender" id="female" value="female" '; if(isset($_POST['gender'])&&$_POST['gender']=="female" ||$_SESSION['gender']=='female'){echo "checked" ;};echo' >
      female
     </label>
             </div>
@@ -331,16 +251,22 @@ echo '"
         <div class="form-group">
             <label class="col-md-4 control-label" for="selectbasic">countrey</label>
             <div class="col-md-4">
-                <select id="selectbasic" name="countrey" class="form-control input-md" required>
-      <option>Egypt</option>
-      <option>usa</option>
-      <option>france</option>
-      <option>germany</option>
-    </select>
+                <select id="selectbasic" name="country" class="form-control input-md" required>
+                    <option value="">Select one</option>
+                   <option value="Egypt" ' ; if(isset ($con) && $con=='Egypt'){echo "selected" ;};echo ' >Egypt</option>
+                   <option value="USA" ' ; if(isset ($con) && $con=='USA'){echo "selected" ;};echo ' >USA</option>
+                   <option value="France" ' ; if(isset ($con) && $con=='France'){echo "selected" ;};echo ' >France</option>
+                   <option value="Germany" ' ; if(isset ($con) && $con=='Germany'){echo "selected" ;};echo ' >Germany</option>
+              </select>
            </div>
         </div> 
         
-        
+         <div class="form-group">
+            <label class="col-md-4 control-label" for="">profile img</label>
+            <div class="col-md-2">
+                <img src= "';if(isset($img)){echo "../$img";}; echo '"  class="img-responsive img-thumbnail" alt="profile img" >
+            </div>
+        </div>
          <div class="form-group">
             <label class="col-md-4 control-label" >Upload a Picture</label>
             <div class="col-md-4">
@@ -354,10 +280,10 @@ echo '"
 
         <div class="col-md-4"></div>
         <div class="col-md-4" style="margin-top:5%;margin-bottom:5%">" ';
+ 
+      echo ' "<input type="submit" id="save" name="save" class="btn btn-info " style=" width:100%; font-size:24" value="Save"> </input><div class="col-md-4" "> " ';
   
  
-      echo ' "<input type="submit" id="submit" name="submit" class="btn btn-info " style=" width:100%; font-size:24" value="Register"> </input> "';
-
       
 
 
@@ -393,6 +319,6 @@ echo'
 
 ?>
 </body>
-<script src="assets/js/jquery-3.1.1.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/jquery-3.1.1.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
 </html>

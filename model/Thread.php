@@ -29,7 +29,7 @@ class Thread {
 
 	function __get($field) {
 		return $this->$field;
-	} 
+	}
 
 	function addThread() {
          $this->db->makeQuery(
@@ -47,19 +47,19 @@ class Thread {
 		$this->db->makeQuery("DELETE FROM `thread` where id ='" . $this->id . "'");
 	}
 
-	// function editThread() {
+	function editThread() {
 
-	// 	$this->db->makeQuery("UPDATE thread SET
-	//		`title`='".$this->title."',
-	// 		`description`='".$this->description."',
-	// 		`forum_id`='".$this->forum_id."',
-	// 		`locked` ='".$this->locked."',
-	// 		`user_id`='".$this->user_id."',
-	// 		`sticky`='".$this->sticky."'
-	// 		 WHERE  `id` = '".$this->id."'");
-	// }
+		$this->db->makeQuery("UPDATE thread SET
+			`title`='".$this->title."',
+			`description`='".$this->description."',
+			`forum_id`='".$this->forum_id."',
+			`locked` ='".$this->locked."',
+			`user_id`='".$this->user_id."',
+			`sticky`='".$this->sticky."'
+			 WHERE  `id` = '".$this->id."'");
+	}
 	function updateThread($id,$title,$description) {
-      
+
 		$this->db->makeQuery("UPDATE `thread` SET
 			`title`= '".$title."',
 			`description`='".$description."'

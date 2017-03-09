@@ -148,12 +148,13 @@ echo'
           </div>
         ';
         
-        
-        if(isset($_POST['delete'])){
-          $comment->deleteComment($value["$cid"]);
+         }
+        if(isset($_POST['delete']))
+        {
+          $comment->deleteComment($value[$cid]);
         }
         
-        }
+        
 
 
 

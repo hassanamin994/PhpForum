@@ -48,7 +48,7 @@ class Comment {
 	
 	function deleteComment($id) {
 		
-		$this->db->makeQuery("DELETE FROM `comment` where id =$id");
+		$this->db->makeQuery("DELETE FROM `comment` where id =".$id."");
 	}
 	
 	function editComment( $body,$editby,$id) {
