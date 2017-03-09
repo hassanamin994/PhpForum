@@ -144,12 +144,12 @@ echo '<div class="media">
 echo'
 <div style="float: right;"><a href="editcomment.php?comment_id='.$value["$cid"].'" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
      
-    <button  name="delete" class="btn btn-danger glyphicon glyphicon-trash" >Delete</a></div>
+    <button  name="delete'.$value["$cid"].'" class="btn btn-danger glyphicon glyphicon-trash"  >Delete</a></div>
           </div>
         ';
         
          }
-        if(isset($_POST['delete']))
+        if(isset($_POST['delete'.$value["$cid"].'']))
         {
           $comment->deleteComment($value[$cid]);
         }
