@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once '../init.php';
 
 
@@ -50,6 +50,21 @@ $categories = $db->getAll("category");
 	<div class="col-xs-8 cont" style="padding:25px;">
 
 		<div class="row">
+			<?php
+         if(isset($errors) && !empty($_SESSION['errors'])){
+           echo "<div class='alert alert-warning'>";
+           foreach ($errors as $error){
+             echo $error."<br>" ;
+           }
+           echo "</div>";
+         }
+         if(isset($_SESSION['message'])){
+           echo "<div class='alert alert-success'>";
+           echo $_SESSION['message'];
+           echo "</div><br>";
+           unset($_SESSION['message']);
+         }
+       ?>
 			<table class="table">
 				<thead>
 					<tr>
@@ -84,20 +99,6 @@ $categories = $db->getAll("category");
 					<div class="input-group">
 
 					  <label for="new-category">Category Name: </label><br>
-						<?php
-								if(isset($errors)){
-									echo "<div class='alert alert-warning'>";
-									foreach ($errors as $error){
-										echo $error ;
-									}
-									unset($_SESSION['errors']);
-									echo "</div>";
-								}
-								if(isset($_SESSION['message'])){
-									echo $_SESSION['message'];
-									unset($_SESSION['message']);
-								}
-							?>
 					  <input type="text" class="form-control" id="new-category" aria-describedby="basic-addon3" name="category" required
 						<?php if(isset($_POST['category'])) { echo "value='".$_POST['category']."'" ;}?>
 						>

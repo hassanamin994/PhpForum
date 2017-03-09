@@ -26,7 +26,7 @@ include('./header.php') ;
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="password">password</label>
                                 <div class="col-md-4">
-                                    <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required> 
+                                    <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -38,9 +38,7 @@ include('./header.php') ;
                                     <div class="col-md-4">
                                     </div>
                                     <div class="col-md-4">
-                                    <div class="checkbox">
-                                    <label><input type="checkbox" value="" name="keep" >keep loged in </label>
-                                    </div>
+
                                     <button id="submit" name="submit" class="btn btn-info " style=" width:100%; margin-top: 20%; margin-bottom: 20%;font-size:24 ">login</button>
                                 </div>
                                 <div class="col-md-3"></div>
@@ -50,6 +48,7 @@ include('./header.php') ;
 if(count($_POST)>0){
     $username=$_POST['username'];
         $pw=$_POST['password'];
+
 
         $keep=$_POST['keep'];
         if(isset($_POST['submit']))
@@ -97,6 +96,7 @@ if(count($_POST)>0){
              }
         
            }
+
 
 
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2017 at 06:22 PM
+-- Generation Time: Mar 08, 2017 at 09:35 AM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `last_update` timestamp NULL DEFAULT now() ON UPDATE now()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`id`, `name`, `created_at`, `last_update`) VALUES
 (30, 'test', '2017-03-05 16:34:29', NULL),
-(31, 'yee', '2017-03-05 18:23:35', '2017-03-07 12:58:08');
+(31, 'yeesaa', '2017-03-05 18:23:35', '2017-03-07 17:59:27');
 
 -- --------------------------------------------------------
 
@@ -52,8 +52,8 @@ CREATE TABLE `comment` (
   `user_id` int(11) NOT NULL,
   `thread_id` int(11) NOT NULL,
   `body` text NOT NULL,
-   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `last_update` timestamp NULL DEFAULT now() ON UPDATE now()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -67,8 +67,8 @@ CREATE TABLE `forum` (
   `name` varchar(20) NOT NULL,
   `locked` int(11) NOT NULL DEFAULT '0',
   `category_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `last_update` timestamp NULL DEFAULT now() ON UPDATE now()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -76,7 +76,8 @@ CREATE TABLE `forum` (
 --
 
 INSERT INTO `forum` (`id`, `name`, `locked`, `category_id`, `created_at`, `last_update`) VALUES
-(10, 'ttsss', 0, 31, '2017-03-05 19:42:26', '2017-03-06 09:35:04');
+(10, 'ttsss', 1, 31, '2017-03-05 19:42:26', '2017-03-07 17:56:27'),
+(12, 'updated', 0, 31, '2017-03-07 18:52:21', '2017-03-07 19:14:35');
 
 -- --------------------------------------------------------
 
@@ -92,9 +93,22 @@ CREATE TABLE `thread` (
   `forum_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `sticky` int(11) NOT NULL DEFAULT '0',
-   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `last_update` timestamp NULL DEFAULT now() ON UPDATE now()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `edit_by` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `thread`
+--
+
+INSERT INTO `thread` (`id`, `title`, `description`, `locked`, `forum_id`, `user_id`, `sticky`, `created_at`, `last_update`, `edit_by`) VALUES
+(3, 'asdasd', 'asdasd', 1, 10, 2, 0, '2017-03-07 21:29:12', '2017-03-07 22:13:20', ''),
+(5, 'asdas', 'asdasd', 0, 10, 2, 0, '2017-03-07 22:12:26', '2017-03-07 22:13:27', ''),
+(6, 'asdas', 'asdasd', 0, 10, 2, 1, '2017-03-07 22:12:29', '2017-03-07 22:13:19', ''),
+(7, 'asdas', 'asdasd', 1, 10, 2, 0, '2017-03-07 22:13:01', '2017-03-07 22:13:18', ''),
+(8, 'asdas', 'updated', 0, 12, 2, 0, '2017-03-07 22:13:03', '2017-03-07 22:40:53', ''),
+(9, 'asdasda', 'asda', 0, 10, 2, 0, '2017-03-07 22:23:09', '2017-03-08 07:25:15', '');
 
 -- --------------------------------------------------------
 
@@ -114,8 +128,8 @@ CREATE TABLE `user` (
   `image` text NOT NULL,
   `signature` text NOT NULL,
   `role` varchar(10) NOT NULL DEFAULT 'user',
-   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `last_update` timestamp NULL DEFAULT now() ON UPDATE now()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -123,12 +137,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `fname`, `lname`, `gender`, `country`, `banned`, `image`, `signature`, `role`, `created_at`, `last_update`) VALUES
-(2, 'asdasd', 'asdasd', 'asdasd', 'asdasd', 'male', 'Egypt', 0, 'asdaasd', 'asdasd', 'user', '2017-03-05 21:35:56', '2017-03-07 12:09:29');
-
-
-ALTER TABLE `user` ADD `status` SET('0','1') NOT NULL DEFAULT '0' AFTER `last_update`;
-
-
+(2, 'asdasd', 'asdasd', 'asdasd', 'asdasd', 'male', 'Egypt', 1, 'asdaasd', 'asdasd', 'user', '2017-03-05 21:35:56', '2017-03-07 22:54:00');
 
 --
 -- Indexes for dumped tables
@@ -177,7 +186,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `comment`
 --
@@ -187,17 +196,17 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `forum`
 --
 ALTER TABLE `forum`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `thread`
 --
 ALTER TABLE `thread`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
