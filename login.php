@@ -1,9 +1,7 @@
             <?php
 
-session_start();
-require_once 'model/User.php';
-require_once 'model/DBManager.php';
-include('header.php') ;
+include './main.php';
+include('./header.php') ;
 
 ?>
             <html>
@@ -66,15 +64,26 @@ if(count($_POST)>0){
                 if($user->signIn($username,$pw))  {
 
                         if($user->isAdmin($username))
-                                {
-                    $_SESSION['user']=$username;
-                                $_SESSION['role']="admin";
+                            {
+                                $target=new UserHandeller();
+                                $info=$target->selectBy("username", $username);
+                                foreach ($info as $key => $value) {
+                                    $_SESSION[$key]=$value;
+                                }
+//                                $_SESSION['user']=$username;
+//                                $_SESSION['role']="admin";
 
                                 header("location: admin/forums.php ");
                         }
                         else {
-                                $_SESSION['user']=$username;
-                                $_SESSION['role']="user";
+                            
+                                $target=new UserHandeller();
+                                $info=$target->selectBy("username", $username);
+                                foreach ($info as $key => $value) {
+                                    $_SESSION[$key]=$value;
+                                }
+//                                $_SESSION['user']=$username;
+//                                $_SESSION['role']="user";
                                 header("location: forum.php ");
                         }
 
