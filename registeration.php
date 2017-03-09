@@ -3,10 +3,11 @@ require_once 'model/User.php';
 require_once 'model/DBManager.php';
 include('header.php') ;
 
+// require_once "Mail.php";
 $flag=1;
 $dbm= new DBManager;
 
-$username=$_POST['username'];
+//$username=$_POST['username'];
 $fname=$_POST['fn'];
 $lname=$_POST['ln'];
 $target_dir = "assets/uploads/";
@@ -144,13 +145,55 @@ if ($uploadOk == 0) {
 				
 				$user->signUp();
                // the message
-           $msg = "dear $fname \n You have succefully registered to the Jaguars' forum \n";
+         //  $msg = "dear $fname \n You have succefully registered to the Jaguars' forum \n";
 
 // use wordwrap() if lines are longer than 70 characters
 //$msg = wordwrap($msg,70);
 
+
+
+
+
+
+
+
+// $from = '<jaguarsforum@gmail.com>';
+// $to = "<ameramohiey92@gmail.com>";
+// $subject = 'Registeration!';
+// $body = "Congrats,\n\n dear $fname you have registered successfully to jaguars form?";
+
+// $headers = array(
+//     'From' => $from,
+//     'To' => $to,
+//     'Subject' => $subject
+// );
+
+// $smtp = Mail::factory('smtp', array(
+//         'host' => 'smtp.gmail.com',
+//         'port' => '465',
+//         'auth' => true,
+//         'username' => 'jaguarsforum@gmail.com',
+//         'password' => 'jaguars123'
+//     ));
+
+// $mail = $smtp->send($to, $headers, $body);
+
+// if (PEAR::isError($mail)) {
+//     echo('<p>' . $mail->getMessage() . '</p>');
+// } else {
+//     echo('<p>Message successfully sent!</p>');
+// }
+
+
+
+
+
+
+
+
+
 // send email
-            mail("$email","jaguars'forum Registeration",$msg);
+          //  mail("$email","jaguars'forum Registeration",$msg);
 
 
 		//////////////	header("Location: login.php");

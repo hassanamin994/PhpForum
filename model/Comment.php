@@ -27,27 +27,55 @@ class Comment {
 	
 	function addComment() {
 		// 		validate that the category name doesnt exist !!
-         $this->db->makeQuery(
-         	"INSERT into comment VALUES(
+		         $this->db->makeQuery(
+		         	"INSERT into comment VALUES(
          	null,
          	'".$this->user_id."',
          	'".$this->thread_id."',
          	'".$this->body."',
-         	 null,null)");
+         	 null,null,null)");
+	}
+	function addCommentuser($user_id,$thread_id,$body) {
+		// 		validate that the category name doesnt exist !!
+		         $this->db->makeQuery(
+		         	"INSERT into comment VALUES(
+         	null,
+         	'".$user_id."',
+         	'".$thread_id."',
+         	'".$body."',
+         	 null,null,0)");
 	}
 	
-	function deleteComment() {
+	function deleteComment($id) {
 		
-		$this->db->makeQuery("DELETE FROM `comment` where id ='" . $this->id . "'");
+		$this->db->makeQuery("DELETE FROM `comment` where id =$id");
 	}
 	
-	function editComment() {
+	function editComment( $body,$editby,$id) {
 		
 		$this->db->makeQuery("UPDATE comment SET 
-			`body`='".$this->body."',
-			`thread_id`='".$this->thread_id."',
-			`user_id`='".$this->user_id."'
-			 WHERE  `id` = '".$this->id."'");
+			`body`='".$body."',
+			`edit_by`='".$editby."'
+			 WHERE  `id` = '".$id."'");
+	}
+	function getAllComments($thread_id) {
+		
+		
+		// 		$r=$this->db->makeQuery("SELECT * FROM `comment` WHERE `thread_id`=$thread_id");
+		$r=$this->db->makeQuery("SELECT comment.id as cid,user.id as uid,thread_id,image,fname,lname,username,body,comment.created_at ,comment.last_update FROM `comment`,`user` WHERE `thread_id`=$thread_id and `user_id`=user.id");
+		return $r;
+	}
+	function getcommentbyid($id) {
+		
+		
+		$r=$this->db->makeQuery("SELECT * FROM `comment` WHERE `id`=$id");
+		return $r;
+	}
+	function getcommentbody($id) {
+		
+		
+		$r=$this->db->makeQuery("SELECT body FROM `comment` WHERE `id`=$id");
+		return $r;
 	}
 }
 
