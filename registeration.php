@@ -10,7 +10,7 @@ if(count($_POST)>0){
   
     $fname=$_POST['fn'];
     $lname=$_POST['ln'];
-    $target_dir = "assets/uploads/";
+    $target_dir = "../assets/uploads/";
 
     // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
     $target_file = $target_dir .$_POST['email'];
@@ -38,6 +38,7 @@ $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
     $email=$_POST['email'];
 }
+
 if(count($_SESSION)>0){
 
     $fname=$_SESSION['fn'];
@@ -49,18 +50,15 @@ if(count($_SESSION)>0){
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-    $pw=$_SESSION['password'];
 
-    $gendre=$_SESSION['gender'];
-    $con=$_SESSION['countrey'];
-    
 
-    $email=$_SESSION['email'];
-}
+
+
 
 
 
 $email = $_POST["email"];
+
 
 
 if(isset($sub)){
@@ -377,7 +375,7 @@ echo'
 
 
 
-
+}
 
 
 

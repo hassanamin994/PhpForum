@@ -8,6 +8,7 @@
 include '../main.php';
 include('../header.php') ;
 $category=new CategoryHandeller();
+var_dump($category);
 $numOfForums=$category->getCount();
 
 $flag=0;
