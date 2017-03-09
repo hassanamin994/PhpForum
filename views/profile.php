@@ -15,7 +15,7 @@ if(count($_POST)>0){
     $username=$_POST['username'];
     $fname=$_POST['fn'];
     $lname=$_POST['ln'];
-    $target_dir = "assets/uploads/";
+    $target_dir = "../assets/uploads/";
     $password=$_POST['password'];
     // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
     $target_file = $target_dir .$_POST['username'];
