@@ -24,6 +24,7 @@ class DBHandeller {
             $this->dsn = 'mysql:host='.HOST.';dbname='.DB_NAME; 
             $this->db = new PDO($this->dsn,DB_USERNAME,DB_PASSWORD);
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+           
 
     }
     
@@ -159,7 +160,7 @@ class DBHandeller {
 //        
 //    }
     
-    function getCount(){
+  public  function getCount(){
         $query1 = "SELECT count($this->table.id) as NumOfChildren FROM  $this->table ";
         $prep1 = $this->db->prepare($query1);
         $prep1->execute();
@@ -168,4 +169,9 @@ class DBHandeller {
         return $result;
     }
     
+    public function  hi()
+    
+    {
+        return "hi";
+    }
 }

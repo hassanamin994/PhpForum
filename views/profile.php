@@ -3,6 +3,8 @@
 include '../main.php';
 include('../header.php') ;
 var_dump($_SESSION);
+ echo "psot ====>";
+    var_dump($_POST);
 //require_once 'model/User.php';
 //require_once 'model/DBManager.php';
 //include('header.php') ;
@@ -11,23 +13,25 @@ $edit=0;
 $flag=1;
 $dbm= new DBManager;
 if(count($_POST)>0){
+    echo "psot ====>";
+    var_dump($_POST);
     $edit=1;
-    $username=$_POST['username'];
+    $username=$_SESSION['username'];
     $fname=$_POST['fn'];
     $lname=$_POST['ln'];
-    $target_dir = "assets/uploads/";
+    $target_dir = "../assets/uploads/";
     $password=$_POST['password'];
     // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
-    $target_file = $target_dir .$_POST['username'];
+    $target_file = $target_dir .$_SESSION['username'];
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
     $pw=md5($_POST['password']);
 
     $gendre=$_POST['gender'];
-    $con=$_POST['countrey'];
-    $sub=$_POST['submit'];
-     $img=$_SESSION['image'];
+    $con=$_POST['country'];
+    $sub=$_POST['save'];
+    $img=$_FILES["fileToUpload"]["name"];
     $email=$_POST['email'];
 }
 if(count($_SESSION)>0){
@@ -84,11 +88,11 @@ if(isset($sub)){
 		echo" <div class='alert alert-info'>please choose country"."<br/></div>";
 		$GLOBALS['flag']=0;
 	}
-	if(isset($_POST['submit'])){
+	if(isset($_POST['save'])){
 		if($flag==1){
 			
 			
-			if ($dbm->getUser($username)==""){
+	if ($dbm->getUser($username)!=""){
 
 
 
@@ -145,19 +149,23 @@ if ($uploadOk == 0) {
 
 
 
-
+                            
 
 				$banned=0;
-				
+				echo"-->";
 				$signature="sig";
 				$role="user";
-			
-		
-				$user=new User($fname,$lname,$con,$gendre,$username,$pw,$banned,$pic2,$signature,$role);
+                                $key=['id'=>$_SESSION['id']];
+                                $data=['username'=>$username,'password'=>$password,'email'=>$email,'fname'=>$fn,'lname'=>$ln,'gender'=>$gender,'country'=>$con,'banned'=>$banned,'image'=>$pic2,'signature'=>$signature,'role'=>$_SESSION['role'],''];
+				var_dump($data);
+                                $user=new UserHandeller();
+				$user->update($key, $data);
 				
-				$user->signUp();
                 if($uploadOk == 1){
-			header("Location: login.php");
+                    echo"ok";
+                    
+			header("Location: profile.php");
+                        var_dump($data);
             }
 			}
 			else {
@@ -189,7 +197,7 @@ echo '<html>
 <div class="col-md-6 cont" >
     <div class="page-header " > <h1 style="font-size:28;  text-align: center;"><B>Your Profile</B></h1>
     </div>
-    <form class="form-horizontal" action="home.php" method="POST" enctype="multipart/form-data">
+    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label class="col-md-4 control-label" for="fn">First name</label>
             <div class="col-md-4">
@@ -271,7 +279,7 @@ echo '"
             <label class="col-md-4 control-label" >Upload a Picture</label>
             <div class="col-md-4">
               
-      <input type="file" name="fileToUpload" id="fileToUpload" ></input>
+            <input type="file" name="fileToUpload" id="fileToUpload"  ></input>
    
    
              
