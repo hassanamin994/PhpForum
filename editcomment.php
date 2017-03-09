@@ -2,18 +2,22 @@
 session_start();
 include ('main.php');
 include('header.php') ;
-// $id=$_REQUEST['edit_comment_id'];
-$id=1;
-$comment=new CommentHandeller;
-$arr=$comment->getTree($id);
+$session['fname']="amira";
+$id=$_REQUEST['comment_id'];
+//$id=1;
+$cid="id";
+$comment=new Comment;
+$arr2=$comment->getcommentbody($id);
+// $arr=getcommentbyid($id);
 
-if(empty($arr)){
+
+if(!$comment->getcommentbyid($id)){
 	echo" <div class='alert alert-danger'>invalid page<br/></div>";
 }
 else {
-	$comment_owner=$arr[0]['owner'];
-	if ($_SESSION['role']=='admin'||$_SESSION['user']==$comment_owner)
-	{
+	//$comment_owner=$arr[0]['owner'];
+	// if ($_SESSION['role']=='admin'||$_SESSION['user']==$comment_owner)
+	// {
 		echo'
 <html>
     <head>
@@ -27,7 +31,7 @@ else {
    <div class="form-group">
   <h2>Edit Your Comment :</h2>
  
- <label>description</label> <textarea   class="form-control" rows="3" id="description"  value =""style="resize: none" required>'.$arr[0]['description'].'</textarea>
+ <label>description</label> <textarea  name="comment" class="form-control" rows="3" id="description"  value =""style="resize: none" required>'.$arr2[0]['body'].'</textarea>
 </div>
 <div>
 <button name="submit" class="btn btn-info" style="display: block; width: 100%;">Done</button>
@@ -40,16 +44,17 @@ else {
     </body>
 </html>
 ';
-	}
-	else{
+	// }
+	// else{
 		
 		
-		echo" <div class='alert alert-danger'>You are not allowed to edit this post<br/></div>";
-	}
+	// 	echo" <div class='alert alert-danger'>You are not allowed to edit this post<br/></div>";
+	// }
 }
 
 if(isset($_POST['submit']))
 {
+$comment->editComment( $_POST['comment'],$session['fname'],$id);
 
 // header("location: forum.php");
 

@@ -3,25 +3,32 @@ include './main.php';
 include('./header.php') ;
 
 
+// require_once "Mail.php";
 $flag=1;
 $dbm= new DBManager;
 if(count($_POST)>0){
-    $username=$_POST['username'];
+  
     $fname=$_POST['fn'];
     $lname=$_POST['ln'];
     $target_dir = "../assets/uploads/";
 
     // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
-    $target_file = $target_dir .$_POST['username'];
+    $target_file = $target_dir .$_POST['email'];
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
     $pw=md5($_POST['password']);
 
 
+$fname=$_POST['fn'];
+$lname=$_POST['ln'];
+$target_dir = "assets/uploads/";
+
+
     $gendre=$_POST['gender'];
     $con=$_POST['countrey'];
     $sub=$_POST['submit'];
+
 
 // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
 $target_file = $target_dir .$_POST['email'];
@@ -32,9 +39,25 @@ $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
     $email=$_POST['email'];
 }
 
+if(count($_SESSION)>0){
+
+    $fname=$_SESSION['fn'];
+    $lname=$_SESSION['ln'];
+    $target_dir = "assets/uploads/";
+
+    // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
+    $target_file = $target_dir .$_SESSION['email'];
+    $uploadOk = 1;
+    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
 
 
+
+
+
+
+
+$email = $_POST["email"];
 
 
 
@@ -157,16 +180,58 @@ if ($uploadOk == 0) {
 				
 				$user->signUp();
                // the message
-           $msg = "dear $fname \n You have succefully registered to the Jaguars' forum \n";
+         //  $msg = "dear $fname \n You have succefully registered to the Jaguars' forum \n";
 
 // use wordwrap() if lines are longer than 70 characters
 //$msg = wordwrap($msg,70);
 
+
+
+
+
+
+
+
+// $from = '<jaguarsforum@gmail.com>';
+// $to = "<ameramohiey92@gmail.com>";
+// $subject = 'Registeration!';
+// $body = "Congrats,\n\n dear $fname you have registered successfully to jaguars form?";
+
+// $headers = array(
+//     'From' => $from,
+//     'To' => $to,
+//     'Subject' => $subject
+// );
+
+// $smtp = Mail::factory('smtp', array(
+//         'host' => 'smtp.gmail.com',
+//         'port' => '465',
+//         'auth' => true,
+//         'username' => 'jaguarsforum@gmail.com',
+//         'password' => 'jaguars123'
+//     ));
+
+// $mail = $smtp->send($to, $headers, $body);
+
+// if (PEAR::isError($mail)) {
+//     echo('<p>' . $mail->getMessage() . '</p>');
+// } else {
+//     echo('<p>Message successfully sent!</p>');
+// }
+
+
+
+
+
+
+
+
+
 // send email
-            mail("$email","jaguars'forum Registeration",$msg);
+          //  mail("$email","jaguars'forum Registeration",$msg);
 
 
-		//////////////	header("Location: login.php");
+			header("Location: login.php");
             }
 			}
 			else {
@@ -221,20 +286,9 @@ echo '"
 </script>
  </div>
         </div>
-<<<<<<< HEAD
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="username">username</label>
-            <div class="col-md-4">
-                <input id="username" name="username" type="text" placeholder="username" class="form-control input-md" required>
-              <script type="text/javascript">
-  document.getElementById("username").value = "';
-//echo $_POST["username"];
-echo '"
-</script>
-</div></div>
-=======
-     
->>>>>>> 4b80be55c750b83f5ef62300d2673505268539b3
+
+       
+
         <div class="form-group">
             <label class="col-md-4 control-label" for="password">password</label>
             <div class="col-md-4">
@@ -287,16 +341,16 @@ echo '"
         </div>
 
         <div class="col-md-4"></div>
-        <div class="col-md-4" style="margin-top:5%;margin-bottom:5%">" ';
+        <div class="col-md-4" style="margin-top:5%;margin-bottom:5%"> ';
   
  
-      echo ' "<input type="submit" id="submit" name="submit" class="btn btn-info " style=" width:100%; font-size:24" value="Register"> </input> "';
+      echo ' <input type="submit" id="submit" name="submit" class="btn btn-info " style=" width:100%; font-size:24" value="Register"> </input> ';
 
       
 
 
 
-echo ' "</div>
+echo ' </div>
     <div class="col-md-4"></div>
         <br/>
         </div>
@@ -321,7 +375,7 @@ echo'
 
 
 
-
+}
 
 
 

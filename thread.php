@@ -1,9 +1,10 @@
 
 <?php 
-include ('main.php');
-include('header.php') ;
+include_once('main.php');
+include_once('header.php') ;
+include_once('model/Thread.php');
 session_start();
-
+$_SESSION['user_id']="1";
 
 
 // $thread_id=$_REQUEST['thread_id'];
@@ -11,33 +12,34 @@ $thread_id=1;
 echo $thread_id;
 $thread=new ThreadHandeller;
 $arr=$thread->getTree($thread_id);
-foreach ($arr as $key => $value) {
-    echo "Key: $key; Value: <br/>";
+// foreach ($arr as $key => $value) {
+//     echo "Key: $key; Value: <br/>";
 
-foreach ($value as $key2 => $value2) {
-    echo "Key: $key2; Value: $value2 <br/>";
-}
+// foreach ($value as $key2 => $value2) {
+//     echo "Key: $key2; Value: $value2 <br/>";
+// }
 
-}
+// }
 
 echo $arr[0]['owner'];
 
 
-// Key: forum_name; Value: my forum
-// Key: thread_id; Value: 1
-// Key: thread_name; Value: my thread name
-// Key: thread_title; Value: my thread title
-// Key: ownerId; Value: 1
-// Key: owner; Value: root
-// Key: image; Value:
-// Key: date; Value: 2017-03-07 22:21:05
-// Key: numOfComments; Value: 0
+
+
+
+$comment=new Comment;
+
+
+if(isset($_POST['add'])){
+$comment->addcommentUser($_SESSION['user_id'],$thread_id,$_POST['co']);
+header("Refresh:0");
 
 
 
 
 
 
+}
 
 
 
@@ -49,7 +51,7 @@ echo'
         <link href="assets/css/style.css" rel="stylesheet">
     </head>
     <body class="back">
-    <form>
+    <form method="POST" action ="">
         <div class="col-md-1"></div>
         <div class="col-md-10 cont">
 
@@ -94,51 +96,83 @@ echo'
  <div class="form-group">
   <!--<label for="comment">Add Comment</label>-->';
 if($_SESSION['user']!=""){
- echo' <textarea class="form-control" rows="2" id="comment" style="resize: none"></textarea>
+ echo' <textarea name= "co"class="form-control" rows="2" id="comment" style="resize: none"></textarea>
   </div>
   <div  style="float: right;">
-  <button class="btn btn-info"  >Add Comment</button>
+  <button name="add"  class="btn btn-info" id="add" >Add Comment</button>
 </div> </div>';}
 
-echo'
-
-<!--nested-->
 
 
-<div class="media">
+//<!--nested-->
+
+
+$fname="fname";
+$last="last_update";
+$created_at="created_at";
+$userid="uid";
+$im="image";
+$role="role";
+$body="body";
+$edit="edit_by";
+$username="username";
+$cid="cid";
+
+
+$comments=$comment->getAllComments($thread_id);
+foreach ($comments as $key => $value) {
+  echo"commentid is  $value[$cid]<br/>"; 
+  
+
+
+
+echo '<div class="media">
 
         <div class="media-left">
-          <img src="assets/uploads/female1.png" class="media-object" style="width:45px">
+          <img src='."$value[$im]".' class="media-object" style="width:45px">
         </div>
         <div class="media-body">
-          <h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-<div style="float: right;"><a href="" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
-     
-    <a href="" class="btn btn-danger glyphicon glyphicon-trash" >Delete</a></div>
-          </div>
-        </div>
-      <!--</div>-->
-
-<!---->
-
-<!--end of nested 1-->
-<div class="media">
-
-        <div class="media-left">
-          <img src="assets/uploads/female2.png" class="media-object" style="width:45px">
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-<div style="float: right"><a href="" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
-     
-    <a href="" class="btn btn-danger glyphicon glyphicon-trash">Delete</a></div>
-          </div>
+          <h4 class="media-heading">'."$value[$fname]".'';
+        if($value[$last]==""){  
+          echo '<small><i> Posted on '."$value[$created_at]".'</i></small></h4>';}
+         else {  
+          echo '<small><i> Last updated on '."$value[$last]".' By :'."$value[$edit]".' </i></small></h4>';}
           
-        </div>
-      </div>
+         echo' <p>'."$value[$body]".'</p> </div>';
+
+         if($_SESSION['user_id']==$value[$userid]||$_SESSION['role']=='admin'){
+echo'
+<div style="float: right;"><a href="editcomment.php?comment_id='.$value["$cid"].'" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
+     
+    <button  name="delete'.$value["$cid"].'" class="btn btn-danger glyphicon glyphicon-trash"  >Delete</a></div>
+          </div>
+        ';
+        
+         }
+        if(isset($_POST['delete'.$value["$cid"].'']))
+        {
+          $comment->deleteComment($value[$cid]);
+        }
+        
+        
+
+
+
+
+}
+// }
+
+
+
+
+
+
+
+
+
+     echo' <!--</div>-->
+
+
 <!--end of nested 2-->
 
        </div>
@@ -149,6 +183,7 @@ echo'
         <script src="assets/js/bootstrap.min.js"></script>
     </body>
 </html>
-;'
+';
+
 
 ?>
