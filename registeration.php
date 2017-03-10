@@ -6,7 +6,7 @@ include('./header.php') ;
 // require_once "Mail.php";
 $flag=1;
 $dbm= new DBManager;
-if(count($_POST)>0){
+
   
     $fname=$_POST['fn'];
     $lname=$_POST['ln'];
@@ -37,27 +37,8 @@ $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
 
     $email=$_POST['email'];
-}
-
-if(count($_SESSION)>0){
-
-    $fname=$_SESSION['fn'];
-    $lname=$_SESSION['ln'];
-    $target_dir = "assets/uploads/";
-
-    // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
-    $target_file = $target_dir .$_SESSION['email'];
-    $uploadOk = 1;
-    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
 
-
-
-
-
-
-
-$email = $_POST["email"];
 
 
 
@@ -146,7 +127,7 @@ if ($uploadOk == 0) {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
        
      
-	echo "target".$target_file;
+	
     $pic2=$target_file;
    
 
@@ -270,7 +251,7 @@ echo '<html>
                 <input id="fn" name="fn" type="text" placeholder="first name" class="form-control input-md" required>
               <script type="text/javascript">
   document.getElementById("fn").value = "';
-//echo $_POST["fn"];
+echo $_POST["fn"];
 echo '"
 </script>
             </div>
@@ -281,7 +262,7 @@ echo '"
                 <input id="ln" name="ln" type="text" placeholder="last name" class="form-control input-md" required>
                               <script type="text/javascript">
   document.getElementById("ln").value = "';
-//echo $_POST["ln"];
+echo $_POST["ln"];
 echo '"
 </script>
  </div>
@@ -299,7 +280,13 @@ echo '"
             <label class="col-md-4 control-label" for="email">email</label>
             <div class="col-md-4">
                 <input id="email" name="email" type="" placeholder="email" class="form-control input-md" required>
+            <script type="text/javascript">
+  document.getElementById("email").value = "';
+echo $_POST["email"];
+echo '"
+</script>
             </div>
+
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="gender">gender</label>
@@ -375,7 +362,7 @@ echo'
 
 
 
-}
+
 
 
 

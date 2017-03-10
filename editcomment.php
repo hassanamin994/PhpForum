@@ -2,9 +2,8 @@
 session_start();
 include ('main.php');
 include('header.php') ;
-$session['fname']="amira";
+
 $id=$_REQUEST['comment_id'];
-//$id=1;
 $cid="id";
 $comment=new Comment;
 $arr2=$comment->getcommentbody($id);
@@ -14,9 +13,10 @@ $arr2=$comment->getcommentbody($id);
 if(!$comment->getcommentbyid($id)){
 	echo" <div class='alert alert-danger'>invalid page<br/></div>";
 }
-else {
+else 
+{
 	//$comment_owner=$arr[0]['owner'];
-	// if ($_SESSION['role']=='admin'||$_SESSION['user']==$comment_owner)
+	// if ($_SESSION['role']=='admin'||$_SESSION['username']==$comment_owner)
 	// {
 		echo'
 <html>
@@ -55,7 +55,7 @@ else {
 if(isset($_POST['submit']))
 {
 $comment->editComment( $_POST['comment'],$session['fname'],$id);
-
+echo" <div class='alert alert-info'>your changes have been saved <br/></div>";
 // header("location: forum.php");
 
 }

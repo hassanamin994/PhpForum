@@ -13,7 +13,7 @@ if(empty($arr)){
 }
 else {
 	$thread_owner=$arr[0]['owner'];
-	if ($_SESSION['role']=='admin'||$_SESSION['user']==$thread_owner)
+	if ($_SESSION['role']=='admin'||$_SESSION['username']==$thread_owner)
 		{
 		echo'
 <html>
@@ -27,8 +27,8 @@ else {
         <div class="col-md-10 cont">
    <div class="form-group">
   <h2>Edit Your thread </h2>
- <label>Title</label> <textarea   class="form-control" rows="2" name="title"  value =""style="resize: none" required>'.$arr[0]['thread_title'].'</textarea>
- <label>description</label> <textarea   class="form-control" rows="7" name="description"  value =""style="resize: none" required>'.$arr[0]['description'].'</textarea>
+ <label>Title</label> <textarea   class="form-control" rows="2" name="title" id="title" style="resize: none" required>'.$arr[0]['thread_title'].'</textarea>
+ <label>description</label> <textarea   class="form-control" rows="7" id="description"  name="description"  style="resize: none" required>'.$arr[0]['description'].'</textarea>
 </div>
 <div>
 <button name="submit" class="btn btn-info" style="display: block; width: 100%;">Done</button>';
@@ -38,9 +38,20 @@ if(isset($_POST['submit']))
 {
 	if($_POST['title']!="" &&$_POST['description']!= "")
     {$th=new Thread;
-	echo "test".$_POST['title'],$_POST['description'];
+	//echo "test".$_POST['title'],$_POST['description'];
 	
 	$th->updateThread('1',$_POST['title'],$_POST['description']);
+
+
+  echo '<script type="text/javascript">
+  document.getElementById("title").value = "';echo $_POST['title'];echo'" 
+      
+  </script>';
+ 
+
+ echo '<script type="text/javascript">
+  document.getElementById("description").value = "'; echo $_POST['description'];echo'"</script>';
+echo" <div class='alert alert-info'>your changes have been saved<br/></div>";
     }
 	else {echo" <div class='alert alert-danger'>you can't leave the thread empty<br/></div>";}
 	// 	header("location: forum.php");

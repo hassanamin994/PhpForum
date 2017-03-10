@@ -4,12 +4,12 @@ include_once('main.php');
 include_once('header.php') ;
 include_once('model/Thread.php');
 session_start();
-$_SESSION['user_id']="1";
+//$_SESSION['id']="1";
 
 
 // $thread_id=$_REQUEST['thread_id'];
 $thread_id=1;
-echo $thread_id;
+
 $thread=new ThreadHandeller;
 $arr=$thread->getTree($thread_id);
 // foreach ($arr as $key => $value) {
@@ -21,7 +21,7 @@ $arr=$thread->getTree($thread_id);
 
 // }
 
-echo $arr[0]['owner'];
+
 
 
 
@@ -31,7 +31,7 @@ $comment=new Comment;
 
 
 if(isset($_POST['add'])){
-$comment->addcommentUser($_SESSION['user_id'],$thread_id,$_POST['co']);
+$comment->addcommentUser($_SESSION['id'],$thread_id,$_POST['co']);
 header("Refresh:0");
 
 
@@ -79,7 +79,7 @@ echo'
    '.$arr[0]['description'].'
       <!--<h4 class="media-heading">Media Top</h4>-->
       <!--</div>-->';
-if($arr[0]['owner']==$_SESSION['user']||$_SESSION['role']=='admin')
+if($arr[0]['owner']==$_SESSION['username']||$_SESSION['role']=='admin')
 {   echo '<div style="float: right">  <a href="editthread.php?edit_thread_id='.$arr[0]['thread_id'].'" class="btn btn-default glyphicon glyphicon-edit">Edit</a></div>';}
     
 
@@ -95,7 +95,7 @@ echo'
 
  <div class="form-group">
   <!--<label for="comment">Add Comment</label>-->';
-if($_SESSION['user']!=""){
+if($_SESSION['username']!=""){
  echo' <textarea name= "co"class="form-control" rows="2" id="comment" style="resize: none"></textarea>
   </div>
   <div  style="float: right;">
@@ -121,7 +121,7 @@ $cid="cid";
 
 $comments=$comment->getAllComments($thread_id);
 foreach ($comments as $key => $value) {
-  echo"commentid is  $value[$cid]<br/>"; 
+
   
 
 
@@ -140,7 +140,7 @@ echo '<div class="media">
           
          echo' <p>'."$value[$body]".'</p> </div>';
 
-         if($_SESSION['user_id']==$value[$userid]||$_SESSION['role']=='admin'){
+         if($_SESSION['id']==$value[$userid]||$_SESSION['role']=='admin'){
 echo'
 <div style="float: right;"><a href="editcomment.php?comment_id='.$value["$cid"].'" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
      
@@ -152,6 +152,7 @@ echo'
         if(isset($_POST['delete'.$value["$cid"].'']))
         {
           $comment->deleteComment($value[$cid]);
+          header("refresh:0");
         }
         
         
