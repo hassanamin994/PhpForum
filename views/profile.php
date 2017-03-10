@@ -150,13 +150,13 @@ if ($uploadOk == 0) {
 
 
                             
-
+                $username="a@a.a";
 				$banned=0;
 				echo"-->";
 				$signature="sig";
 				$role="user";
                                 $key=['id'=>$_SESSION['id']];
-                                $data=['username'=>$username,'password'=>$password,'email'=>$email,'fname'=>$fn,'lname'=>$ln,'gender'=>$gender,'country'=>$con,'banned'=>$banned,'image'=>$pic2,'signature'=>$signature,'role'=>$_SESSION['role'],''];
+                                $data=['username'=>$username,'password'=>$password,'fname'=>$fn,'lname'=>$ln,'gender'=>$gender,'country'=>$con,'banned'=>$banned,'image'=>$pic2,'signature'=>$signature,'role'=>$_SESSION['role'],''];
 				var_dump($data);
                                 $user=new UserHandeller();
 				$user->update($key, $data);
@@ -164,7 +164,7 @@ if ($uploadOk == 0) {
                 if($uploadOk == 1){
                     echo"ok";
                     
-			header("Location: profile.php");
+			//header("Location: profile.php");
                         var_dump($data);
             }
 			}

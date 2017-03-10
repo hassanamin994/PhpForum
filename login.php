@@ -12,7 +12,7 @@ include('./header.php') ;
                 <link href="assets/css/style.css" rel="stylesheet">
             </head>
             <body class="back">
-                <!--<a class= "btn btn-danger"> BTN </a>-->
+            
                 <div class="col-md-3"></div>
                 <div class="col-md-6 cont" >
                 <div class="page-header" ><h1 style="font-size:28; text-align: center;"><B>Log in</B> </h1>
@@ -38,7 +38,6 @@ include('./header.php') ;
                                     <div class="col-md-4">
                                     </div>
                                     <div class="col-md-4">
-
                                     <button id="submit" name="submit" class="btn btn-info " style=" width:100%; margin-top: 20%; margin-bottom: 20%;font-size:24 ">login</button>
                                 </div>
                                 <div class="col-md-3"></div>
@@ -46,56 +45,61 @@ include('./header.php') ;
             <?php
 
 if(count($_POST)>0){
-    $username=$_POST['username'];
-        $pw=$_POST['password'];
-
-
-        $keep=$_POST['keep'];
-        if(isset($_POST['submit']))
-        {
-                if(isset($_POST['keep'])){
-                        $_COOKIE['user']=$_POST['username'];
-                }
-
-
-                $user=new User;
-
-                if($user->signIn($username,$pw))  {
-
-                        if($user->isAdmin($username))
-                            {
-                                $target=new UserHandeller();
-                                $info=$target->selectBy("username", $username);
-                                foreach ($info as $key => $value) {
-                                    $_SESSION[$key]=$value;
-                                }
-//                                $_SESSION['user']=$username;
-//                                $_SESSION['role']="admin";
-
-                                header("location: admin/forums.php ");
-                        }
-                        else {
-                            
-                                $target=new UserHandeller();
-                                $info=$target->selectBy("username", $username);
-                                foreach ($info as $key => $value) {
-                                    $_SESSION[$key]=$value;
-                                }
-//                                $_SESSION['user']=$username;
-//                                $_SESSION['role']="user";
-                                header("location: forum.php ");
-                        }
-
-                }
-                else{
-                        echo '
+	$username=$_POST['username'];
+	$pw=$_POST['password'];
+	
+	
+	$keep=$_POST['keep'];
+	if(isset($_POST['submit']))
+		        {
+		if(isset($_POST['keep'])){
+			$_COOKIE['user']=$_POST['username'];
+		}
+		
+		
+		$user=new User;
+		
+		if($user->signIn($username,$pw))  {
+			
+			
+			$target=new UserHandeller();
+			$info=$target->selectBy("username", $username);
+			if( $info['banned']==1){
+				echo'  <div class="alert alert-info">
+          <strong>Sorry!</strong> you are banned ! .
+        </div>';
+				
+			}
+			else {
+				foreach ($info as $key => $value) {
+					$_SESSION[$key]=$value;
+					
+					if($user->isAdmin($username))
+									                            {
+						
+						
+						header("location: admin/forums.php ");
+					}
+					else {
+						
+						
+						 						header("location: forum.php ");
+						
+						
+						
+					}
+				}
+			}
+		}
+		else{
+			echo '
                          <div class="alert alert-info">
           <strong>Sorry!</strong> Invalid Logins .
         </div>';
-                }
-             }
-        
-           }
+		}
+	}
+	
+}
 
 
 

@@ -10,7 +10,7 @@ if(count($_POST)>0){
   
     $fname=$_POST['fn'];
     $lname=$_POST['ln'];
-    $target_dir = "../assets/uploads/";
+    $target_dir = "assets/uploads/";
 
     // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
     $target_file = $target_dir .$_POST['email'];
