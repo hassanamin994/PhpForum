@@ -58,11 +58,13 @@ class Thread {
 			`sticky`='".$this->sticky."'
 			 WHERE  `id` = '".$this->id."'");
 	}
-	function updateThread($id,$title,$description) {
+	function updateThread($id,$title,$description,$editby) {
 
 		$this->db->makeQuery("UPDATE `thread` SET
 			`title`= '".$title."',
-			`description`='".$description."'
+			`description`='".$description."',
+			`edit_by`='".$editby."'
+			
 			 WHERE  `id`=$id");
 	}
 

@@ -4,17 +4,13 @@ include ('main.php');
 include('header.php') ;
 include_once('model/Thread.php');
 require_once 'model/DBManager.php';
+if(empty($_REQUEST)){header("location: pagenotfound.php");}
 $id=$_REQUEST['edit_thread_id'];
+
 $thread=new ThreadHandeller;
 $arr=$thread->getTree($id);
 
-if(empty($arr)){
-	echo" <div class='alert alert-danger'>invalid page<br/></div>";
-}
-else {
-	$thread_owner=$arr[0]['owner'];
-	if ($_SESSION['role']=='admin'||$_SESSION['username']==$thread_owner)
-		{
+
 		echo'
 <html>
     <head>
@@ -24,8 +20,18 @@ else {
     <body class="back">
     <form method="POST">
         <div class="col-md-1"></div>
-        <div class="col-md-10 cont">
-   <div class="form-group">
+        <div class="col-md-10 cont">';
+
+if(empty($arr)){
+	echo" <div class='alert alert-danger'>invalid page<br/></div>";
+}
+else {
+	$thread_owner=$arr[0]['owner'];
+	if ($_SESSION['role']=='admin'||$_SESSION['username']==$thread_owner)
+		{
+
+
+  echo' <div class="form-group">
   <h2>Edit Your thread </h2>
  <label>Title</label> <textarea   class="form-control" rows="2" name="title" id="title" style="resize: none" required>'.$arr[0]['thread_title'].'</textarea>
  <label>description</label> <textarea   class="form-control" rows="7" id="description"  name="description"  style="resize: none" required>'.$arr[0]['description'].'</textarea>
@@ -40,7 +46,7 @@ if(isset($_POST['submit']))
     {$th=new Thread;
 	//echo "test".$_POST['title'],$_POST['description'];
 	
-	$th->updateThread('1',$_POST['title'],$_POST['description']);
+	$th->updateThread($id,$_POST['title'],$_POST['description'],$_SESSION['fname']);
 
 
   echo '<script type="text/javascript">

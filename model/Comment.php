@@ -8,7 +8,7 @@ class Comment {
 	private $user_id ;
 	private $thread_id ;
 	
-	function __construct($id, $body, $user_id, $thread_id) {
+	function __construct($id="", $body="", $user_id="", $thread_id="") {
 		
 		$this->db = new DBManager();
 		$this->id = $id;
