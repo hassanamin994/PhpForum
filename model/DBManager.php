@@ -4,7 +4,7 @@ define('HOST','localhost');
 define('DB_NAME','jaguars');
 define('DB_USERNAME','root');
 
-define('DB_PASSWORD','root');
+define('DB_PASSWORD','sa');
 
 class DBManager{
 
@@ -84,7 +84,7 @@ function checkUser($username,$password){
 
 }
 
-$db = new DBManager() ;
+// $db = new DBManager() ;
 
 
 ?>
