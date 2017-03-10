@@ -32,14 +32,21 @@ class Thread {
 	}
 
 	function addThread() {
+		$t=date("Y-m-d H:i:s");
+
          $this->db->makeQuery(
          	"INSERT into thread VALUES(
          	null,
+         	
          	'".$this->title."',
          	'".$this->description."',
          	'".$this->locked."',
          	'".$this->forum_id."',
-         	'".$this->user_id."',0,null,null)");
+
+         	'".$this->user_id."',
+         	0,
+         	null,
+         	null,null)");
 	}
 
 	function deleteThread() {

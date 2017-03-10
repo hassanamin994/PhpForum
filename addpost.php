@@ -27,13 +27,14 @@ if(isset($_POST['add'])){
 	else{
 
 
-	// $record=["id"=>10,"title"=>$_POST['title'],"content"=>$_POST['content'],"forum_id"=>$_SESSION['forumid'],"user_id"=>$_SESSION['userid']];
-	// $newth = new ThreadHandeller();
+	 // $record=["title"=>$_POST['title'],"description"=>$_POST['content'],"forum_id"=>$_SESSION['forumid'],"user_id"=>$_SESSION['userid']];
+	 // $newth = new ThreadHandeller();
 	// $newth->insert($record);
 
-	$newthread = new Thread(8,$_POST['title'],$_POST['content'],$_SESSION['forumid'],$_SESSION['userid']);
+	$newthread = new Thread(0,$_POST['title'],$_POST['content'],10,2);
+
 	$newthread->addThread();
-	 	header("Location: http://localhost/PhpForum/thread.php");
+	 	header("Location: http://localhost/PhpForum/forum.php");
 }
 }
 

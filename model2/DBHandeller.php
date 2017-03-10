@@ -168,4 +168,8 @@ class DBHandeller {
         return $result;
     }
     
+    // $db= new DBHandeller();
+    // $data=["title"=>"hassan","description"=>"good morning","forum_id"=>1,"user_id"=>1];
+    // $db->insert($data);
+    // echo $db;
 }
