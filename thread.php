@@ -7,8 +7,9 @@ session_start();
 //$_SESSION['id']="1";
 
 
-// $thread_id=$_REQUEST['thread_id'];
-$thread_id=1;
+ $thread_id=$_REQUEST['thread_id'];
+
+//$thread_id=1;
 
 $thread=new ThreadHandeller;
 $arr=$thread->getTree($thread_id);

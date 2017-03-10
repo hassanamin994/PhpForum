@@ -81,7 +81,7 @@ $flag=0;
                             <tbody>
                             <tr>
                                 <td colspan="2">
-                                    <a href="forumView.php?id=<?php echo $result[$x]['forum_id'];?>" ><?php echo $result[$x]['forum_name'];?></a>
+                                    <a href="forum.php?forumid=<?php echo $result[$x]['forum_id'];?>" ><?php echo $result[$x]['forum_name'];?></a>
                                 </td>
                                 <td>
                                     <a href="postView.php?id=<?php  echo $lastThread['id'];?>" ><?php echo $lastThread["title"];?></a>
@@ -105,5 +105,3 @@ $flag=0;
         <script src="../assets/js/bootstrap.min.js"></script>
     </body>
 </html>
-
-
