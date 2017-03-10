@@ -10,11 +10,12 @@ session_start();
 function __autoload($class_name) {
     
     if(file_exists("model2/".$class_name.".php")){
-        //echo "if";
+        echo "if";
         include ("model2/".$class_name.".php");
     }
  else {
-       // echo"else";
+        echo"else";
+        echo $class_name;
           include ("model/".$class_name.".php");
     }
    

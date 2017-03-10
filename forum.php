@@ -1,5 +1,6 @@
 <?php include('header.php') ;
 include 'main.php';
+if(empty($_REQUEST)){header("location: pagenotfound.php");}
 //include 'model/Thread.php';
 $_SESSION['userid']=1;
 

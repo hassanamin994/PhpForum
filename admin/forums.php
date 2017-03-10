@@ -60,6 +60,21 @@ $forums = $db->getAll("forum");
 <?php include('sidebar.php') ; ?>
 
 <div class="col-xs-8 cont" >
+	<?php
+		 if(isset($errors) && !empty($_SESSION['errors'])){
+			 echo "<div class='alert alert-warning'>";
+			 foreach ($errors as $error){
+				 echo $error."<br>" ;
+			 }
+			 echo "</div>";
+		 }
+		 if(isset($_SESSION['message'])){
+			 echo "<div class='alert alert-success'>";
+			 echo $_SESSION['message'];
+			 echo "</div><br>";
+			 unset($_SESSION['message']);
+		 }
+	 ?>
 	<table class="table">
 		<thead>
 			<tr>
@@ -95,21 +110,6 @@ $forums = $db->getAll("forum");
 	</table>
 	<details  <?php if(!empty($_SESSION['errors'])) { echo "open"; unset($_SESSION['errors']); } ?> >
 		<summary class="btn btn-primary">Add New Forum</summary><br>
-		<?php
-				if(isset($errors)){
-					echo "<div class='alert alert-warning'>";
-					foreach ($errors as $error){
-						echo $error ;
-					}
-					unset($_SESSION['errors']);
-
-					echo "</div>";
-				}
-				if(isset($_SESSION['message'])){
-					echo $_SESSION['message'];
-					unset($_SESSION['message']);
-				}
-			?>
 		<form method='post' >
 			<div class="input-group">
 			  <label for="sel1">Select Category:</label>

@@ -1,28 +1,45 @@
 <?php 
-require_once 'model/User.php';
-require_once 'model/DBManager.php';
-include('header.php') ;
+include './main.php';
+include('./header.php') ;
 
+
+// require_once "Mail.php";
 $flag=1;
 $dbm= new DBManager;
 
-$username=$_POST['username'];
+  
+    $fname=$_POST['fn'];
+    $lname=$_POST['ln'];
+    $target_dir = "assets/uploads/";
+
+    // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
+    $target_file = $target_dir .$_POST['email'];
+    $uploadOk = 1;
+    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+    $pw=md5($_POST['password']);
+
+
 $fname=$_POST['fn'];
 $lname=$_POST['ln'];
 $target_dir = "assets/uploads/";
+
+
+    $gendre=$_POST['gender'];
+    $con=$_POST['countrey'];
+    $sub=$_POST['submit'];
+
 
 // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
 $target_file = $target_dir .$_POST['email'];
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-$pw=md5($_POST['password']);
 
-$gendre=$_POST['gender'];
-$con=$_POST['countrey'];
-$sub=$_POST['submit'];
+    $email=$_POST['email'];
 
-$email = $_POST["email"];
+
+
 
 
 if(isset($sub)){
@@ -110,7 +127,7 @@ if ($uploadOk == 0) {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
        
      
-	echo "target".$target_file;
+	
     $pic2=$target_file;
    
 
@@ -144,16 +161,58 @@ if ($uploadOk == 0) {
 				
 				$user->signUp();
                // the message
-           $msg = "dear $fname \n You have succefully registered to the Jaguars' forum \n";
+         //  $msg = "dear $fname \n You have succefully registered to the Jaguars' forum \n";
 
 // use wordwrap() if lines are longer than 70 characters
 //$msg = wordwrap($msg,70);
 
+
+
+
+
+
+
+
+// $from = '<jaguarsforum@gmail.com>';
+// $to = "<ameramohiey92@gmail.com>";
+// $subject = 'Registeration!';
+// $body = "Congrats,\n\n dear $fname you have registered successfully to jaguars form?";
+
+// $headers = array(
+//     'From' => $from,
+//     'To' => $to,
+//     'Subject' => $subject
+// );
+
+// $smtp = Mail::factory('smtp', array(
+//         'host' => 'smtp.gmail.com',
+//         'port' => '465',
+//         'auth' => true,
+//         'username' => 'jaguarsforum@gmail.com',
+//         'password' => 'jaguars123'
+//     ));
+
+// $mail = $smtp->send($to, $headers, $body);
+
+// if (PEAR::isError($mail)) {
+//     echo('<p>' . $mail->getMessage() . '</p>');
+// } else {
+//     echo('<p>Message successfully sent!</p>');
+// }
+
+
+
+
+
+
+
+
+
 // send email
-            mail("$email","jaguars'forum Registeration",$msg);
+          //  mail("$email","jaguars'forum Registeration",$msg);
 
 
-		//////////////	header("Location: login.php");
+			header("Location: login.php");
             }
 			}
 			else {
@@ -166,44 +225,10 @@ if ($uploadOk == 0) {
 			//
 			
 		}
-		
-
-
-
-
-
-
-
-
-
 
 }
 echo "</div>";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-		
-	}
-
-
-
-
-
-
-
+}
 echo '<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -242,7 +267,9 @@ echo '"
 </script>
  </div>
         </div>
-     
+
+       
+
         <div class="form-group">
             <label class="col-md-4 control-label" for="password">password</label>
             <div class="col-md-4">
@@ -253,7 +280,13 @@ echo '"
             <label class="col-md-4 control-label" for="email">email</label>
             <div class="col-md-4">
                 <input id="email" name="email" type="" placeholder="email" class="form-control input-md" required>
+            <script type="text/javascript">
+  document.getElementById("email").value = "';
+echo $_POST["email"];
+echo '"
+</script>
             </div>
+
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="gender">gender</label>
@@ -269,26 +302,7 @@ echo '"
             </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-        <!-- Select Basic -->
+<!-- Select Basic -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="selectbasic">countrey</label>
             <div class="col-md-4">
@@ -313,9 +327,18 @@ echo '"
             </div>
         </div>
 
-        <div class="col-md-4"></div><div class="col-md-4" style="margin-top:5%;margin-bottom:5%">
-<input type="submit" id="submit" name="submit" class="btn btn-info " style=" width:100%; font-size:24" value="Register"> </input><div class="col-md-4" "> 
-</div><div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4" style="margin-top:5%;margin-bottom:5%"> ';
+  
+ 
+      echo ' <input type="submit" id="submit" name="submit" class="btn btn-info " style=" width:100%; font-size:24" value="Register"> </input> ';
+
+      
+
+
+
+echo ' </div>
+    <div class="col-md-4"></div>
         <br/>
         </div>
         </div>';

@@ -5,13 +5,33 @@ require_once '../init.php';
 
 $userHandler = new UserHandeller();
 
+if(isset($_POST['add_user'])){
+	$username = $_POST['username'];
+	$password = $_POST['password'] ;
+	$fname = $_POST['fname'];
+	$lname = $_POST['lname'] ;
+	$gender = $_POST['gender'];
+	$country = $_POST['country'] ;
+	$role = $_POST['role'] ;
+
+	$user = new User($fname, $lname, $country, $gender, $username, $password, 0, "", "", $role) ;
+	$errors = $user->validate() ;
+	if(empty($errors)){
+		$user->signUp() ;
+		$_SESSION['message'] = "User has been added Successfully" ;
+	}else{
+		$_SESSION['errors'] = $errors ;
+	}
+
+}
+
 if(isset($_POST['delete'])){
 	$user = $userHandler->getOneRow('id',$_POST['user_id']);
 	// var_dump($user);
 	if($user){
 		$userHandler->removeByID('id',$_POST['user_id']);
 		unset($_POST['user_id']);
-		$_SESSION['message'] = "User ".$user['name'] ." Has been deleted Successfully" ;
+		$_SESSION['message'] = "User ".$user['username'] ." Has been deleted Successfully" ;
 	}
 }
 if(isset($_POST['change_role'])){
@@ -73,6 +93,14 @@ $users = $db->getAll('user');
 
 <div class="col-xs-8">
 	<div class="row">
+		<?php
+		if(isset($_SESSION['message'])){
+			echo "<div class='alert alert-success'>";
+			echo $_SESSION['message'];
+			echo "</div><br>";
+			unset($_SESSION['message']);
+		}
+		 ?>
 		<table class="table">
 			<thead>
 				<tr>
@@ -130,47 +158,71 @@ $users = $db->getAll('user');
 
 
 				?>
-				<!-- <tr>
-					<td>2</td>
-					<td><img src="images/img"></td>
-					<td>Username@gmail.com</td>
-					<td>Fname</td>
-					<td>Lname</td>
-					<td>Male</td>
-					<td>Egypt</td>
-					<td>MY SIGNATURE</td>
-					<td>user</td>
-					<td>
-						<a href="#" class="btn btn-info btn-xs">Edit</a>
-						<a href="#" class="btn btn-danger btn-xs">Delete</a>
-					</td>
-					<td>
-						<a href="#" class="btn btn-info btn-xs">Make Admin</a>
-						<a class="btn btn-danger btn-xs">Ban</a>
-					</td>
-
-				</tr> -->
 			</tbody>
 		</table>
 	</div>
-		<details>
+		<details <?php if(!empty($_SESSION['errors'])) { echo "open"; } ?>>
 		<summary class="btn btn-primary">Add New User</summary><br>
-		<form>
+		<?php
+				if(isset($errors)){
+					echo "<div class='alert alert-warning'>";
+					foreach ($errors as $error){
+						echo $error."<br>" ;
+					}
+					unset($_SESSION['errors']);
+
+					echo "</div>";
+				}
+
+			?>
+		<form method='post'>
 			<div class="input-group">
-			  <label for="sel1">Select Category:</label>
-			  <select class="form-control" id="category" name="category">
-			    <option value="2">Category id=2</option>
-			    <option value="3">Category id=3</option>
-			    <option value="4">Category id=4</option>
-			  </select>
-			</div>
-			<div class="input-group">
-			  <label for="new-Forum">Forum Name: </label>
-			  <input type="text" name="forum" class="form-control" id="new-Forum" aria-describedby="basic-addon3" required>
+				<label for="username">Username: </label>
+				<input type="text" name="username" class="form-control" id="username" aria-describedby="basic-addon3" required>
 			</div>
 			<br>
 			<div class="input-group">
-				<input type="submit" name="submit" class="btn btn-primary" value="Add User">
+				<label for="password">Password: </label>
+				<input type="password" name="password" class="form-control" id="password" aria-describedby="basic-addon3" required>
+			</div>
+			<br>
+			<div class="input-group">
+				<label for="fname">First Name: </label>
+				<input type="text" name="fname" class="form-control" id="fname" aria-describedby="basic-addon3" required>
+			</div>
+			<br>
+			<div class="input-group">
+				<label for="lname">Last Name: </label>
+				<input type="text" name="lname" class="form-control" id="lname" aria-describedby="basic-addon3" required>
+			</div>
+			<br>
+			<div class="input-group">
+			  <label for="gender">Gender:</label>
+			  <select class="form-control" id="gender" name="gender" required>
+			    <option value="male">Male</option>
+			    <option value="female">Female</option>
+			  </select>
+			</div>
+			<br>
+			<div class="input-group">
+			  <label for="country">Country:</label>
+			  <select class="form-control" id="country" name="country" required>
+			    <option value="egypt">Egypt</option>
+			    <option value="usa">USA</option>
+			    <option value="canada">Canada</option>
+			  </select>
+			</div>
+			<br>
+			<div class="input-group">
+			  <label for="role">Role:</label>
+			  <select class="form-control" id="role" name="role" required>
+			    <option value="user">User</option>
+			    <option value="admin">Admin</option>
+			  </select>
+			</div>
+			<br>
+			<div class="input-group">
+				<input type="submit" name="add_user" class="btn btn-primary" value="Add User">
 			</div>
 		</form>
 	</details>
