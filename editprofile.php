@@ -2,14 +2,12 @@
 include './main.php';
 include('./header.php') ;
 
-
-// require_once "Mail.php";
+if(empty($_SESSION))
+{header("location: pagenotfound.php");}
 $flag=1;
 $dbm= new DBManager;
 
 
-
-    // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
     $target_file = $target_dir .$_POST['email'];
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -33,7 +31,6 @@ $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
 
-    $email=$_POST['email'];
 
 
 
@@ -45,14 +42,7 @@ if(isset($sub)){
 		echo"<div class='alert alert-info'> please entre first name"."<br/> </div>";
 		$GLOBALS['flag']=0;
 	}
-    if($email==''){
-		echo" <div class='alert alert-info'>please entre email"."<br/></div>";
-		$GLOBALS['flag']=0;
-	}
- 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
- 	echo" <div class='alert alert-info'>Invalid email format"."<br/></div>";
-}
+    
 	if($lname==''){
 		echo"<div class='alert alert-info'>please entre last name"."<br/></div>";
 		$GLOBALS['flag']=0;
@@ -80,7 +70,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		if($flag==1){
 			
 			
-			if ($dbm->getUser($email)==""){
+		
 
 
 
@@ -96,8 +86,8 @@ echo " <div class='container'> ";
        
         $uploadOk = 1;
     } else {
-        echo "<div class='col-md-3'></div> <div class='col-md-6 alert alert-info'>please upload a picture.</div><div class='col-md-3'></div>";
-        $uploadOk = 0;
+       // echo "<div class='col-md-3'></div> <div class='col-md-6 alert alert-info'>please upload a picture.</div><div class='col-md-3'></div>";
+       $pic2=$_SESSION['image'];
     }
 
 // Check if file already exists
@@ -130,7 +120,7 @@ if ($uploadOk == 0) {
 
 
     } else {
-        echo " <div class='alert alert-info'>Sorry, there was an error uploading your file.</div>";
+       // echo " <div class='alert alert-info'>Sorry, there was an error uploading your file.</div>";
     }}
 
 
@@ -139,77 +129,23 @@ if ($uploadOk == 0) {
 
 
 
-				$banned=0;
+				//$banned=0;
 				
-				$signature="sig";
-				$role="user";
+				$signature=$_POST['sig'];
+				//$role="user";
 			
 		
                 if($uploadOk == 1){
 
+              $key=['id'=>$_SESSION['id']];
+              $data=['username'=>$email,'password'=>$pw,'fname'=>$fname,'lname'=>$lname,'gender'=>$gendre,'country'=>$con,'banned'=>$_SESSION['banned'],'image'=>$pic2,'signature'=>$signature,'role'=>$_SESSION['role']];
+				var_dump($data);
+                                $user=new UserHandeller();
+				$user->update($key, $data);
 
+			
 
-
-
-
-
-
-				$user=new User($fname,$lname,$con,$gendre,$email,$pw,$banned,$pic2,$signature,$role);
-				
-				$user->signUp();
-               // the message
-         //  $msg = "dear $fname \n You have succefully registered to the Jaguars' forum \n";
-
-// use wordwrap() if lines are longer than 70 characters
-//$msg = wordwrap($msg,70);
-
-
-
-
-
-
-
-
-// $from = '<jaguarsforum@gmail.com>';
-// $to = "<ameramohiey92@gmail.com>";
-// $subject = 'Registeration!';
-// $body = "Congrats,\n\n dear $fname you have registered successfully to jaguars form?";
-
-// $headers = array(
-//     'From' => $from,
-//     'To' => $to,
-//     'Subject' => $subject
-// );
-
-// $smtp = Mail::factory('smtp', array(
-//         'host' => 'smtp.gmail.com',
-//         'port' => '465',
-//         'auth' => true,
-//         'username' => 'jaguarsforum@gmail.com',
-//         'password' => 'jaguars123'
-//     ));
-
-// $mail = $smtp->send($to, $headers, $body);
-
-// if (PEAR::isError($mail)) {
-//     echo('<p>' . $mail->getMessage() . '</p>');
-// } else {
-//     echo('<p>Message successfully sent!</p>');
-// }
-
-
-
-
-
-
-
-
-
-// send email
-          //  mail("$email","jaguars'forum Registeration",$msg);
-
-
-			header("Location: login.php");
+			header("Location: userprofile.php");
             }
 			}
 			else {
@@ -225,7 +161,7 @@ if ($uploadOk == 0) {
 
 }
 echo "</div>";
-}
+
 echo '<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -234,12 +170,10 @@ echo '<html>
          <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="back" >
- <input id="fn" name="sig" id="sig" value="signature"   type="hidden" >
-  <input id="fn" name="role"  id="role" value="user"   type="hidden" >
-   <input id="fn" name="pic" id= "pic" value="pic"  type="hidden">
+ 
      <div class="col-md-3"></div>
 <div class="col-md-6 cont" >
-    <div class="page-header " > <h1 style="font-size:28;  text-align: center;"><B>Registeration Form</B></h1>
+    <div class="page-header " > <h1 style="font-size:28;  text-align: center;"><B>Edit profile</B></h1>
     </div>
     <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
         <div class="form-group">
@@ -248,7 +182,7 @@ echo '<html>
                 <input id="fn" name="fn" type="text" placeholder="first name" class="form-control input-md" required>
               <script type="text/javascript">
   document.getElementById("fn").value = "';
-echo $_POST["fn"];
+echo $_SESSION["fname"];
 echo '"
 </script>
             </div>
@@ -259,7 +193,7 @@ echo '"
                 <input id="ln" name="ln" type="text" placeholder="last name" class="form-control input-md" required>
                               <script type="text/javascript">
   document.getElementById("ln").value = "';
-echo $_POST["ln"];
+echo $_SESSION["lname"];
 echo '"
 </script>
  </div>
@@ -270,30 +204,40 @@ echo '"
         <div class="form-group">
             <label class="col-md-4 control-label" for="password">password</label>
             <div class="col-md-4">
+                
                 <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required>
+            
+             <script type="text/javascript">
+  document.getElementById("password").value = "';
+echo $_SESSION["password"];
+echo '"
+</script>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="email">email</label>
+        
+
+ <div class="form-group">
+            <label class="col-md-4 control-label" for="email">signature</label>
             <div class="col-md-4">
-                <input id="email" name="email" type="" placeholder="email" class="form-control input-md" required>
+                <input id="sig" name="sig" type="text"  class="form-control input-md" required>
             <script type="text/javascript">
-  document.getElementById("email").value = "';
-echo $_POST["email"];
+  document.getElementById("sig").value = "';
+echo $_SESSION["signature"];
 echo '"
 </script>
             </div>
 
         </div>
+
         <div class="form-group">
-            <label class="col-md-4 control-label" for="gender">gender</label>
+            <label class="col-md-4 control-label" for="gender"  >gender</label>
             <div class="col-md-4">
                 <label class="radio-inline" for="male">
-      <input type="radio" name="gender" id="male" value="male" checked="checked">
+      <input type="radio" name="gender" id="male" value="male" '; if($_SESSION['gender']=="male") echo "checked";echo'>
      male
     </label>
                 <label class="radio-inline" for="female">
-      <input type="radio" name="gender" id="female" value="female">
+      <input type="radio" name="gender" id="female" value="female" '; if($_SESSION['gender']=="female") echo "checked";echo'>
      female
     </label>
             </div>
@@ -328,7 +272,7 @@ echo '"
         <div class="col-md-4" style="margin-top:5%;margin-bottom:5%"> ';
   
  
-      echo ' <input type="submit" id="submit" name="submit" class="btn btn-info " style=" width:100%; font-size:24" value="Register"> </input> ';
+      echo ' <input type="submit" id="submit" name="submit" class="btn btn-info " style=" width:100%; font-size:24" value="Save"> </input> ';
 
       
 

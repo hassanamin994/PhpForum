@@ -18,8 +18,8 @@
 		else{
 
 			if($_SESSION['role'] == "admin")
-			echo '<li><a href="adminpanel.php">Admin Panel</a></li>';
-			echo '<li><a href="views/profile.php">Profile</a></li>';
+			echo '<li><a href="admin/forums.php">Admin Panel</a></li>';
+			echo '<li><a href="userprofile.php">Profile</a></li>';
 			//echo '<li><a href="post.php">New Post</a></li>';
 			//echo '<li><a href="my_posts.php">My Posts</a></li>';
 			echo '<li><a href="logout.php">Logout</a></li>' ;
