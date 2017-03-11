@@ -1,5 +1,5 @@
 
-<?php 
+<?php
 include_once('main.php');
 include_once('header.php') ;
 include_once('model/Thread.php');
@@ -17,6 +17,7 @@ if(empty($_REQUEST)||empty($_SESSION)){header("location: pagenotfound.php");}
 
 $thread=new ThreadHandeller;
 $arr=$thread->getTree($thread_id);
+var_dump($arr);
 // foreach ($arr as $key => $value) {
 //     echo "Key: $key; Value: <br/>";
 
@@ -63,28 +64,28 @@ if(empty($arr)){
 	echo" <div class='alert alert-danger'>invalid page<br/></div>";
 }
 
- else {echo' <h2 >'.$arr[0]['thread_title']; 
- 
+ else {echo' <h2 >'.$arr[0]['thread_title'];
 
 
-   if($arr[0]['last_update']==""){  
+
+   if($arr[0]['last_update']==""){
           echo ' <small><i>Posted on '.$arr[0]['date'].' by '. $arr[0]['owner'].'</i></small></h2><B><hr></B>';}
-         else {  
+         else {
           echo '<small><i> Last updated on '.$arr[0]['last_update'].' By :'.$arr[0]['edit_by'].' </i></small></h4>';}
-       
 
 
 
- 
 
- 
- 
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
+
+
+
+
  echo'
   <div class="media">
     <div class="media-left media-top" style="width:25%">
@@ -110,7 +111,7 @@ if(empty($arr)){
       <!--</div>-->';
 if($arr[0]['owner']==$_SESSION['username']||$_SESSION['role']=='admin')
 {   echo '<div style="float: right">  <a href="editthread.php?edit_thread_id='.$arr[0]['thread_id'].'" class="btn btn-default glyphicon glyphicon-edit">Edit</a></div>';}
-    
+
 
 echo'
 
@@ -119,7 +120,7 @@ echo'
    <!--<hr> -->
  <h3>comments</h3>
 <hr>
- 
+
 
 
  <div class="form-group">
@@ -162,29 +163,29 @@ echo '<div class="media">
         </div>
         <div class="media-body">
           <h4 class="media-heading">'."$value[$fname]".'';
-        if($value[$last]==""){  
+        if($value[$last]==""){
           echo '<small><i> Posted on '."$value[$created_at]".'</i></small></h4>';}
-         else {  
+         else {
           echo '<small><i> Last updated on '."$value[$last]".' By :'."$value[$edit]".' </i></small></h4>';}
-          
+
          echo' <p>'."$value[$body]".'</p> </div>';
 
          if($_SESSION['id']==$value[$userid]||$_SESSION['role']=='admin'){
 echo'
 <div style="float: right;"><a href="editcomment.php?comment_id='.$value["$cid"].'" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
-     
+
     <button  name="delete'.$value["$cid"].'" class="btn btn-danger glyphicon glyphicon-trash"  >Delete</a></div>
           </div>
         ';
-        
+
          }
         if(isset($_POST['delete'.$value["$cid"].'']))
         {
           $comment->deleteComment($value[$cid]);
           header("refresh:0");
         }
-        
-        
+
+
 
 
 
@@ -206,7 +207,7 @@ echo'
 <!--end of nested 2-->
 
        </div>
-      
+
         </form>
           <div class="col-md-1"></div>
         <script src="assets/js/jquery-3.1.1.min.js"></script>

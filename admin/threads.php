@@ -14,7 +14,7 @@ if(isset($_POST['add_thread'])){
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// get the user's id later from the session >>>>>>>>>>>>>>>>>>> IMPORTANT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	$thread = new Thread(null, $title, $description, $forum_id, '2') ;
+	$thread = new Thread(null, $title, $description, $forum_id, $_SESSION['id']) ;
 	$errors = $thread->verify();
 	if(empty($errors)){
 		$thread->addThread();

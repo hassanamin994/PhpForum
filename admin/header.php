@@ -16,19 +16,14 @@
                        // echo '<li><a href="profile.php">Profile</a></li>';
 		}
 		else{
-
-			if($_SESSION['role'] == "admin"){
-        echo '<li><a href="admin/forums.php">Admin Panel</a></li>';
-          var_dump($_SESSION);
-      }
-      else{
-        header("Location: ../index.php");
-      }
 			echo '<li><a href="../userprofile.php">Profile</a></li>';
-			//echo '<li><a href="post.php">New Post</a></li>';
-			//echo '<li><a href="my_posts.php">My Posts</a></li>';
-			echo '<li><a href="logout.php">Logout</a></li>' ;
+			echo '<li><a href="../logout.php">Logout</a></li>' ;
 		}
+    if(isset($_SESSION['role']) && $_SESSION['role'] == "admin"){
+    }
+    else{
+      header("Location: ../index.php");
+    }
 		?>
     </ul>
   </div>
@@ -36,9 +31,6 @@
 </header>
 
 <?php
-if(isset($_SESSION['message'])){
-	echo $_SESSION['message'];
-//  unset($_SESSION['message']);
-}
+
 
 ?>

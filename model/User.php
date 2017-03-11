@@ -27,7 +27,7 @@ class User{
 
 		//$this->id = $id ;
 
-
+		$this->id = $id ;
 		$this->country = $country;
 		$this->gender = $gender;
 		$this->username = $username;
@@ -78,17 +78,8 @@ class User{
 				}
 			}
 		}
-		if(empty($this->password))
+		if(empty($this->password) && $status == 'submit')
 									array_push($errors,'Please Enter a Password');
-
-		if(!empty($_POST['token_entered'])){
-			if($_POST['token_entered'] != $_POST['token'])
-											    	array_push($errors,'Validation token doesnt match!');
-			else
-											    	$token = $_POST['token'];
-		}
-		else
-								  array_push($errors,'Please enter the validation token!');
 
 
 
@@ -152,6 +143,7 @@ class User{
         `username` = '".$this->username."',
         `password` = '".$this->password."',
         `banned` = '".$this->banned."',
+        `signature` = '".$this->signature."',
         `role` = '".$this->role."'
          where `id` = '".$this->id."'
          ");
