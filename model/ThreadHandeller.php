@@ -28,4 +28,12 @@ class ThreadHandeller extends DBHandeller {
         $result = $prep1->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+    function getLastThreadByCategory($category_id,$forum_id){
+        $query1 = "SELECT thread.id, thread.title FROM  $this->table, forum, category WHERE category.id=forum.category_id AND $this->table.forum_id=$forum_id ORDER BY $this->table.id DESC LIMIT 1";
+        $prep1 = $this->db->prepare($query1);
+        $prep1->execute();
+        $prep1->setFetchMode(PDO::FETCH_ASSOC);
+        $post = $prep1->fetch();
+        return $post;
+    }
 }

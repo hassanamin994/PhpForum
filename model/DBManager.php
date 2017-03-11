@@ -1,10 +1,5 @@
 <?php
 
-define('HOST','localhost');
-define('DB_NAME','jaguars');
-define('DB_USERNAME','root');
-
-define('DB_PASSWORD','root');
 
 class DBManager{
 
@@ -84,7 +79,7 @@ function checkUser($username,$password){
 
 }
 
-// $db = new DBManager() ;
+$db = new DBManager() ;
 
 
 ?>
