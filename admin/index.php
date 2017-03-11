@@ -2,6 +2,17 @@
 
 
 require_once '../init.php';
+if(isset($_GET['lock'])){
+	if(file_exists('../lock')){
+
+				echo "UNLOCKED";
+		unlink('../lock');
+	}else{
+		$myfile = fopen("../lock", "w");
+		echo "LOCKED";
+
+	}
+}
 ?>
 
 <!DOCTYPE html>
