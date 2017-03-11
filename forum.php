@@ -1,8 +1,10 @@
 <?php include('header.php') ;
 include 'main.php';
-if(empty($_REQUEST)){header("location: pagenotfound.php");}
 //include 'model/Thread.php';
-$_SESSION['userid']=1;
+//$_SESSION['id']=1;
+if(empty($_REQUEST)){header("location: pagenotfound.php");}
+$forum_id = $_REQUEST['forumid'];
+$user_id=$_SESSION['id'];
 
 //sticky
 
@@ -16,7 +18,7 @@ $_SESSION['userid']=1;
 <form method="post">
 <div class="container cont">
  <div style="float: right"> 
-     <a href="addpost.php" class="btn btn-default glyphicon glyphicon-pencil">AddPost</a>
+     <a href="addpost.php?forumid=<?php echo $forum_id; ?>" class="btn btn-default glyphicon glyphicon-pencil">AddPost</a>
      </div>
 
   
@@ -25,14 +27,13 @@ $_SESSION['userid']=1;
      <?php
 
      $forum=new ForumHandeller();
-     $threads=$forum->getTree(10);
-     $forumname=$threads[0]['forum_name'];
-      $_SESSION['forumid']=$threads[0]['forum_id'];
+     $threads=$forum->getTree($forum_id);
+     //$forumname=$threads[0]['forum_name'];
    
       $sticky=array(array());
       $normal=array(array());
 
-      echo '<h2>'.$forumname.'</h2>';
+      //echo '<h2>'.$forumname.'</h2>';
       $thobjects=array();
 
      for($j=0;$j<count($threads);$j++){
@@ -75,7 +76,7 @@ $_SESSION['userid']=1;
     <p class="glyphicon glyphicon-comment">'.$sticky[$i]['numOfComments'].'</p>
     </div>
     <div style="float: right"> 
-       <a href="viewmore.php?thid='.$sticky[$i]['thread_id'].'" class="btn btn-default glyphicon glyphicon-option-horizontal">Viewmore</a>
+       <a href="thread.php?thread_id='.$sticky[$i]['thread_id'].'" class="btn btn-default glyphicon glyphicon-option-horizontal">Viewmore</a>
        ';
        if($_SESSION['userid']==$sticky[$i]['ownerId'] || $sticky[$i]['owner_role']=="admin"){
        echo '
@@ -121,7 +122,7 @@ $_SESSION['userid']=1;
     <p class="glyphicon glyphicon-comment">'.$normal[$i]['numOfComments'].'</p>
     </div>
     <div style="float: right"> 
-       <a href="viewmore.php?thid='.$normal[$i]['thread_id'].'" class="btn btn-default glyphicon glyphicon-option-horizontal">Viewmore</a>
+       <a href="thread.php?thread_id='.$normal[$i]['thread_id'].'" class="btn btn-default glyphicon glyphicon-option-horizontal">Viewmore</a>
        ';
        if($_SESSION['userid']==$normal[$i]['ownerId'] || $normal[$i]['owner_role']=="admin"){
        echo '

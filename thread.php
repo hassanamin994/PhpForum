@@ -6,8 +6,13 @@ include_once('model/Thread.php');
 
 //$_SESSION['id']="1";
 
+
 if(empty($_REQUEST)||empty($_SESSION)){header("location: pagenotfound.php");}
  $thread_id=$_REQUEST['thread_id'];
+
+
+
+
 //$thread_id=1;
 
 $thread=new ThreadHandeller;

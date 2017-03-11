@@ -1,6 +1,12 @@
 <?php
 include('header.php') ;
 include 'main.php';
+if(empty($_REQUEST)){header("location: pagenotfound.php");}
+$forum_id = $_REQUEST['forumid'];
+
+$user_id=$_SESSION['id'];
+//echo $user_id;
+
 ?>
 <html>
 <head>
@@ -31,10 +37,11 @@ if(isset($_POST['add'])){
 	 // $newth = new ThreadHandeller();
 	// $newth->insert($record);
 
-	$newthread = new Thread(0,$_POST['title'],$_POST['content'],10,2);
+	$newthread = new Thread(0,$_POST['title'],$_POST['content'],$forum_id,$user_id);
 
 	$newthread->addThread();
-	 	header("Location: http://localhost/PhpForum/forum.php");
+	
+		header("Location: http://localhost/PhpForum/forum.php?forumid=".$forum_id);
 }
 }
 
