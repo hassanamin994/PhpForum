@@ -52,7 +52,7 @@ if(isset($_GET['id'])){
 </head>
 <body>
 
-<?php include('../header.php') ; ?>
+<?php include('header.php') ; ?>
 
 <?php include('sidebar.php') ; ?>
 

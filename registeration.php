@@ -1,4 +1,4 @@
-<?php 
+<?php require_once 'init.php';
 include './main.php';
 include('./header.php') ;
 
@@ -40,7 +40,7 @@ $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
 
 if(isset($sub)){
-	
+
 	if($fname==''){
 		echo"<div class='alert alert-info'> please entre first name"."<br/> </div>";
 		$GLOBALS['flag']=0;
@@ -49,7 +49,7 @@ if(isset($sub)){
 		echo" <div class='alert alert-info'>please entre email"."<br/></div>";
 		$GLOBALS['flag']=0;
 	}
- 
+
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
  	echo" <div class='alert alert-info'>Invalid email format"."<br/></div>";
 }
@@ -78,8 +78,8 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 	if(isset($_POST['submit'])){
 		if($flag==1){
-			
-			
+
+
 			if ($dbm->getUser($email)==""){
 
 
@@ -93,7 +93,7 @@ echo " <div class='container'> ";
 
  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if($check !== false) {
-       
+
         $uploadOk = 1;
     } else {
         echo "<div class='col-md-3'></div> <div class='col-md-6 alert alert-info'>please upload a picture.</div><div class='col-md-3'></div>";
@@ -122,11 +122,11 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-       
-     
-	
+
+
+
     $pic2=$target_file;
-   
+
 
 
     } else {
@@ -140,11 +140,11 @@ if ($uploadOk == 0) {
 
 
 				$banned=0;
-				
+
 				$signature="sig";
 				$role="user";
-			
-		
+
+
                 if($uploadOk == 1){
 
 
@@ -155,7 +155,7 @@ if ($uploadOk == 0) {
 
 
 				$user=new User($fname,$lname,$con,$gendre,$email,$pw,$banned,$pic2,$signature,$role);
-				
+
 				$user->signUp();
                // the message
          //  $msg = "dear $fname \n You have succefully registered to the Jaguars' forum \n";
@@ -218,9 +218,9 @@ if ($uploadOk == 0) {
                 <strong>Sorry!</strong> this Email is already registered !.<a href="login.php">sign in ?</a>
 </div>';
 			}
-			
+
 			//
-			
+
 		}
 
 }
@@ -265,7 +265,7 @@ echo '"
  </div>
         </div>
 
-       
+
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="password">password</label>
@@ -310,27 +310,27 @@ echo '"
       <option>germany</option>
     </select>
            </div>
-        </div> 
-        
-        
+        </div>
+
+
          <div class="form-group">
             <label class="col-md-4 control-label" >Upload a Picture</label>
             <div class="col-md-4">
-              
+
       <input type="file" name="fileToUpload" id="fileToUpload" ></input>
-   
-   
-             
+
+
+
             </div>
         </div>
 
         <div class="col-md-4"></div>
         <div class="col-md-4" style="margin-top:5%;margin-bottom:5%"> ';
-  
- 
+
+
       echo ' <input type="submit" id="submit" name="submit" class="btn btn-info " style=" width:100%; font-size:24" value="Register"> </input> ';
 
-      
+
 
 
 
@@ -346,7 +346,7 @@ echo ' </div>
 
 
 
-echo'  
+echo'
          </div>
         </div>
         <div class="form-group">

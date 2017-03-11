@@ -1,4 +1,5 @@
 <?php
+session_start();
 define('HOST','localhost');
 define('DB_NAME','jaguars');
 define('DB_USERNAME','root');

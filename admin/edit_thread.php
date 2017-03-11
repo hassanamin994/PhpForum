@@ -44,7 +44,7 @@ $categories = $db->getAll('category') ;
 </head>
 <body class='back'>
 
-<?php include('../header.php') ; ?>
+<?php include('header.php') ; ?>
 <?php include('sidebar.php') ; ?>
 
 

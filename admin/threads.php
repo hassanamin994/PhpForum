@@ -91,7 +91,7 @@ $categories = $db->getAll('category') ;
 </head>
 <body>
 
-<?php include('../header.php') ; ?>
+<?php include('header.php') ; ?>
 <?php include('sidebar.php') ; ?>
 
 <div class="page-content">

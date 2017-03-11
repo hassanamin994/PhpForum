@@ -1,7 +1,7 @@
 <?php
 
 
-
+require_once '../init.php';
 ?>
 
 <!DOCTYPE html>
@@ -19,12 +19,12 @@
 </head>
 <body>
 
-<?php include('../header.php') ; ?>
-<?php include('sidebar.php') ; ?> 
+<?php include('header.php') ; ?>
+<?php include('sidebar.php') ; ?>
 
 <div class="page-content">
 	<div class="col-xs-8">
-	
+
 		<div class="row">
 				<div class="col-xs-3"><?php echo "2" ; ?><br>No. Of Categories</div>
 				<div class="col-xs-3"><?php echo "5" ; ?><br>No. Of Forums</div>

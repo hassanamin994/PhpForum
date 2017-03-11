@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once '../init.php';
 
 // handling delete requests
@@ -56,7 +55,7 @@ $forums = $db->getAll("forum");
 </head>
 <body class="back">
 
-<?php include('../header.php') ; ?>
+<?php include('header.php') ; ?>
 <?php include('sidebar.php') ; ?>
 
 <div class="col-xs-8 cont" >
