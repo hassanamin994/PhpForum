@@ -1,5 +1,5 @@
             <?php
-
+session_start();
 include './main.php';
 include('./header.php') ;
 
@@ -49,12 +49,8 @@ if(count($_POST)>0){
 	$pw=$_POST['password'];
 
 
-	$keep=$_POST['keep'];
 	if(isset($_POST['submit']))
 		        {
-		if(isset($_POST['keep'])){
-			$_COOKIE['user']=$_POST['username'];
-		}
 
 
 		$user=new User;
@@ -73,22 +69,22 @@ if(count($_POST)>0){
 			else {
 				foreach ($info as $key => $value) {
 					$_SESSION[$key]=$value;
-
+          				}
 					if($user->isAdmin($username))
 									                            {
 
 
-						header("location: admin/forums.php ");
+						header("location: admin/index.php ");
 					}
 					else {
 
 
-						 						header("location: forum.php ");
+						 						header("location: index.php ");
 
 
 
 					}
-				}
+
 			}
 		}
 		else{

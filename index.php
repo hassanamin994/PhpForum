@@ -5,12 +5,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+session_start();
 require_once 'init.php';
 # get all categories
 $categoryHandeller = new categoryHandeller() ;
 $categories = $db->getAll('category');
-
 ?>
 <html>
     <head>

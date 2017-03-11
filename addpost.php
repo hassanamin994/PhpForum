@@ -22,7 +22,7 @@ $user_id=$_SESSION['id'];
   <textarea class="form-control" name="content"></textarea>
   <br>
   <button name="add" type="submit">Add Post</button>
- 
+
 <?php
 if(isset($_POST['add'])){
 
@@ -40,8 +40,8 @@ if(isset($_POST['add'])){
 	$newthread = new Thread(0,$_POST['title'],$_POST['content'],$forum_id,$user_id);
 
 	$newthread->addThread();
-	
-		header("Location: http://localhost/PhpForum/forum.php?forumid=".$forum_id);
+
+		header("Location: forum.php?forumid=".$forum_id);
 }
 }
 

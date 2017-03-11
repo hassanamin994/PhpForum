@@ -31,6 +31,7 @@ if(isset($_POST['delbtn']))
       $threads=$forum->getTree($forum_id);
       $sticky=array();
       $normal=array();
+      var_dump($threads);
      for($j=0;$j<count($threads);$j++){
 
       if($threads[$j]['stickybit']==1){

@@ -3,10 +3,10 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand font" href="views/home.php" style="font-size:30;">Jaguars' Forum</a>
+      <a class="navbar-brand font" href="index.php" style="font-size:30;">Jaguars' Forum</a>
     </div>
     <ul class="nav navbar-nav navbar-right font ">
-      <li class="active"><a href="views/home.php">Home</a></li>
+      <li class="active"><a href="index.php">Home</a></li>
 		<?php
 		// session_start();
 
