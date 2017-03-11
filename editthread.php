@@ -1,12 +1,12 @@
 <?php 
-session_start();
+
 include ('main.php');
 include('header.php') ;
 include_once('model/Thread.php');
 require_once 'model/DBManager.php';
-if(empty($_REQUEST)){header("location: pagenotfound.php");}
+if(empty($_REQUEST)||empty($_SESSION)){header("location: pagenotfound.php");}
 $id=$_REQUEST['edit_thread_id'];
-
+//echo "fname=".$_SESSION["fname"];
 $thread=new ThreadHandeller;
 $arr=$thread->getTree($id);
 
@@ -45,8 +45,8 @@ if(isset($_POST['submit']))
 	if($_POST['title']!="" &&$_POST['description']!= "")
     {$th=new Thread;
 	//echo "test".$_POST['title'],$_POST['description'];
-	
-	$th->updateThread($id,$_POST['title'],$_POST['description'],$_SESSION['fname']);
+	//echo "fname=".$_SESSION["fname"];
+	$th->updateThread($id,$_POST['title'],$_POST['description'],$_SESSION["fname"]);
 
 
   echo '<script type="text/javascript">

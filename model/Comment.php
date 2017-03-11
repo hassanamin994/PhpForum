@@ -62,7 +62,7 @@ class Comment {
 		
 		
 		// 		$r=$this->db->makeQuery("SELECT * FROM `comment` WHERE `thread_id`=$thread_id");
-		$r=$this->db->makeQuery("SELECT comment.id as cid,user.id as uid,thread_id,image,fname,lname,username,body,comment.created_at ,comment.last_update FROM `comment`,`user` WHERE `thread_id`=$thread_id and `user_id`=user.id");
+		$r=$this->db->makeQuery("SELECT comment.id as cid,user.id as uid,thread_id,image,fname,lname,username,body,comment.created_at ,comment.last_update ,comment.edit_by as edit_by FROM `comment`,`user` WHERE `thread_id`=$thread_id and `user_id`=user.id");
 		return $r;
 	}
 	function getcommentbyid($id) {

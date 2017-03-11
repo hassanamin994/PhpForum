@@ -1,9 +1,9 @@
 <?php 
-session_start();
+
 include ('main.php');
 include('header.php') ;
 
-if(empty($_REQUEST)){header("location: pagenotfound.php");}
+if(empty($_REQUEST)||empty($_SESSION)){header("location: pagenotfound.php");}
 
 $id=$_REQUEST['comment_id'];
 $cid="id";
@@ -52,6 +52,15 @@ else{
 	echo" <div class='alert alert-info'>invalid page<br/></div>";
 	
 }
+
+if(isset($_POST['submit']))
+{
+	$comment->editComment( $_POST['comment'],$_SESSION['fname'],$id);
+	echo" <div class='container-fluid'><div class='col-md-1'></div><div class='alert alert-info col-md-10'> your changes have been saved <br/></div><div class='col-md-1'></div> </div>";
+	// 	header("location: forum.php");
+	
+}
+
 echo' 
           <div class="col-md-1"></div>
         <script src="assets/js/jquery-3.1.1.min.js"></script>
@@ -62,11 +71,5 @@ echo'
 
 
 
-if(isset($_POST['submit']))
-{
-	$comment->editComment( $_POST['comment'],$session['fname'],$id);
-	echo" <div class='alert alert-info'>your changes have been saved <br/></div>";
-	// 	header("location: forum.php");
-	
-}
+
 ?>
