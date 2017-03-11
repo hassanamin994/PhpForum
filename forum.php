@@ -1,9 +1,13 @@
-<?php include('header.php') ;
+<?php
 include 'init.php';
+include('header.php') ;
 //include 'model/Thread.php';
 //$_SESSION['id']=1;
 if(empty($_REQUEST)){header("location: pagenotfound.php");}
 $forum_id = $_REQUEST['forumid'];
+
+$forum = new ForumHandeller() ;
+$forum = $forum->getOneRow('id',$forum_id);
 
 if(isset($_POST['delbtn']))
 {
@@ -19,9 +23,14 @@ if(isset($_POST['delbtn']))
 <body class="back">
 <form method="post">
 <div class="container cont">
- <div style="float: right">
-     <a href="addpost.php?forumid=<?php echo $forum_id; ?>" class="btn btn-default glyphicon glyphicon-pencil">AddPost</a>
-     </div>
+    <?php
+    if(!$forum['locked']){?>
+      <div style="float: right">
+        <a href="addpost.php?forumid=<?php echo $forum_id; ?>" class="btn btn-default glyphicon glyphicon-pencil">AddPost</a>
+      </div>
+  <?php }
+
+    ?>
      <?php
 
       $forum=new ForumHandeller();

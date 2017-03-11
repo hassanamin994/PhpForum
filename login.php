@@ -77,9 +77,15 @@ if(count($_POST)>0){
 						header("location: admin/index.php ");
 					}
 					else {
+            if(file_exists("lock")){
+              echo'  <div class="alert alert-info">
+                <strong>Sorry!</strong> The website is currently Offline ! .
+              </div>' ;
+            }else{
+              header("location: index.php ");
 
+            }
 
-						 						header("location: index.php ");
 
 
 

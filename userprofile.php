@@ -17,11 +17,11 @@ if(isset($_POST['submit'])){
                 <link href="assets/css/style.css" rel="stylesheet">
             </head>
             <body class="back">
-            
+
                 <div class="col-md-3"></div>
-                <div class="col-md-6 cont" > 
-                
-                
+                <div class="col-md-6 cont" >
+
+
 
 
 <div class="media">
@@ -29,10 +29,10 @@ if(isset($_POST['submit'])){
     <h2 class="media-heading">My Profile</h2>
      <br/> <br/>
   <div class="media-left">
-    <img src="<?=$_SESSION['image']?>" class="media-object" style="width:150px">
+    <img src="<?php echo $_SESSION['image'] ;?>" class="media-object" style="width:150px">
   </div>
   <div class="media-body">
-  
+
   <h2><B>First name.............. </B>  <?=$_SESSION['fname']?> </h2>
      <h2><B>Last name...............</B><?=$_SESSION['lname']?> </h2>
      <h2><B>username...............</B> <?=$_SESSION['fname']?> </h2>
@@ -41,7 +41,7 @@ if(isset($_POST['submit'])){
      <form method="POST">
       <button id="submit" name="submit" class="btn btn-info " style=" font-size:24 ">edit profile</button>
      <form>
- 
+
 </div>
 </div>
 
@@ -53,7 +53,7 @@ if(isset($_POST['submit'])){
 
               </div>
                 </div>
-                
+
                                 <div class="col-md-3"></div>
        </body>
             <script src="assets/js/jquery-3.1.1.min.js"></script>
