@@ -63,7 +63,29 @@ if(empty($arr)){
 	echo" <div class='alert alert-danger'>invalid page<br/></div>";
 }
 
- else {echo' <h2 >'.$arr[0]['thread_title'].' <small><i>Posted on '.$arr[0]['date'].'</i></small></h2><B><hr></B>
+ else {echo' <h2 >'.$arr[0]['thread_title']; 
+ 
+
+
+   if($arr[0]['last_update']==""){  
+          echo ' <small><i>Posted on '.$arr[0]['date'].' by '. $arr[0]['owner'].'</i></small></h2><B><hr></B>';}
+         else {  
+          echo '<small><i> Last updated on '.$arr[0]['last_update'].' By :'.$arr[0]['edit_by'].' </i></small></h4>';}
+       
+
+
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ echo'
   <div class="media">
     <div class="media-left media-top" style="width:25%">
 

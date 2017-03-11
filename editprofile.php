@@ -8,7 +8,6 @@ $flag=1;
 $dbm= new DBManager;
 
 
-    $target_file = $target_dir .$_POST['email'];
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
@@ -26,7 +25,7 @@ $target_dir = "assets/uploads/";
 
 
 // $target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
-$target_file = $target_dir .$_POST['email'];
+$target_file = $target_dir .$_SESSION['username'];
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
@@ -119,7 +118,7 @@ if ($uploadOk == 0) {
    
 
 
-    } else { $pic=$_SESSION['image'];
+    } else { $pic2=$_SESSION['image'];
        // echo " <div class='alert alert-info'>Sorry, there was an error uploading your file.</div>";
     }}
 
@@ -136,7 +135,7 @@ if ($uploadOk == 0) {
 			
 		
                 if($uploadOk == 1){
-echo "email".$email;
+
               $key=['id'=>$_SESSION['id']];
               $data=['password'=>$pw,'fname'=>$fname,'lname'=>$lname,'gender'=>$gendre,'country'=>$con,'banned'=>$_SESSION['banned'],'image'=>$pic2,'signature'=>$signature,'role'=>$_SESSION['role']];
 				var_dump($data);
@@ -145,13 +144,13 @@ echo "email".$email;
 $_SESSION['fname']=$fname;
 $_SESSION['lname']=$lname;
 $_SESSION['gender']=$gendre;
-//echo 'pic is '.$pic2;
-$_SESSION['image']=$pic2;
+echo 'pic is '.$pic2;
+
 $_SESSION['signature']=$signature;
 $_SESSION['country']=$con;
 			
 
-			header("Location: userprofile.php");
+		//	header("Location: userprofile.php");
             }
 			}
 			else {
