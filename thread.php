@@ -124,7 +124,7 @@ $cid="cid";
 $comments=$comment->getAllComments($thread_id);
 foreach ($comments as $key => $value) {
 
-  
+
 
 
 

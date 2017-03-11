@@ -119,7 +119,7 @@ if ($uploadOk == 0) {
    
 
 
-    } else {
+    } else { $pic=$_SESSION['image'];
        // echo " <div class='alert alert-info'>Sorry, there was an error uploading your file.</div>";
     }}
 
@@ -136,13 +136,19 @@ if ($uploadOk == 0) {
 			
 		
                 if($uploadOk == 1){
-
+echo "email".$email;
               $key=['id'=>$_SESSION['id']];
-              $data=['username'=>$email,'password'=>$pw,'fname'=>$fname,'lname'=>$lname,'gender'=>$gendre,'country'=>$con,'banned'=>$_SESSION['banned'],'image'=>$pic2,'signature'=>$signature,'role'=>$_SESSION['role']];
+              $data=['password'=>$pw,'fname'=>$fname,'lname'=>$lname,'gender'=>$gendre,'country'=>$con,'banned'=>$_SESSION['banned'],'image'=>$pic2,'signature'=>$signature,'role'=>$_SESSION['role']];
 				var_dump($data);
                                 $user=new UserHandeller();
 				$user->update($key, $data);
-
+$_SESSION['fname']=$fname;
+$_SESSION['lname']=$lname;
+$_SESSION['gender']=$gendre;
+//echo 'pic is '.$pic2;
+$_SESSION['image']=$pic2;
+$_SESSION['signature']=$signature;
+$_SESSION['country']=$con;
 			
 
 			header("Location: userprofile.php");
