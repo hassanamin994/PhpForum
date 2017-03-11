@@ -11,7 +11,10 @@ $dbm= new DBManager;
     $uploadOk = 1;
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-    $pw=md5($_POST['password']);
+   if ($_POST['password']==""){
+
+       $pw=$_SESSION['password'];
+   }else{  $pw=md5($_POST['password']);}
 
 
 $fname=$_POST['fn'];
@@ -47,10 +50,7 @@ if(isset($sub)){
 		$GLOBALS['flag']=0;
 	}
 
-	if($pw==''){
-		echo" <div class='alert alert-info'>please entre password"."<br/></div>";
-		$GLOBALS['flag']=0;
-	}
+	
 	if(!isset($gendre)){
 		echo"<div class='alert alert-info'>please choose gender"."<br/></div>";
 		$GLOBALS['flag']=0;
@@ -138,19 +138,19 @@ if ($uploadOk == 0) {
 
               $key=['id'=>$_SESSION['id']];
               $data=['password'=>$pw,'fname'=>$fname,'lname'=>$lname,'gender'=>$gendre,'country'=>$con,'banned'=>$_SESSION['banned'],'image'=>$pic2,'signature'=>$signature,'role'=>$_SESSION['role']];
-				var_dump($data);
+			
                                 $user=new UserHandeller();
 				$user->update($key, $data);
 $_SESSION['fname']=$fname;
 $_SESSION['lname']=$lname;
 $_SESSION['gender']=$gendre;
-echo 'pic is '.$pic2;
+
 
 $_SESSION['signature']=$signature;
 $_SESSION['country']=$con;
 			
 
-		//	header("Location: userprofile.php");
+			header("Location: userprofile.php");
             }
 			}
 			else {
@@ -210,13 +210,8 @@ echo '"
             <label class="col-md-4 control-label" for="password">password</label>
             <div class="col-md-4">
                 
-                <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required>
+                <input id="password" name="password" type="password" placeholder="password" class="form-control input-md">
             
-             <script type="text/javascript">
-  document.getElementById("password").value = "';
-echo $_SESSION["password"];
-echo '"
-</script>
             </div>
         </div>
         

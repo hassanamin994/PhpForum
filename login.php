@@ -78,7 +78,7 @@ if(count($_POST)>0){
 									                            {
 						
 						
-						header("location: admin/forums.php ");
+						header("location: admin/index.php ");
 					}
 					else {
 						
