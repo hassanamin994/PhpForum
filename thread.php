@@ -3,12 +3,12 @@
 include_once('main.php');
 include_once('header.php') ;
 include_once('model/Thread.php');
-session_start();
+
 //$_SESSION['id']="1";
 
-
-// $thread_id=$_REQUEST['thread_id'];
-$thread_id=1;
+if(empty($_REQUEST)||empty($_SESSION)){header("location: pagenotfound.php");}
+ $thread_id=$_REQUEST['thread_id'];
+//$thread_id=1;
 
 $thread=new ThreadHandeller;
 $arr=$thread->getTree($thread_id);
@@ -53,10 +53,12 @@ echo'
     <body class="back">
     <form method="POST" action ="">
         <div class="col-md-1"></div>
-        <div class="col-md-10 cont">
+        <div class="col-md-10 cont">';
+if(empty($arr)){
+	echo" <div class='alert alert-danger'>invalid page<br/></div>";
+}
 
-
-  <h2 >'.$arr[0]['thread_title'].' <small><i>Posted on '.$arr[0]['date'].'</i></small></h2><B><hr></B>
+ else {echo' <h2 >'.$arr[0]['thread_title'].' <small><i>Posted on '.$arr[0]['date'].'</i></small></h2><B><hr></B>
   <div class="media">
     <div class="media-left media-top" style="width:25%">
 
@@ -185,6 +187,6 @@ echo'
     </body>
 </html>
 ';
-
+ }
 
 ?>

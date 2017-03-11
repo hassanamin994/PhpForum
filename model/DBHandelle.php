@@ -94,7 +94,7 @@ class DBHandeller {
             }
             return $rs;
         } catch (Exception $ex) {
-            echo $sql;
+            //echo $sql;
         }
 
         return false;

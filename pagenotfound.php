@@ -12,7 +12,7 @@
                 <div class="col-md-6 cont" > 
                 
                 
-                <div class='alert alert-info'> page not found !<br/> </div>
+                <div class='alert alert-info'> page not found !  or session has expired ..please login and try again<br/> </div>
                 </div>
                 
                                 <div class="col-md-3"></div>

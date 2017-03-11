@@ -10,7 +10,7 @@
 define('HOST','localhost');
 define('DB_NAME','jaguars');
 define('DB_USERNAME','root');
-define('DB_PASSWORD','sa');
+define('DB_PASSWORD','root');
 
 class DBHandeller {
     
@@ -123,7 +123,7 @@ class DBHandeller {
             }
             return $rs;
         } catch (Exception $ex) {
-            echo $sql;
+            //echo $sql;
         }
 
         return false;
