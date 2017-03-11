@@ -37,9 +37,10 @@ else {
  <label>description</label> <textarea   class="form-control" rows="7" id="description"  name="description"  style="resize: none" required>'.$arr[0]['description'].'</textarea>
 </div>
 <div>
-<button name="submit" class="btn btn-info" style="display: block; width: 100%;">Done</button>';
-
-
+<button name="submit" class="btn btn-info" >Done</button>
+<button name="back" class="btn btn-info" >back</button>';
+if(isset($_POST['back'])){
+	header("location: thread.php?thread_id=$id");}
 if(isset($_POST['submit']))
 {
 	if($_POST['title']!="" &&$_POST['description']!= "")

@@ -3,7 +3,7 @@
 include ('main.php');
 include('header.php') ;
 
-if(empty($_REQUEST)||empty($_SESSION)){header("location: pagenotfound.php");}
+//if(empty($_REQUEST)||empty($_SESSION)){header("location: pagenotfound.php");}
 
 $id=$_REQUEST['comment_id'];
 $cid="id";
@@ -12,6 +12,7 @@ $arr=$comment->getcommentbyid($id);
 
 
 $comment_userid=$arr[0]['user_id'];
+$th=$arr[0]['thread_id'];
 
 echo'
 <html>
@@ -35,8 +36,12 @@ if($comment->getcommentbyid($id)&&$_SESSION['username']!=""){
                     <label>description</label> <textarea  name="comment" class="form-control" rows="3" id="description"  value =""style="resize: none" required>'.$arr[0]['body'].'</textarea>
                     </div>
                     <div>
-                    <button name="submit" class="btn btn-info" style="display: block; width: 100%;">Done</button>
+                    <button name="submit" class="btn btn-info" >Done</button>
+                      <button name="back" class="btn btn-info" >back</button>
                     </div>
+                 
+                    
+                       
                         </div> ';
 	           }
 	else{
@@ -60,6 +65,12 @@ if(isset($_POST['submit']))
 	// 	header("location: forum.php");
 	
 }
+if(isset($_POST['back']))
+{
+		 	header("location: thread.php?thread_id=$th");
+	
+}
+
 
 echo' 
           <div class="col-md-1"></div>

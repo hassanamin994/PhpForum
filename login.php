@@ -74,7 +74,6 @@ if(count($_POST)>0){
 					if($user->isAdmin($username))
 									                            {
 
-
 						header("location: admin/index.php ");
 					}
 					else {
