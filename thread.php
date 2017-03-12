@@ -7,7 +7,7 @@ include_once('model/Thread.php');
 //$_SESSION['id']="1";
 
 
-if(empty($_REQUEST)||empty($_SESSION)){header("location: pagenotfound.php");}
+if(empty($_REQUEST)){header("location: pagenotfound.php");}
  $thread_id=$_REQUEST['thread_id'];
 
 
@@ -58,8 +58,7 @@ if(empty($arr[0])){
  else {echo' <h2 >'.$arr[0]['thread_title'];
 
 
-
-   if($arr[0]['last_update']==""){
+   if($arr[0]['last_update']== NULL){
           echo ' <small><i>Posted on '.$arr[0]['date'].' by '. $arr[0]['owner'].'</i></small></h2><B><hr></B>';}
          else {
           echo '<small><i> Last updated on '.$arr[0]['last_update'].' By :'.$arr[0]['edit_by'].' </i></small></h4>';}
@@ -100,7 +99,7 @@ if(empty($arr[0])){
    '.$arr[0]['description'].'
       <!--<h4 class="media-heading">Media Top</h4>-->
       <!--</div>-->';
-if($arr[0]['owner']==$_SESSION['username']||$_SESSION['role']=='admin')
+if(isset($_SESSION['username']) && ($arr[0]['owner']==$_SESSION['username']||$_SESSION['role']=='admin'))
 {   echo '<div style="float: right">  <a href="editthread.php?edit_thread_id='.$arr[0]['thread_id'].'" class="btn btn-default glyphicon glyphicon-edit">Edit</a></div>';}
 
 
@@ -116,7 +115,7 @@ echo'
 
  <div class="form-group">
   <!--<label for="comment">Add Comment</label>-->';
-if($_SESSION['username']!=""){
+if(isset($_SESSION['username']) && ($_SESSION['username']!="")){
  echo' <textarea name= "co"class="form-control" rows="2" id="comment" style="resize: none"></textarea>
   </div>
   <div  style="float: right;">
@@ -141,6 +140,7 @@ $cid="cid";
 
 
 $comments=$comment->getAllComments($thread_id);
+if(!empty($comments))
 foreach ($comments as $key => $value) {
 
 
@@ -161,7 +161,7 @@ echo '<div class="media">
 
          echo' <p>'."$value[$body]".'</p> </div>';
 
-         if($_SESSION['id']==$value[$userid]||$_SESSION['role']=='admin'){
+         if(isset($_SESSION['id']) && ($_SESSION['id']==$value[$userid]||$_SESSION['role']=='admin')){
 echo'
 <div style="float: right;"><a href="editcomment.php?comment_id='.$value["$cid"].'" class="btn btn-default glyphicon glyphicon-edit">Edit</a>
 
