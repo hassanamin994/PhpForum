@@ -24,7 +24,6 @@ $arr=$thread->getTree($thread_id);
 
 
 
-
 $comment=new Comment;
 
 
