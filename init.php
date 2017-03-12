@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+define('HOST','localhost');
+define('DB_NAME','jaguars');
+define('DB_USERNAME','root');
+define('DB_PASSWORD','root');
 
 require_once 'model/DBHandeller.php' ;
 require_once 'model/DBManager.php' ;

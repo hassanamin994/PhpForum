@@ -8,6 +8,8 @@ $threadID = $_GET['edit_id'] ;
 $threadHandler = new ThreadHandeller($threadID);
 $thread = $threadHandler->getOneRow('id',$threadID);
 
+}else{
+	header("Location: index.php");
 }
 
 // handle add new thread
@@ -20,10 +22,10 @@ if(isset($_POST['add_thread'])){
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	// get the user's id later from the session >>>>>>>>>>>>>>>>>>> IMPORTANT <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	$threadEdit = new Thread($threadID, $title, $description, $forum_id, '2') ;
+	$threadEdit = new Thread($threadID, $title, $description, $forum_id) ;
 	$errors = $threadEdit->verify();
 	if(empty($errors)){
-		$threadEdit->editThread();
+		$threadEdit->updateThread($threadID,$title,$description,'Admin | '.$_SESSION['username']);
 		$_SESSION['message'] = "Thread has been Updated Successfully" ;
 	}else{
 		$_SESSION['errors'] = $errors ;
@@ -44,7 +46,7 @@ $categories = $db->getAll('category') ;
 </head>
 <body class='back'>
 
-<?php include('../header.php') ; ?>
+<?php include('header.php') ; ?>
 <?php include('sidebar.php') ; ?>
 
 

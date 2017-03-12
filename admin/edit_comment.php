@@ -36,7 +36,7 @@ $comment = $commentHandeller->getOneRow('id',$commentID);
 </head>
 <body class='back'>
 
-<?php include('../header.php') ; ?>
+<?php include('header.php') ; ?>
 <?php include('sidebar.php') ; ?>
 
 

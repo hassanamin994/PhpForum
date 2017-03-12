@@ -7,19 +7,22 @@ $userHandler = new UserHandeller();
 if(isset($_GET['id'])){
 	$user = $userHandler->getOneRow('id',$_GET['id']) ;
 
-}elseif(isset($_POST['edit_user'])){
+}else{
+	header("Location: index.php");exit;
+
+}
+if(isset($_POST['edit_user'])){
 	$id = $_POST['user_id'] ;
 
 	$user = $userHandler->getOneRow('id',$id) ;
 	$username = $_POST['username'];
-	$password = $_POST['password'] ;
+	$password = !empty(trim($_POST['password'])) ? md5(trim($_POST['password'])) : $user['password'] ;
 	$fname = $_POST['fname'];
 	$lname = $_POST['lname'] ;
 	$gender = $_POST['gender'];
 	$country = $_POST['country'] ;
 	$role = $_POST['role'] ;
 	$signature = $_POST['signature'] ;
-
 	$user = new User($fname, $lname, $country, $gender, $username, $password, $user['banned'], $user['image'], $signature, $role, $id) ;
 	$errors = $user->validate('edit') ;
 	if(empty($errors)){
@@ -30,7 +33,6 @@ if(isset($_GET['id'])){
 	}
 	$user = $userHandler->getOneRow('id',$id);
 }else{
-	header("Location: index.php");exit;
 }
 
 
@@ -52,7 +54,7 @@ if(isset($_GET['id'])){
 </head>
 <body>
 
-<?php include('../header.php') ; ?>
+<?php include('header.php') ; ?>
 
 <?php include('sidebar.php') ; ?>
 
@@ -78,7 +80,7 @@ if(isset($_GET['id'])){
  				}
 
  			?>
- 		<form method='post' action="edit_user.php" >
+ 		<form method='post' action="edit_user.php?id=<?php echo $user['id'] ; ?>" >
  			<div class="input-group">
  				<label for="username">Username: </label>
  				<input type="text" name="username" value="<?php echo $user['username'] ; ?>" class="form-control" id="username" aria-describedby="basic-addon3" required>
@@ -87,7 +89,7 @@ if(isset($_GET['id'])){
  			<br>
  			<div class="input-group">
  				<label for="password">Password: </label>
- 				<input type="text" name="password" value="<?php echo $user['password'] ; ?>" class="form-control" id="password" aria-describedby="basic-addon3" required>
+ 				<input type="text" name="password" value="" placeholder="Edit Password" class="form-control" id="password" aria-describedby="basic-addon3" >
  			</div>
  			<br>
  			<div class="input-group">

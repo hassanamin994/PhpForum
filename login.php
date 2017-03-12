@@ -1,5 +1,6 @@
             <?php
-
+session_start();
+require_once 'init.php';
 include './main.php';
 include('./header.php') ;
 
@@ -12,7 +13,7 @@ include('./header.php') ;
                 <link href="assets/css/style.css" rel="stylesheet">
             </head>
             <body class="back">
-            
+
                 <div class="col-md-3"></div>
                 <div class="col-md-6 cont" >
                 <div class="page-header" ><h1 style="font-size:28; text-align: center;"><B>Log in</B> </h1>
@@ -47,48 +48,49 @@ include('./header.php') ;
 if(count($_POST)>0){
 	$username=$_POST['username'];
 	$pw=$_POST['password'];
-	
-	
-	$keep=$_POST['keep'];
+
+
 	if(isset($_POST['submit']))
 		        {
-		if(isset($_POST['keep'])){
-			$_COOKIE['user']=$_POST['username'];
-		}
-		
-		
+
+
 		$user=new User;
-		
+
 		if($user->signIn($username,$pw))  {
-			
-			
+
+
 			$target=new UserHandeller();
 			$info=$target->selectBy("username", $username);
 			if( $info['banned']==1){
 				echo'  <div class="alert alert-info">
           <strong>Sorry!</strong> you are banned ! .
         </div>';
-				
+
 			}
 			else {
 				foreach ($info as $key => $value) {
 					$_SESSION[$key]=$value;
-					
+          				}
 					if($user->isAdmin($username))
 									                            {
-						
-						
+
 						header("location: admin/index.php ");
 					}
 					else {
-						
-						
-						 						header("location: forum.php ");
-						
-						
-						
+            if(file_exists("lock")){
+              echo'  <div class="alert alert-info">
+                <strong>Sorry!</strong> The website is currently Offline ! .
+              </div>' ;
+            }else{
+              header("location: index.php ");
+
+            }
+
+
+
+
 					}
-				}
+
 			}
 		}
 		else{
@@ -98,7 +100,7 @@ if(count($_POST)>0){
         </div>';
 		}
 	}
-	
+
 }
 
 

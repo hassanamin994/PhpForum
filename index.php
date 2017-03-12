@@ -5,12 +5,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+session_start();
 require_once 'init.php';
 # get all categories
 $categoryHandeller = new categoryHandeller() ;
 $categories = $db->getAll('category');
-
 ?>
 <html>
     <head>
@@ -74,7 +73,7 @@ $categories = $db->getAll('category');
                        ?>
                       <tr>
                           <td colspan="2">
-                              <a href="forum.php?id=<?php echo $forum['forum_id'] ;?>" ><?php echo $forum['forum_name'] ; ?></a>
+                              <a href="forum.php?forumid=<?php echo $forum['forum_id'] ;?>" ><?php echo $forum['forum_name'] ; ?></a>
                           </td>
                           <td>
                               <a href="thread.php?thread_id=<?php echo $lastThread['id']; ?>" ><?php echo $lastThread['title']; ?></a>

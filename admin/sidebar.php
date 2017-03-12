@@ -20,7 +20,11 @@
                 <a href="users.php">Users</a>
             </li>
             <li >
-                <a href="#">LOCK WEBSITE!</a>
+
+                <a href="index.php?lock=1">
+										<?php echo file_exists('../lock') ? "UNLOCK": "LOCK"; ?>
+										WEBSITE!
+								</a>
             </li>
 
         </ul>

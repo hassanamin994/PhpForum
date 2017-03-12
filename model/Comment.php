@@ -2,29 +2,29 @@
 // require_once '../init.php';
 
 class Comment {
-	
+
 	private $id;
 	private $body;
 	private $user_id ;
 	private $thread_id ;
-	
+
 	function __construct($id="", $body="", $user_id="", $thread_id="") {
-		
+
 		$this->db = new DBManager();
 		$this->id = $id;
 		$this->body = $body;
 		$this->user_id = $user_id;
 		$this->thread_id = $thread_id;
 	}
-	
+
 	function __set($field, $value) {
 		$this->$field = $value;
 	}
-	
+
 	function __get($field) {
 		return $this->$field;
 	}
-	
+
 	function addComment() {
 		// 		validate that the category name doesnt exist !!
 		         $this->db->makeQuery(
@@ -45,35 +45,35 @@ class Comment {
          	'".$body."',
          	 null,null,0)");
 	}
-	
+
 	function deleteComment($id) {
-		
+
 		$this->db->makeQuery("DELETE FROM `comment` where id =".$id."");
 	}
-	
+
 	function editComment( $body,$editby,$id) {
-		
-		$this->db->makeQuery("UPDATE comment SET 
+
+		$this->db->makeQuery("UPDATE comment SET
 			`body`='".$body."',
 			`edit_by`='".$editby."'
 			 WHERE  `id` = '".$id."'");
 	}
 	function getAllComments($thread_id) {
-		
-		
+
+
 		// 		$r=$this->db->makeQuery("SELECT * FROM `comment` WHERE `thread_id`=$thread_id");
-		$r=$this->db->makeQuery("SELECT comment.id as cid,user.id as uid,thread_id,image,fname,lname,username,body,comment.created_at ,comment.last_update ,comment.edit_by as edit_by FROM `comment`,`user` WHERE `thread_id`=$thread_id and `user_id`=user.id");
+		$r=$this->db->makeQuery("SELECT comment.id as cid,user.id as uid,thread_id,image,fname,lname,username,body,comment.created_at ,comment.last_update FROM `comment`,`user` WHERE `thread_id`=$thread_id and `user_id`=user.id");
 		return $r;
 	}
 	function getcommentbyid($id) {
-		
-		
+
+
 		$r=$this->db->makeQuery("SELECT * FROM `comment` WHERE `id`=$id");
 		return $r;
 	}
 	function getcommentbody($id) {
-		
-		
+
+
 		$r=$this->db->makeQuery("SELECT body FROM `comment` WHERE `id`=$id");
 		return $r;
 	}

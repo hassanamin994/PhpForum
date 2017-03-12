@@ -46,7 +46,7 @@ $comments = $commentHandeller->selectAllBy('thread_id',$_GET['thread_id']) ;
 </head>
 <body>
 
-<?php include('../header.php') ; ?>
+<?php include('header.php') ; ?>
 <?php include('sidebar.php') ; ?>
 
 <div class="page-content">

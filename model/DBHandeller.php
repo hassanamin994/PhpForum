@@ -7,27 +7,24 @@
  * @author seif
  */
 
-define('HOST','localhost');
-define('DB_NAME','jaguars');
-define('DB_USERNAME','root');
-define('DB_PASSWORD','root');
+
 
 class DBHandeller {
-    
+
     private $dsn ;
     public  $db ;
     public $table;
     public $resultSet;
-            
+
     function __construct(){
-        
-            $this->dsn = 'mysql:host='.HOST.';dbname='.DB_NAME; 
+
+            $this->dsn = 'mysql:host='.HOST.';dbname='.DB_NAME;
             $this->db = new PDO($this->dsn,DB_USERNAME,DB_PASSWORD);
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
            
 
     }
-    
+
     function getAllRows(){
         $query1 = "SELECT * FROM  $this->table ";
         $prep1 = $this->db->prepare($query1);
@@ -35,7 +32,7 @@ class DBHandeller {
         $post = $prep1->fetchAll(PDO::FETCH_ASSOC);
         return $post;
     }
-    
+
     function selectBy($field,$id){
         $query1 = "SELECT * FROM  $this->table where $field=:id";
         $prep1 = $this->db->prepare($query1);
@@ -44,7 +41,7 @@ class DBHandeller {
         $post = $prep1->fetch();
         return $post;
     }
-    
+
     function getOneRow($field,$id){
         $query1 = "SELECT * FROM  $this->table where $field=:id";
         $prep1 = $this->db->prepare($query1);
@@ -61,7 +58,7 @@ class DBHandeller {
         $post = $prep1->fetch();
         return $post;
     }
-    
+
     function getLastRowBy($field,$value){
         $query1 = "SELECT * FROM  $this->table WHERE $field=$value ORDER BY id DESC LIMIT 1";
         $prep1 = $this->db->prepare($query1);
@@ -70,13 +67,13 @@ class DBHandeller {
         $post = $prep1->fetch();
         return $post;
     }
-    
-    
+
+
     function getInsertedId()
     {
         return $this->db->lastInsertId();
     }
-    
+
     function update($key, $data)
     {
         //how to use it ?
@@ -96,7 +93,7 @@ class DBHandeller {
 
         $this->query("UPDATE $this->table SET " . implode(",", $update) . " WHERE $tkey = :$tkey ", $param);
     }
-    
+
     function insert($data)
     {
         //how to use it ?
@@ -134,22 +131,22 @@ class DBHandeller {
     {
         $this->query("DELETE FROM $this->table WHERE $field = :id",array('id' => $id));
     }
-    
+
     function validateData($class){
-        
+
         $errors = array() ;
         foreach($class as $key => $value) {
-           
+
             if(empty($value)){
               array_push($errors,"Invalid ".$key);
             }
-             
+
         }
         return $errors;
     }
-    
+
     // ----------this function moved to each table Handeller file , check it
-    // ------------Do not use this function 
+    // ------------Do not use this function
 //    function getTree($childTable,$subChildTable){
 //        $query1 = "select forum.id as childId,forum.name as childName, count(thread.id) as numOfsubchilds from "
 //                . "category,forum,thread where  forum.category_id=category.id and thread.forum_id=forum.id group by forum.id";
@@ -157,18 +154,21 @@ class DBHandeller {
 //        $prep1->execute();
 //        $result = $prep1->fetchAll(PDO::FETCH_ASSOC);
 //        return $result;
-//        
+//
 //    }
+
     
   public  function getCount(){
+
+
+ 
         $query1 = "SELECT count($this->table.id) as NumOfChildren FROM  $this->table ";
         $prep1 = $this->db->prepare($query1);
         $prep1->execute();
         $result = $prep1->fetchColumn();
         //$num=count($result);
         return $result;
-    }
-    
+    }    
 
     // $db= new DBHandeller();
     // $data=["title"=>"hassan","description"=>"good morning","forum_id"=>1,"user_id"=>1];

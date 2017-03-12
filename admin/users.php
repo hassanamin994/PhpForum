@@ -87,7 +87,7 @@ $users = $db->getAll('user');
 </head>
 <body>
 
-<?php include('../header.php') ; ?>
+<?php include('header.php') ; ?>
 
 <?php include('sidebar.php') ; ?>
 
