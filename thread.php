@@ -39,8 +39,6 @@ header("Refresh:0");
 }
 
 
-
-
 echo'
 <html>
     <head>

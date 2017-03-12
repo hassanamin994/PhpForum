@@ -37,7 +37,7 @@ class Thread {
          $this->db->makeQuery(
          	"INSERT into thread VALUES(
          	null,
-         	
+
          	'".$this->title."',
          	'".$this->description."',
          	'".$this->locked."',
@@ -55,23 +55,25 @@ class Thread {
 	}
 
 	function editThread() {
-
+		$last_update = date("Y-m-d H:i:s") ;
 		$this->db->makeQuery("UPDATE thread SET
 			`title`='".$this->title."',
 			`description`='".$this->description."',
 			`forum_id`='".$this->forum_id."',
+			`last_update`='".$last_update."',
 			`locked` ='".$this->locked."',
 			`user_id`='".$this->user_id."',
 			`sticky`='".$this->sticky."'
 			 WHERE  `id` = '".$this->id."'");
 	}
 	function updateThread($id,$title,$description,$editby) {
-
+		$last_update = date("Y-m-d H:i:s") ;
 		$this->db->makeQuery("UPDATE `thread` SET
 			`title`= '".$title."',
 			`description`='".$description."',
+			`last_update`='".$last_update."',
 			`edit_by`='".$editby."'
-			
+
 			 WHERE  `id`=$id");
 	}
 

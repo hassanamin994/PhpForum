@@ -24,7 +24,7 @@ if(isset($_POST['delbtn']))
 <form method="post">
 <div class="container cont">
     <?php
-    if(!$forum['locked']){?>
+    if(!$forum['locked'] && isset($_SESSION['username'])){?>
       <div style="float: right">
         <a href="addpost.php?forumid=<?php echo $forum_id; ?>" class="btn btn-default glyphicon glyphicon-pencil">AddPost</a>
       </div>

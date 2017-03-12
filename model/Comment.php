@@ -57,9 +57,10 @@ class Comment {
 			return $errors;
 		}
 	function editComment( $body,$editby,$id) {
-
+		$last_update = date("Y-m-d H:i:s") ;
 		$this->db->makeQuery("UPDATE comment SET
 			`body`='".$body."',
+			`last_update`='".$last_update."',
 			`edit_by`='".$editby."'
 			 WHERE  `id` = '".$id."'");
 	}
