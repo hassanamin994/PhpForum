@@ -119,40 +119,42 @@ $users = $db->getAll('user');
 			<tbody>
 				<?php
 				foreach($users as $user){
-					$ban = $user['banned'] == 0 ? "Ban" : "Unban" ;
-					$role = $user['role'] == "admin" ? "Make User" : "Make Admin" ;
-					echo "<tr>";
-					echo "<td>".$user['id']."</td>";
-					echo "<td><img src='".$user['image']."' ></td>";
-					echo "<td>".$user['fname']."</td>";
-					echo "<td>".$user['username']."</td>";
-					echo "<td>".$user['lname']."</td>";
-					echo "<td>".$user['gender']."</td>";
-					echo "<td>".$user['country']."</td>";
-					echo "<td>".$user['signature']."</td>";
-					echo "<td>".$user['role']."</td>";
-					echo "<td><a href='edit_user.php?id=".$user['id']."' class='btn btn-info btn-xs' >Edit</a> ";
-					echo
-					"<form method='post' action='users.php'>
-							<input type='hidden' name='user_id' value=".$user['id']." >
-							<input type='submit' name='delete' value='Delete' class='btn btn-danger btn-xs' >
-							</form>
-					".
-					"</td>";
-					echo "<td>".
-					"<form method='post' action='users.php'>
-							<input type='hidden' name='user_id' value=".$user['id']." >
-							<input type='submit' name='change_role' value='".$role."' class='btn btn-info btn-xs' >
-							</form>
-					".
-					"<form method='post' action='users.php'>
-							<input type='hidden' name='user_id' value=".$user['id']." >
-							<input type='submit' name='ban' value='".$ban."' class='btn btn-warning btn-xs' >
-							</form>
-					"."</td>";
+					if($user['id'] != 11 ){
+						$ban = $user['banned'] == 0 ? "Ban" : "Unban" ;
+						$role = $user['role'] == "admin" ? "Make User" : "Make Admin" ;
+						echo "<tr>";
+						echo "<td>".$user['id']."</td>";
+						echo "<td><img src='".$user['image']."' ></td>";
+						echo "<td>".$user['fname']."</td>";
+						echo "<td>".$user['username']."</td>";
+						echo "<td>".$user['lname']."</td>";
+						echo "<td>".$user['gender']."</td>";
+						echo "<td>".$user['country']."</td>";
+						echo "<td>".$user['signature']."</td>";
+						echo "<td>".$user['role']."</td>";
+						echo "<td><a href='edit_user.php?id=".$user['id']."' class='btn btn-info btn-xs' >Edit</a> ";
+						echo
+						"<form method='post' action='users.php'>
+								<input type='hidden' name='user_id' value=".$user['id']." >
+								<input type='submit' name='delete' value='Delete' class='btn btn-danger btn-xs' >
+								</form>
+						".
+						"</td>";
+						echo "<td>".
+						"<form method='post' action='users.php'>
+								<input type='hidden' name='user_id' value=".$user['id']." >
+								<input type='submit' name='change_role' value='".$role."' class='btn btn-info btn-xs' >
+								</form>
+						".
+						"<form method='post' action='users.php'>
+								<input type='hidden' name='user_id' value=".$user['id']." >
+								<input type='submit' name='ban' value='".$ban."' class='btn btn-warning btn-xs' >
+								</form>
+						"."</td>";
 
 
-					echo "</tr>";
+						echo "</tr>";
+					}
 				}
 
 
