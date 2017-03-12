@@ -10,7 +10,7 @@ session_start();
 define('HOST','localhost');
 define('DB_NAME','jaguars');
 define('DB_USERNAME','root');
-define('DB_PASSWORD','root');
+define('DB_PASSWORD','');
 // autoload
 function __autoload($class_name) {
 
