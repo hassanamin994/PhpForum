@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 08, 2017 at 09:35 AM
+-- Generation Time: Mar 12, 2017 at 12:31 PM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -38,8 +38,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `created_at`, `last_update`) VALUES
-(30, 'test', '2017-03-05 16:34:29', NULL),
-(31, 'yeesaa', '2017-03-05 18:23:35', '2017-03-07 17:59:27');
+(31, 'yeesaa', '2017-03-05 18:23:35', '2017-03-07 17:59:27'),
+(32, 'asdaku', '2017-03-08 21:54:28', '2017-03-11 18:46:11');
 
 -- --------------------------------------------------------
 
@@ -53,8 +53,16 @@ CREATE TABLE `comment` (
   `thread_id` int(11) NOT NULL,
   `body` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `last_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `edit_by` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`id`, `user_id`, `thread_id`, `body`, `created_at`, `last_update`, `edit_by`) VALUES
+(2, 11, 17, 'test edit again tesasda ', '2017-03-12 10:22:03', '2017-03-12 10:28:43', 'Admin | admin@admin.com');
 
 -- --------------------------------------------------------
 
@@ -76,8 +84,7 @@ CREATE TABLE `forum` (
 --
 
 INSERT INTO `forum` (`id`, `name`, `locked`, `category_id`, `created_at`, `last_update`) VALUES
-(10, 'ttsss', 1, 31, '2017-03-05 19:42:26', '2017-03-07 17:56:27'),
-(12, 'updated', 0, 31, '2017-03-07 18:52:21', '2017-03-07 19:14:35');
+(15, 'testaaaa', 0, 32, '2017-03-11 18:46:54', '2017-03-12 08:36:08');
 
 -- --------------------------------------------------------
 
@@ -103,12 +110,9 @@ CREATE TABLE `thread` (
 --
 
 INSERT INTO `thread` (`id`, `title`, `description`, `locked`, `forum_id`, `user_id`, `sticky`, `created_at`, `last_update`, `edit_by`) VALUES
-(3, 'asdasd', 'asdasd', 1, 10, 2, 0, '2017-03-07 21:29:12', '2017-03-07 22:13:20', ''),
-(5, 'asdas', 'asdasd', 0, 10, 2, 0, '2017-03-07 22:12:26', '2017-03-07 22:13:27', ''),
-(6, 'asdas', 'asdasd', 0, 10, 2, 1, '2017-03-07 22:12:29', '2017-03-07 22:13:19', ''),
-(7, 'asdas', 'asdasd', 1, 10, 2, 0, '2017-03-07 22:13:01', '2017-03-07 22:13:18', ''),
-(8, 'asdas', 'updated', 0, 12, 2, 0, '2017-03-07 22:13:03', '2017-03-07 22:40:53', ''),
-(9, 'asdasda', 'asda', 0, 10, 2, 0, '2017-03-07 22:23:09', '2017-03-08 07:25:15', '');
+(13, 'ey', 'hadas', 0, 15, 8, 0, '2017-03-11 18:48:26', NULL, NULL),
+(14, 'updateaaaa', 'asda', 0, 15, 2, 0, '2017-03-11 18:54:00', '2017-03-12 08:36:02', 'Admin | hassan@gmail.com'),
+(17, 'test post', 'test post', 0, 15, 9, 0, '2017-03-11 21:33:04', '2017-03-12 10:21:30', NULL);
 
 -- --------------------------------------------------------
 
@@ -137,7 +141,14 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `fname`, `lname`, `gender`, `country`, `banned`, `image`, `signature`, `role`, `created_at`, `last_update`) VALUES
-(2, 'asdasd', 'asdasd', 'asdasd', 'asdasd', 'male', 'Egypt', 1, 'asdaasd', 'asdasd', 'user', '2017-03-05 21:35:56', '2017-03-07 22:54:00');
+(2, 'root1222222', 'root1', 'root1', 'root1', 'male', 'egypt', 0, 'assets/img/14891021801.jpg', 'root1', 'user', '2017-03-08 18:46:09', '2017-03-11 20:10:04'),
+(3, 'root22', 'root', 'asdasd', 'asdasd', 'male', 'egypt', 0, '', 'asdasd', 'admin', '2017-03-08 18:46:46', '2017-03-11 21:19:15'),
+(4, 'rootasdsa', 'asad', 'asdasd', 'asdasd', 'male', 'egypt', 0, '', '', 'user', '2017-03-08 18:47:36', '2017-03-11 21:32:14'),
+(7, 'hassanmamin994@gmail.com', '8d6eb54ba0d73717b61b9926c74edf05', 'hassan', 'amin', 'male', 'Egypt', 0, 'assets/img/1489183875Screenshot from 2017-03-10 21-25-39.png', 'test again', 'user', '2017-03-10 22:11:15', '2017-03-11 19:41:06'),
+(8, 'hassan@gmail.com', '05a671c66aefea124cc08b76ea6d30bb', 'hassan', 'aminaaa', 'female', 'usa', 0, '', 'asdasda', 'admin', '2017-03-11 18:13:33', '2017-03-11 20:50:03'),
+(9, 'test@test.com', '098f6bcd4621d373cade4e832627b4f6', 'test', 'test', 'male', 'Egypt', 0, 'assets/uploads/test@test.com', 'sig', 'user', '2017-03-11 21:23:48', '2017-03-11 21:27:31'),
+(10, 'testt@gmail.com', '098f6bcd4621d373cade4e832627b4f6', 'testtt', 'testta', 'male', 'Egypt', 0, 'assets/uploads/testt@gmail.com', 'sig', 'admin', '2017-03-12 07:52:14', '2017-03-12 09:50:54'),
+(11, 'admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', 'root', 'root', 'male', 'Egypt', 0, '', '', 'admin', '2017-03-12 09:53:08', NULL);
 
 --
 -- Indexes for dumped tables
@@ -186,27 +197,27 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `forum`
 --
 ALTER TABLE `forum`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `thread`
 --
 ALTER TABLE `thread`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- Constraints for dumped tables
 --
@@ -215,7 +226,8 @@ ALTER TABLE `user`
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`thread_id`) REFERENCES `thread` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `forum`
@@ -233,4 +245,3 @@ ALTER TABLE `thread`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
