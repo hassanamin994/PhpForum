@@ -9,15 +9,11 @@ session_start();
 // autoload
 function __autoload($class_name) {
     
-    if(file_exists("model2/".$class_name.".php")){
+    if(file_exists("model/".$class_name.".php")){
       
-        include ("model2/".$class_name.".php");
+        include ("model/".$class_name.".php");
     }
- else {
-       
-          include ("model/".$class_name.".php");
-    }
-   
+ 
         
       
 }

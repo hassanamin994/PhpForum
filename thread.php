@@ -17,14 +17,14 @@ if(empty($_REQUEST)||empty($_SESSION)){header("location: pagenotfound.php");}
 
 $thread=new ThreadHandeller;
 $arr=$thread->getTree($thread_id);
-// foreach ($arr as $key => $value) {
-//     echo "Key: $key; Value: <br/>";
+foreach ($arr as $key => $value) {
+    echo "Key: $key; Value: <br/>";
 
-// foreach ($value as $key2 => $value2) {
-//     echo "Key: $key2; Value: $value2 <br/>";
-// }
+foreach ($value as $key2 => $value2) {
+    echo "Key: $key2; Value: $value2 <br/>";
+}
 
-// }
+}
 
 
 
@@ -59,7 +59,7 @@ echo'
     <form method="POST" action ="">
         <div class="col-md-1"></div>
         <div class="col-md-10 cont">';
-if(empty($arr)){
+if(empty($arr[0])){
 	echo" <div class='alert alert-danger'>invalid page<br/></div>";
 }
 
