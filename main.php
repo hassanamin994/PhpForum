@@ -14,14 +14,14 @@ define('DB_PASSWORD','root');
 // autoload
 function __autoload($class_name) {
 
-    
+
     if(file_exists("model/".$class_name.".php")){
-      
+
         include ("model/".$class_name.".php");
     }
- 
-        
-      
+
+
+
 
 
 

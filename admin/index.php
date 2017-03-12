@@ -4,15 +4,18 @@
 require_once '../init.php';
 if(isset($_GET['lock'])){
 	if(file_exists('../lock')){
-
-				echo "UNLOCKED";
 		unlink('../lock');
+		header('Location: index.php');
 	}else{
 		$myfile = fopen("../lock", "w");
-		echo "LOCKED";
-
+		header('Location: index.php');
 	}
 }
+$users = count($db->getAll('user'));
+$threads = count($db->getAll('thread'));
+$forums = count($db->getAll('thread'));
+$categories = count($db->getAll('thread'));
+
 ?>
 
 <!DOCTYPE html>
@@ -37,10 +40,10 @@ if(isset($_GET['lock'])){
 	<div class="col-xs-8">
 
 		<div class="row">
-				<div class="col-xs-3"><?php echo "2" ; ?><br>No. Of Categories</div>
-				<div class="col-xs-3"><?php echo "5" ; ?><br>No. Of Forums</div>
-				<div class="col-xs-3"><?php echo "15" ; ?><br>No. Of Threads</div>
-				<div class="col-xs-3"><?php echo "4" ; ?><br>No. Of Users</div>
+				<div class="col-xs-3"><?php echo $categories ; ?><br>No. Of Categories</div>
+				<div class="col-xs-3"><?php echo $forums ; ?><br>No. Of Forums</div>
+				<div class="col-xs-3"><?php echo $threads ; ?><br>No. Of Threads</div>
+				<div class="col-xs-3"><?php echo $users ; ?><br>No. Of Users</div>
 		</div>
 
 	</div>

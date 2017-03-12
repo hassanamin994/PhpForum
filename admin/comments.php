@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once '../init.php';
 
 $commentHandeller = new CommentHandeller();
@@ -14,7 +13,7 @@ if(isset($_GET['thread_id'])){
 		$comment['user_id'],
 		$comment['thread_id']
 	);
-	$comment->deleteComment();
+	$comment->deleteComment($comment->id);
 	$comment = $commentHandeller->getOneRow('id',$_POST['delete_id']);
 	unset($_POST['delete']);
 	$_SESSION['message'] = "Comment Has been deleted Successfully" ;

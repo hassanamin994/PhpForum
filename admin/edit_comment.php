@@ -1,8 +1,6 @@
 <?php
-session_start();
 require_once '../init.php';
 $commentHandeller = new CommentHandeller();
-
 
 if(isset($_GET['edit_id'])){
 $commentID = $_GET['edit_id'] ;
@@ -14,7 +12,8 @@ $comment = $commentHandeller->getOneRow('id',$commentID);
   $comment = new Comment($comment['id'], $comment_body, $comment['user_id'], $comment['thread_id']);
   $errors = $comment->verify() ;
   if(empty($errors)){
-    $comment->editComment() ;
+    $editby = 'Admin | '.$_SESSION['username'];
+    $comment->editComment($comment_body,$editby, $commentID) ;
     $_SESSION['message'] = "Comment has been updated Successfully!";
   }else{
     $_SESSION['errors'] = $errors ;

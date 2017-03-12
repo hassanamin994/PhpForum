@@ -50,7 +50,12 @@ class Comment {
 
 		$this->db->makeQuery("DELETE FROM `comment` where id =".$id."");
 	}
-
+	function verify(){
+			$errors = array() ;
+			if(empty($this->body))
+				$errors[] = "Please enter the body";
+			return $errors;
+		}
 	function editComment( $body,$editby,$id) {
 
 		$this->db->makeQuery("UPDATE comment SET

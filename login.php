@@ -1,6 +1,5 @@
             <?php
 session_start();
-require_once 'init.php';
 include './main.php';
 include('./header.php') ;
 
