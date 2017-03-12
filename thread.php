@@ -17,20 +17,19 @@ if(empty($_REQUEST)||empty($_SESSION)){header("location: pagenotfound.php");}
 
 $thread=new ThreadHandeller;
 $arr=$thread->getTree($thread_id);
-<<<<<<< HEAD
-foreach ($arr as $key => $value) {
-    echo "Key: $key; Value: <br/>";
-=======
-var_dump($arr);
+
 // foreach ($arr as $key => $value) {
 //     echo "Key: $key; Value: <br/>";
->>>>>>> 226b2e64349cbf00f760148dc026953915d64586
+// var_dump($arr);
+// // foreach ($arr as $key => $value) {
+// //     echo "Key: $key; Value: <br/>";
+// >>>>>>> 226b2e64349cbf00f760148dc026953915d64586
 
 foreach ($value as $key2 => $value2) {
     echo "Key: $key2; Value: $value2 <br/>";
 }
 
-}
+//}
 
 
 
